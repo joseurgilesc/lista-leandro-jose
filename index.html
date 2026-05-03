@@ -767,14 +767,22 @@
        Interactive Controls — tracker-interactivo
        ═══════════════════════════════════════════ */
 
-    /* Stepper */
-    .stepper { display: inline-flex; align-items: center; gap: 8px; }
-    .stepper-btn {
-      width: 56px; height: 56px;
-      border: 2px solid var(--border);
-      border-radius: 14px;
+    /* Stepper — Pill Design */
+    .stepper { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 0;
       background: var(--card-bg);
-      font-size: 26px;
+      border: 1.5px solid var(--border);
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(61, 64, 91, 0.08);
+    }
+    .stepper-btn {
+      width: 60px; height: 60px;
+      border: none;
+      background: transparent;
+      font-size: 28px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -786,40 +794,37 @@
       user-select: none;
       line-height: 1;
     }
-    .stepper-btn:hover:not(:disabled) { transform: scale(1.05); }
-    .stepper-btn:active:not(:disabled) { transform: scale(0.92); }
-    .stepper-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+    .stepper-btn:hover:not(:disabled) { background: rgba(61, 64, 91, 0.05); }
+    .stepper-btn:active:not(:disabled) { background: rgba(61, 64, 91, 0.12); transform: scale(0.94); }
+    .stepper-btn:disabled { opacity: 0.2; cursor: not-allowed; }
 
-    /* + button: green filled */
+    /* + button: green filled half-pill */
     .stepper-btn[data-action="increment"] {
       background: var(--success);
-      color: var(--text-on-dark);
-      border-color: var(--success);
-      font-size: 28px;
+      color: white;
+      border-radius: 0 40px 40px 0;
     }
     .stepper-btn[data-action="increment"]:hover:not(:disabled) {
       background: var(--success-hover);
-      border-color: var(--success-hover);
     }
 
-    /* − button: slate outline */
+    /* − button: left half-pill */
     .stepper-btn[data-action="decrement"] {
-      background: var(--card-bg);
-      color: var(--text);
-      border-color: var(--border);
-    }
-    .stepper-btn[data-action="decrement"]:hover:not(:disabled) {
-      background: rgba(61, 64, 91, 0.05);
-      border-color: var(--text);
-      color: var(--text);
+      border-radius: 40px 0 0 40px;
     }
 
     .stepper-value {
-      min-width: 36px;
-      text-align: center;
+      min-width: 44px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: 700;
-      font-size: 22px;
+      font-size: 24px;
       color: var(--text);
+      background: var(--card-bg);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
     }
     .stepper-value.has-value { color: var(--accent); }
     .suggested { color: var(--text-light); font-size: 13px; }
@@ -906,9 +911,9 @@
 
     /* Mobile adjustments */
     @media (max-width: 480px) {
-      .stepper-btn { width: 48px; height: 48px; font-size: 22px; }
+      .stepper-btn { width: 52px; height: 52px; font-size: 22px; }
       .stepper-btn[data-action="increment"] { font-size: 24px; }
-      .stepper-value { min-width: 32px; font-size: 20px; }
+      .stepper-value { min-width: 38px; height: 52px; font-size: 20px; }
       .custom-badge { font-size: 9px; }
     }
   </style>
