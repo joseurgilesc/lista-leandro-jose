@@ -1666,11 +1666,13 @@
       // Buscar el valor base del ítem en baseData
       let basePurchased = 0;
       let found = false;
+      let foundCatId = null;
       for (const cat of (baseData?.categories || [])) {
         for (const item of (cat.items || [])) {
           if (item.id === itemId) {
             basePurchased = item.purchased;
             found = true;
+            foundCatId = cat.id;
             break;
           }
         }
@@ -1703,8 +1705,8 @@
       currentOverrides[itemId] = newValue;
       saveState(currentOverrides, currentNotesOverrides, currentCustomItems, baseData?.meta?.version || '0.0.0');
 
-      // Re-render completo
-      refreshAll();
+      // Re-render completo, manteniendo la categoría visible
+      refreshAll(foundCatId);
     }
 
     /**
@@ -1744,7 +1746,7 @@
 
       currentCustomItems[catId].push(newItem);
       saveState(currentOverrides, currentNotesOverrides, currentCustomItems, baseData?.meta?.version || '0.0.0');
-      refreshAll();
+      refreshAll(catId);
     }
 
     /**
@@ -1768,7 +1770,7 @@
       }
 
       saveState(currentOverrides, currentNotesOverrides, currentCustomItems, baseData?.meta?.version || '0.0.0');
-      refreshAll();
+      refreshAll(catId);
     }
 
     /**
@@ -1798,8 +1800,16 @@
      * Reconstruye todas las vistas desde los datos autoritativos fusionados.
      * Llamada después de cada mutación de estado.
      */
-    function refreshAll() {
+    function refreshAll(targetCatId) {
       if (!baseData) return;
+
+      // Guardar qué categorías están abiertas ahora
+      const openCats = new Set();
+      document.querySelectorAll('.category-details[open]').forEach(d => {
+        openCats.add(d.dataset.cat);
+      });
+      // Si hay categoría objetivo, forzarla abierta
+      if (targetCatId) openCats.add(targetCatId);
 
       // Fusionar base + overrides + ítems personalizados
       currentData = mergeData(baseData, currentOverrides, currentCustomItems);
@@ -1813,6 +1823,22 @@
       renderGapAnalysis(currentData, currentStats);
       renderExtras(currentData);
 
+      // Restaurar categorías abiertas
+      document.querySelectorAll('.category-details').forEach(d => {
+        if (openCats.has(d.dataset.cat)) {
+          d.setAttribute('open', '');
+        }
+      });
+
+      // Scroll a la categoría objetivo
+      if (targetCatId) {
+        setTimeout(() => {
+          const target = document.querySelector(`.category-details[data-cat="${targetCatId}"]`);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
     }
 
     /**
@@ -1885,7 +1911,7 @@
         const progClass = progressPct < 30 ? 'low' : progressPct < 70 ? 'mid' : 'high';
 
         return `
-          <details class="category-details" open>
+           <details class="category-details" data-cat="${cat.id}">
             <summary aria-label="${cat.name}: ${catStats.complete} de ${catStats.total} completos, clic para expandir">
               <span><svg class="icon category-icon"><use href="#${cat.icon}"/></svg> ${cat.name}</span>
               <span style="font-size:0.8rem;font-weight:400;color:var(--text-light)">${catStats.complete}/${catStats.total} · ${progressPct}%</span>
@@ -2109,7 +2135,7 @@
       }
       
       saveState(currentOverrides, currentNotesOverrides, currentCustomItems, baseData?.meta?.version || '0.0.0');
-      refreshAll();
+      refreshAll(catId);
       showToast('🗑 Eliminado');
     }
 
