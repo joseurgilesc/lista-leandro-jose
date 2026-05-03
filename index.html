@@ -768,13 +768,14 @@
        ═══════════════════════════════════════════ */
 
     /* Stepper */
-    .stepper { display: inline-flex; align-items: center; gap: 4px; }
+    .stepper { display: inline-flex; align-items: center; gap: 8px; }
     .stepper-btn {
-      width: var(--touch-target); height: var(--touch-target);
+      width: 56px; height: 56px;
       border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
+      border-radius: 14px;
       background: var(--card-bg);
-      font-size: 20px;
+      font-size: 26px;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -783,17 +784,42 @@
       transition: all 0.15s ease;
       touch-action: manipulation;
       user-select: none;
+      line-height: 1;
     }
-    .stepper-btn:hover:not(:disabled) { background: var(--card-bg-alt); border-color: var(--accent); color: var(--accent); }
-    .stepper-btn[data-action="increment"]:hover:not(:disabled) { background: rgba(129, 178, 154, 0.1); border-color: var(--success); color: var(--success); }
-    .stepper-btn[data-action="decrement"]:hover:not(:disabled) { background: rgba(61, 64, 91, 0.05); border-color: var(--text); color: var(--text); }
+    .stepper-btn:hover:not(:disabled) { transform: scale(1.05); }
     .stepper-btn:active:not(:disabled) { transform: scale(0.92); }
-    .stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .stepper-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+
+    /* + button: green filled */
+    .stepper-btn[data-action="increment"] {
+      background: var(--success);
+      color: var(--text-on-dark);
+      border-color: var(--success);
+      font-size: 28px;
+    }
+    .stepper-btn[data-action="increment"]:hover:not(:disabled) {
+      background: var(--success-hover);
+      border-color: var(--success-hover);
+    }
+
+    /* − button: slate outline */
+    .stepper-btn[data-action="decrement"] {
+      background: var(--card-bg);
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .stepper-btn[data-action="decrement"]:hover:not(:disabled) {
+      background: rgba(61, 64, 91, 0.05);
+      border-color: var(--text);
+      color: var(--text);
+    }
+
     .stepper-value {
-      min-width: 28px;
+      min-width: 36px;
       text-align: center;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 22px;
+      color: var(--text);
     }
     .stepper-value.has-value { color: var(--accent); }
     .suggested { color: var(--text-light); font-size: 13px; }
@@ -880,8 +906,9 @@
 
     /* Mobile adjustments */
     @media (max-width: 480px) {
-      .stepper-btn { width: 44px; height: 44px; font-size: 18px; }
-      .stepper-value { min-width: 24px; font-size: 16px; }
+      .stepper-btn { width: 48px; height: 48px; font-size: 22px; }
+      .stepper-btn[data-action="increment"] { font-size: 24px; }
+      .stepper-value { min-width: 32px; font-size: 20px; }
       .custom-badge { font-size: 9px; }
     }
   </style>
