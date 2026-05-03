@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐣 Lista para Bebé — Leandro José (0 a 6 meses)</title>
+  <style>
+    /* ═══════════════════════════════════════════
+       CSS Custom Properties — Design Tokens
+       ═══════════════════════════════════════════ */
+    :root {
+      --color-pre-birth: #dc2626;
+      --color-first-month: #ea580c;
+      --color-3-6-months: #ca8a04;
+      --color-avoid: #6b7280;
+      --color-pendiente: #9ca3af;
+      --color-insuficiente: #f59e0b;
+      --color-completo: #16a34a;
+      --color-excedido: #2563eb;
+      --color-evitar: #d1d5db;
+      --bg: #fafafa;
+      --card-bg: #ffffff;
+      --text: #2c3e50;
+      --text-light: #7f8c8d;
+      --border: #ecf0f1;
+      --radius: 12px;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+      --touch-target: 44px;
+      --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+                     Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    }
+
+    /* ═══════════════════════════════════════════
+       Reset & Base
+       ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: var(--font-stack);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-width: 320px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* ═══════════════════════════════════════════
+       Header
+       ═══════════════════════════════════════════ */
+    header {
+      background: var(--card-bg);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+
+    .subtitle {
+      font-size: 0.875rem;
+      color: var(--text-light);
+    }
+
+    .last-updated {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 0.25rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       Main Layout
+       ═══════════════════════════════════════════ */
+    main {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ═══════════════════════════════════════════
+       Sections & Cards
+       ═══════════════════════════════════════════ */
+    section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    section h2 {
+      font-size: 1.125rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    /* ═══════════════════════════════════════════
+       Error Banner
+       ═══════════════════════════════════════════ */
+    .error-banner {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 2px solid var(--color-pre-birth);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin: 1rem;
+      display: none;
+    }
+
+    .error-banner.visible { display: block; }
+
+    .error-banner ul {
+      margin: 0.5rem 0 0 1.25rem;
+      font-size: 0.875rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       Summary Cards
+       ═══════════════════════════════════════════ */
+    .card.overall-progress {
+      text-align: center;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .card.overall-progress .progress-label {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .card.overall-progress .progress-percent {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-completo);
+    }
+
+    .card.overall-progress .progress-detail {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 0.25rem;
+    }
+
+    .stage-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .stage-card {
+      padding: 1rem;
+      border-radius: var(--radius);
+      border-left: 5px solid;
+      background: var(--card-bg);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    .stage-card.pre-birth   { border-left-color: var(--color-pre-birth); }
+    .stage-card.first-month { border-left-color: var(--color-first-month); }
+    .stage-card.\33 -6-months { border-left-color: var(--color-3-6-months); }
+    .stage-card.avoid       { border-left-color: var(--color-avoid); }
+
+    .stage-card .stage-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .stage-card .stage-count {
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    /* ═══════════════════════════════════════════
+       Progress Bars
+       ═══════════════════════════════════════════ */
+    .progress-bar {
+      height: 10px;
+      background: var(--border);
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 0.5rem 0;
+    }
+
+    .progress-bar .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-completo), #2ecc71);
+      border-radius: 5px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-bar .progress-fill.low  { background: linear-gradient(90deg, var(--color-pre-birth), var(--color-first-month)); }
+    .progress-bar .progress-fill.mid  { background: linear-gradient(90deg, var(--color-first-month), var(--color-3-6-months)); }
+    .progress-bar .progress-fill.high { background: linear-gradient(90deg, var(--color-completo), #22c55e); }
+
+    /* ═══════════════════════════════════════════
+       Filter Buttons
+       ═══════════════════════════════════════════ */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .filters button {
+      padding: 0.5rem 0.75rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.8rem;
+      cursor: pointer;
+      min-height: var(--touch-target);
+      min-width: var(--touch-target);
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .filters button:hover {
+      border-color: var(--color-completo);
+      background: #eafaf1;
+    }
+
+    .filters button.active {
+      background: var(--color-completo);
+      color: #fff;
+      border-color: var(--color-completo);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════
+       Accordion (details/summary)
+       ═══════════════════════════════════════════ */
+    .category-details {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+    }
+
+    .category-details summary {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      min-height: var(--touch-target);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      user-select: none;
+    }
+
+    .category-details summary:hover {
+      background: #f8f9fa;
+    }
+
+    .category-details summary::-webkit-details-marker { display: none; }
+    .category-details summary::marker { display: none; content: ''; }
+
+    .category-details summary::after {
+      content: '▶';
+      font-size: 0.7rem;
+      margin-left: 0.5rem;
+      transition: transform 0.2s ease;
+      color: var(--text-light);
+    }
+
+    .category-details[open] summary::after {
+      transform: rotate(90deg);
+    }
+
+    .category-details .category-content {
+      padding: 0 1rem 1rem 1rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       Item Table (scrollable on mobile)
+       ═══════════════════════════════════════════ */
+    .item-table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .item-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      min-width: 500px;
+    }
+
+    .item-table th {
+      text-align: left;
+      padding: 0.5rem 0.4rem;
+      border-bottom: 2px solid var(--border);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-light);
+      letter-spacing: 0.03em;
+    }
+
+    .item-table td {
+      padding: 0.5rem 0.4rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .item-table tr:last-child td { border-bottom: none; }
+
+    /* ═══════════════════════════════════════════
+       Status Badges
+       ═══════════════════════════════════════════ */
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      color: #fff;
+    }
+
+    .badge.pendiente    { background: var(--color-pendiente); }
+    .badge.insuficiente { background: var(--color-insuficiente); }
+    .badge.completo     { background: var(--color-completo); }
+    .badge.excedido     { background: var(--color-excedido); }
+    .badge.evitar       { background: var(--color-evitar); color: var(--text); text-decoration: line-through; }
+
+    .badge.essential {
+      background: transparent;
+      color: var(--color-pre-birth);
+      border: 1px solid var(--color-pre-birth);
+      font-size: 0.65rem;
+    }
+
+    /* Combo item indicator */
+    .combo-indicator {
+      display: inline-block;
+      font-size: 0.7rem;
+      color: #92400e;
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.4rem;
+      cursor: help;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    /* ═══════════════════════════════════════════
+       Gap Analysis
+       ═══════════════════════════════════════════ */
+    .gap-list { list-style: none; }
+
+    .gap-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .gap-item:last-child { border-bottom: none; }
+
+    .gap-item .gap-name    { flex: 1 1 180px; font-weight: 600; }
+    .gap-item .gap-cat     { font-size: 0.75rem; color: var(--text-light); }
+    .gap-item .gap-qty     { font-size: 0.8rem; font-weight: 600; }
+    .gap-item .gap-stage   { font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 100px; color: #fff; }
+
+    .gap-item.critical {
+      background: #fdedec;
+      border-left: 4px solid var(--color-pre-birth);
+    }
+
+    .gap-cta {
+      background: #fef2f2;
+      border: 2px solid var(--color-pre-birth);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: var(--color-pre-birth);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .gap-item.critical .gap-stage { background: var(--color-pre-birth); }
+    .gap-item .gap-stage.stage-pre-birth   { background: var(--color-pre-birth); }
+    .gap-item .gap-stage.stage-first-month { background: var(--color-first-month); }
+    .gap-item .gap-stage.stage-3-6-months  { background: var(--color-3-6-months); }
+
+    /* ═══════════════════════════════════════════
+       Extras Section
+       ═══════════════════════════════════════════ */
+    .extra-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .extra-item:last-child { border-bottom: none; }
+
+    .extra-item .extra-name   { flex: 1 1 180px; }
+    .extra-item .extra-qty    { font-weight: 600; }
+    .extra-item .extra-reason { font-size: 0.8rem; color: var(--text-light); }
+
+    .extras-hidden { display: none; }
+
+    /* ═══════════════════════════════════════════
+       Footer & Legend
+       ═══════════════════════════════════════════ */
+    footer {
+      padding: 1rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    #downloadBtn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--color-completo);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: var(--touch-target);
+      transition: background 0.15s ease;
+    }
+
+    #downloadBtn:hover { background: #15803d; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       Tablet (≥ 768px)
+       ═══════════════════════════════════════════ */
+    @media (min-width: 768px) {
+      html { font-size: 17px; }
+
+      main {
+        padding: 1.5rem 2rem;
+        gap: 2rem;
+      }
+
+      header {
+        padding: 1.5rem 2rem;
+      }
+
+      header h1 { font-size: 1.75rem; }
+
+      section { padding: 1.5rem; }
+
+      section h2 { font-size: 1.25rem; }
+
+      .stage-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .filters button {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+      }
+    }
+
+    /* ═══════════════════════════════════════════
+       Desktop (≥ 1024px)
+       ═══════════════════════════════════════════ */
+    @media (min-width: 1024px) {
+      html { font-size: 18px; }
+
+      main {
+        padding: 2rem 3rem;
+        gap: 2.5rem;
+      }
+
+      .stage-cards {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .card.overall-progress { padding: 2rem; }
+
+      .card.overall-progress .progress-percent { font-size: 2.5rem; }
+
+      .gap-item, .extra-item { font-size: 0.95rem; }
+    }
+
+    /* ═══════════════════════════════════════════
+       Print Styles
+       ═══════════════════════════════════════════ */
+     @media print {
+      .filters, #downloadBtn, #resetBtn, .stepper, .add-item-btn, .add-item-form, .delete-custom-btn, footer { display: none; }
+
+      .category-details { break-inside: avoid; }
+
+      .category-details[open] { /* always open in print via JS? handled by render */ }
+
+      body { background: #fff; }
+
+      section {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        break-inside: avoid;
+      }
+
+      header { box-shadow: none; }
+    }
+
+    /* ═══════════════════════════════════════════
+       Interactive Controls — tracker-interactivo
+       ═══════════════════════════════════════════ */
+
+    /* Stepper */
+    .stepper { display: inline-flex; align-items: center; gap: 4px; }
+    .stepper-btn {
+      width: 44px; height: 44px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: var(--card-bg);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      transition: all 0.15s ease;
+    }
+    .stepper-btn:hover:not(:disabled) { background: #f0fdf4; border-color: #86efac; color: #16a34a; }
+    .stepper-btn:active:not(:disabled) { transform: scale(0.95); }
+    .stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .stepper-value {
+      min-width: 28px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .suggested { color: var(--text-light); font-size: 13px; }
+    .avoid-text { color: var(--color-evitar); font-style: italic; font-size: 13px; }
+    .combo-qty { color: var(--text-light); font-size: 14px; cursor: help; }
+
+    /* Custom item badge */
+    .custom-badge {
+      background: #c084fc;
+      color: white;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      white-space: nowrap;
+    }
+    .delete-custom-btn {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 4px 8px;
+      line-height: 1;
+      margin-right: 4px;
+    }
+    .delete-custom-btn:hover { color: #dc2626; transform: scale(1.2); }
+
+    /* Add item form */
+    .add-item-btn {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      background: #f0fdf4;
+      border: 1px dashed #86efac;
+      border-radius: 8px;
+      color: #16a34a;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .add-item-btn:hover { background: #dcfce7; border-color: #4ade80; }
+    .add-item-form {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 8px;
+    }
+    .add-item-form input, .add-item-form select {
+      width: 100%;
+      padding: 8px;
+      margin: 4px 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    /* Reset button */
+    .reset-btn {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-right: 8px;
+      transition: all 0.15s ease;
+    }
+    .reset-btn:hover { background: #fee2e2; border-color: #fca5a5; }
+
+    /* Quantity cell alignment */
+    .qty-cell { vertical-align: middle; }
+    .qty-cell:first-of-type { white-space: nowrap; }
+
+    /* Mobile adjustments */
+    @media (max-width: 480px) {
+      .stepper-btn { width: 38px; height: 38px; font-size: 18px; }
+      .stepper-value { min-width: 24px; font-size: 15px; }
+      .custom-badge { font-size: 9px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🐣 Lista para Leandro José</h1>
+    <p class="subtitle">Seguimiento de compras — 0 a 6 meses</p>
+    <p class="last-updated" id="lastUpdated"></p>
+  </header>
+
+  <div class="error-banner" id="errorBanner">
+    <strong>⚠️ Error al cargar los datos</strong>
+    <ul id="errorList"></ul>
+  </div>
+
+  <main>
+    <!-- View 1: Summary Cards -->
+    <section id="summary-cards">
+      <h2>Resumen General</h2>
+      <div class="card overall-progress" id="overallCard"></div>
+      <div class="stage-cards" id="stageCards"></div>
+    </section>
+
+    <!-- View 2: Category Accordion -->
+    <section id="categories">
+      <h2>Categorías</h2>
+      <div class="filters" id="categoryFilters" role="navigation" aria-label="Filtros por etapa">
+        <button data-stage="all" class="active" aria-pressed="true">Todos</button>
+        <button data-stage="pre-birth">🔴 Antes del nacimiento</button>
+        <button data-stage="first-month">🟠 Primer mes</button>
+        <button data-stage="3-6-months">🟡 3 a 6 meses</button>
+        <button data-stage="avoid">⚪ Evitar</button>
+      </div>
+      <div id="categoryList"></div>
+    </section>
+
+    <!-- View 3: Gap Analysis -->
+    <section id="gaps">
+      <h2>⚠️ Qué falta comprar</h2>
+      <div id="gapList"></div>
+    </section>
+
+    <!-- View 4: Extras -->
+    <section id="extras">
+      <h2>📦 Extras (fuera de la lista)</h2>
+      <div id="extrasList"></div>
+    </section>
+  </main>
+
+  <footer>
+    <button id="resetBtn" class="reset-btn" aria-label="Restablecer lista a valores originales">🔄 Restablecer lista</button>
+    <button id="downloadBtn" aria-label="Descargar respaldo de la lista">⬇️ Descargar respaldo</button>
+    <p class="legend">
+      <span class="badge pendiente" aria-label="Estado: pendiente">pendiente</span>
+      <span class="badge insuficiente" aria-label="Estado: insuficiente">insuficiente</span>
+      <span class="badge completo" aria-label="Estado: completo">completo</span>
+      <span class="badge excedido" aria-label="Estado: excedido">excedido</span>
+      <span class="badge evitar" aria-label="Estado: evitar">evitar</span>
+    </p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+    /* ═══════════════════════════════════════════
+       ──  TASK 2.1: Validation & Status Engine  ──
+       ═══════════════════════════════════════════ */
+
+    /**
+     * Validates the data.json schema.
+     * @param {object} data
+     * @returns {{ valid: boolean, errors: string[] }}
+     */
+    function validateSchema(data) {
+      const errors = [];
+
+      if (!data || typeof data !== 'object') {
+        return { valid: false, errors: ['El archivo data.js no contiene un objeto válido.'] };
+      }
+
+      // Top-level required fields
+      const requiredTop = ['meta', 'stages', 'categories', 'extras'];
+      for (const field of requiredTop) {
+        if (!(field in data)) {
+          errors.push(`Falta el campo raíz requerido: "${field}".`);
+        }
+      }
+
+      // If critical fields are missing, don't validate deeper
+      if (!data.stages) {
+        return { valid: errors.length === 0, errors };
+      }
+
+      // Build set of valid stage IDs
+      const stageIds = new Set();
+      if (Array.isArray(data.stages)) {
+        for (const stage of data.stages) {
+          if (stage && stage.id) {
+            stageIds.add(stage.id);
+          }
+        }
+      }
+
+      // Validate categories
+      if (Array.isArray(data.categories)) {
+        const seenIds = new Set();
+
+        for (let ci = 0; ci < data.categories.length; ci++) {
+          const cat = data.categories[ci];
+          const catLabel = cat.name || cat.id || `categoría #${ci + 1}`;
+
+          // Category required fields
+          for (const field of ['id', 'name', 'icon']) {
+            if (!(field in cat) || cat[field] === undefined || cat[field] === null) {
+              errors.push(`Categoría "${catLabel}": falta el campo "${field}".`);
+            }
+          }
+
+          if (!Array.isArray(cat.items)) {
+            errors.push(`Categoría "${catLabel}": "items" debe ser un array.`);
+            continue; // can't validate items further
+          }
+
+          // Validate each item
+          const itemRequired = ['id', 'name', 'stage', 'suggestedMin', 'suggestedMax', 'essential', 'purchased'];
+          for (let ii = 0; ii < cat.items.length; ii++) {
+            const item = cat.items[ii];
+            const itemLabel = item.name || item.id || `ítem #${ii + 1}`;
+            const itemFull = `${catLabel} → ${itemLabel}`;
+
+            for (const field of itemRequired) {
+              if (!(field in item)) {
+                errors.push(`Ítem "${itemFull}": falta el campo requerido "${field}".`);
+              }
+            }
+
+            // Validate field types
+            if (item.suggestedMin !== undefined && item.suggestedMin !== null && typeof item.suggestedMin !== 'number') {
+              errors.push(`Ítem "${itemFull}": "suggestedMin" debe ser un número, no ${typeof item.suggestedMin}.`);
+            }
+            if (item.suggestedMax !== undefined && item.suggestedMax !== null && typeof item.suggestedMax !== 'number') {
+              errors.push(`Ítem "${itemFull}": "suggestedMax" debe ser un número, no ${typeof item.suggestedMax}.`);
+            }
+            if (item.essential !== undefined && item.essential !== null && typeof item.essential !== 'boolean') {
+              errors.push(`Ítem "${itemFull}": "essential" debe ser booleano.`);
+            }
+            if (item.purchased !== undefined && item.purchased !== null && typeof item.purchased !== 'number') {
+              errors.push(`Ítem "${itemFull}": "purchased" debe ser un número.`);
+            }
+
+            // Validate stage reference
+            if (item.stage && !stageIds.has(item.stage)) {
+              errors.push(`Ítem "${itemFull}": la etapa "${item.stage}" no existe en data.stages.`);
+            }
+
+            // Validate unique ID across categories
+            if (item.id) {
+              if (seenIds.has(item.id)) {
+                // Duplicate IDs across categories are allowed (shared items), but we log them
+                // Actually, per the spec duplicate IDs are fine since they're shared items.
+                // We only warn if the same ID appears twice WITHIN the same category.
+              }
+              seenIds.add(item.id);
+            }
+          }
+
+          // Check for duplicate IDs within same category
+          const catItemIds = cat.items.map(i => i.id).filter(Boolean);
+          const catDupes = catItemIds.filter((id, idx) => catItemIds.indexOf(id) !== idx);
+          if (catDupes.length > 0) {
+            errors.push(`Categoría "${catLabel}": IDs duplicados dentro de la misma categoría: ${[...new Set(catDupes)].join(', ')}.`);
+          }
+        }
+      } else {
+        errors.push('"categories" debe ser un array.');
+      }
+
+      return { valid: errors.length === 0, errors };
+    }
+
+    /**
+     * Derives the display status for a single item.
+     * Special case: min===0 && max===0 → "evitar" (don't-buy items)
+     * @param {{ suggestedMin: number, suggestedMax: number, purchased: number }} item
+     * @returns {string} "pendiente" | "insuficiente" | "completo" | "excedido" | "evitar"
+     */
+    function deriveStatus(item) {
+      const min = item.suggestedMin;
+      const max = item.suggestedMax;
+      const purchased = item.purchased;
+
+      // Special case: avoid items (min=0 AND max=0)
+      if (min === 0 && max === 0) return 'evitar';
+
+      // Normal derivation
+      if (purchased === 0) return 'pendiente';
+      if (purchased < min) return 'insuficiente';
+      if (purchased <= max) return 'completo';
+      return 'excedido';
+    }
+
+    /**
+     * Returns a hex color for a given status.
+     * @param {string} status
+     * @returns {string}
+     */
+    function statusColor(status) {
+      const map = {
+        pendiente:    '#9ca3af',
+        insuficiente: '#f59e0b',
+        completo:     '#16a34a',
+        excedido:     '#2563eb',
+        evitar:       '#d1d5db'
+      };
+      return map[status] || '#9ca3af';
+    }
+
+    /**
+     * Returns the stage priority for sorting (lower = more urgent).
+     * @param {string} stageId
+     * @param {Array} stages
+     * @returns {number}
+     */
+    function stagePriority(stageId, stages) {
+      const stage = stages.find(s => s.id === stageId);
+      return stage ? stage.priority : 99;
+    }
+
+    /**
+     * Computes global and per-category/per-stage statistics.
+     * - "evitar" items are excluded from totals
+     * - Shared IDs (same id across categories) are counted ONCE in global + byStage totals
+     * - Combo items are counted based on their own `purchased` field (comboSource is display-only)
+     *
+     * @param {object} data
+     * @returns {object} { global, byStage, byCategory, gaps }
+     */
+    function computeStats(data) {
+      const stages = data.stages || [];
+      const categories = data.categories || [];
+
+      // Build a flat list of all items with their category context
+      const allItems = [];
+      for (const cat of categories) {
+        if (!Array.isArray(cat.items)) continue;
+        for (const item of cat.items) {
+          allItems.push({ ...item, _category: cat });
+        }
+      }
+
+      // ═══ COMBO RESOLUTION: build index + inherit purchased ═══
+      const itemById = new Map();
+      for (const item of allItems) {
+        if (!itemById.has(item.id)) {
+          itemById.set(item.id, item);
+        }
+      }
+
+      // Resolve combo inheritance: sub-items inherit purchased from source
+      const resolvedItems = allItems.map(item => {
+        if (item.comboSource) {
+          const source = itemById.get(item.comboSource);
+          if (source && source.purchased > 0) {
+            return {
+              ...item,
+              purchased: source.purchased,
+              _comboResolved: true,
+              _comboSourceName: source.name
+            };
+          }
+        }
+        return item;
+      });
+
+      // Derive status for all resolved items
+      const itemsWithStatus = resolvedItems.map(item => ({
+        ...item,
+        _status: deriveStatus(item)
+      }));
+
+      // Filter out evitar items (don't count in totals)
+      const countableItems = itemsWithStatus.filter(item => item._status !== 'evitar');
+
+      // ═══ GLOBAL STATS (dedup by id) ═══
+      const seenGlobal = new Set();
+      let globalTotal = 0;
+      let globalComplete = 0;
+      let globalPending = 0;
+      let globalInsufficient = 0;
+      let globalExceeded = 0;
+
+      for (const item of countableItems) {
+        if (seenGlobal.has(item.id)) continue;
+        seenGlobal.add(item.id);
+        globalTotal++;
+
+        switch (item._status) {
+          case 'completo':     globalComplete++; break;
+          case 'pendiente':    globalPending++; break;
+          case 'insuficiente': globalInsufficient++; break;
+          case 'excedido':     globalExceeded++; break;
+        }
+      }
+
+      const globalProgress = globalTotal > 0
+        ? Math.round((globalComplete / globalTotal) * 100)
+        : 0;
+
+      // ═══ BY STAGE (dedup by id within each stage) ═══
+      const byStage = {};
+      for (const stage of stages) {
+        const stageItems = countableItems.filter(item => item.stage === stage.id);
+        const seenStage = new Set();
+        let sTotal = 0;
+        let sComplete = 0;
+        let sPending = 0;
+
+        for (const item of stageItems) {
+          if (seenStage.has(item.id)) continue;
+          seenStage.add(item.id);
+          sTotal++;
+
+          switch (item._status) {
+            case 'completo':  sComplete++; break;
+            case 'pendiente': sPending++; break;
+          }
+        }
+
+        byStage[stage.id] = {
+          label: stage.label,
+          color: stage.color,
+          priority: stage.priority,
+          total: sTotal,
+          complete: sComplete,
+          pending: sPending,
+          progress: sTotal > 0 ? Math.round((sComplete / sTotal) * 100) : 0
+        };
+      }
+
+      // ═══ BY CATEGORY (no dedup needed — items are unique within a category) ═══
+      const byCategory = {};
+      for (const cat of categories) {
+        if (!Array.isArray(cat.items)) continue;
+        const catItems = itemsWithStatus.filter(item => item._category.id === cat.id && item._status !== 'evitar');
+        let cTotal = 0;
+        let cComplete = 0;
+        let cPending = 0;
+
+        for (const item of catItems) {
+          cTotal++;
+          switch (item._status) {
+            case 'completo':  cComplete++; break;
+            case 'pendiente': cPending++; break;
+          }
+        }
+
+        byCategory[cat.id] = {
+          name: cat.name,
+          icon: cat.icon,
+          total: cTotal,
+          complete: cComplete,
+          pending: cPending,
+          progress: cTotal > 0 ? Math.round((cComplete / cTotal) * 100) : 0
+        };
+      }
+
+      // ═══ GAPS (items with purchased=0, excluding evitar and combo-covered) ═══
+      const gaps = countableItems
+        .filter(item => item._status === 'pendiente' && !item._comboResolved)
+        .map(item => ({
+          item: item.name,
+          id: item.id,
+          category: item._category.name,
+          categoryId: item._category.id,
+          stage: item.stage,
+          missing: item.suggestedMin, // need at least min
+          essential: item.essential
+        }))
+        .sort((a, b) => {
+          // Sort by stage priority first
+          const pa = stagePriority(a.stage, stages);
+          const pb = stagePriority(b.stage, stages);
+          if (pa !== pb) return pa - pb;
+          // Then essential first
+          if (a.essential && !b.essential) return -1;
+          if (!a.essential && b.essential) return 1;
+          // Then alpha
+          return a.item.localeCompare(b.item, 'es');
+        });
+
+      // Build name-by-id index for combo tooltip rendering
+      const nameById = {};
+      for (const [id, item] of itemById) {
+        nameById[id] = item.name;
+      }
+
+      return { global: { total: globalTotal, complete: globalComplete, pending: globalPending, insufficient: globalInsufficient, exceeded: globalExceeded, progress: globalProgress }, byStage, byCategory, gaps, nameById };
+    }
+
+
+    /* ═══════════════════════════════════════════
+       ──  TASK 2.2: Filter/Sort Utilities    ──
+       ═══════════════════════════════════════════ */
+
+    /**
+     * Filters an array of items by criteria.
+     * @param {Array} items
+     * @param {{ stage?: string, status?: string, category?: string, essential?: boolean }} filters
+     * @returns {Array}
+     */
+    function filterItems(items, filters) {
+      let result = [...items];
+
+      if (filters.stage && filters.stage !== 'all') {
+        result = result.filter(item => item.stage === filters.stage);
+      }
+
+      if (filters.status) {
+        result = result.filter(item => deriveStatus(item) === filters.status);
+      }
+
+      if (filters.category) {
+        result = result.filter(item => {
+          const catId = item._category ? item._category.id : null;
+          return catId === filters.category;
+        });
+      }
+
+      if (filters.essential === true) {
+        result = result.filter(item => item.essential === true);
+      }
+
+      return result;
+    }
+
+    /**
+     * Sorts items by a given criterion.
+     * @param {Array} items
+     * @param {string} sortBy - "stage" | "status" | "name"
+     * @param {Array} [stages] - needed for stage priority sort
+     * @returns {Array}
+     */
+    function sortItems(items, sortBy, stages) {
+      const sorted = [...items];
+
+      switch (sortBy) {
+        case 'stage':
+          sorted.sort((a, b) => {
+            const pa = stagePriority(a.stage, stages || []);
+            const pb = stagePriority(b.stage, stages || []);
+            if (pa !== pb) return pa - pb;
+            return a.name.localeCompare(b.name, 'es');
+          });
+          break;
+
+        case 'status': {
+          const statusOrder = { pendiente: 0, insuficiente: 1, excedido: 2, completo: 3, evitar: 4 };
+          sorted.sort((a, b) => {
+            const sa = statusOrder[deriveStatus(a)] ?? 99;
+            const sb = statusOrder[deriveStatus(b)] ?? 99;
+            if (sa !== sb) return sa - sb;
+            return a.name.localeCompare(b.name, 'es');
+          });
+          break;
+        }
+
+        case 'name':
+        default:
+          sorted.sort((a, b) => a.name.localeCompare(b.name, 'es'));
+          break;
+      }
+
+      return sorted;
+    }
+
+    /**
+     * Returns all items (flattened from all categories) for a given stage.
+     * @param {object} data
+     * @param {string} stageId
+     * @returns {Array}
+     */
+    function getItemsByStage(data, stageId) {
+      const result = [];
+      for (const cat of data.categories || []) {
+        if (!Array.isArray(cat.items)) continue;
+        for (const item of cat.items) {
+          if (item.stage === stageId) {
+            result.push({ ...item, _category: cat });
+          }
+        }
+      }
+      return result;
+    }
+
+
+    /* ═══════════════════════════════════════════
+       ──  TASK 3.1: HTML Shell + Init Logic  ──
+       ═══════════════════════════════════════════ */
+
+    let currentData = null;
+    let currentStats = null;
+    let currentFilter = 'all';
+    let baseData = null;          // Original from data.js, never modified
+    let currentOverrides = {};    // Current localStorage overrides
+    let currentCustomItems = {};  // Current custom items
+
+    /* ═══════════════════════════════════════════
+       ══  Tracker Interactivo — Constants  ══
+       ═══════════════════════════════════════════ */
+
+    const STATUS_LABELS = {
+      pendiente: 'pendiente',
+      insuficiente: 'insuficiente',
+      completo: 'completo',
+      excedido: 'excedido',
+      evitar: 'evitar'
+    };
+
+    /* ═══════════════════════════════════════════
+       ──  TASK 1.1: localStorage State Engine  ──
+       ═══════════════════════════════════════════ */
+
+    /**
+     * Carga el estado desde localStorage.
+     * @returns {{ overrides: object, customItems: object, dataVersion: string } | null}
+     */
+    function loadState() {
+      try {
+        const raw = localStorage.getItem('lista-bebe-state');
+        if (!raw) return null;
+        const state = JSON.parse(raw);
+        // Validación básica de estructura
+        if (!state || typeof state !== 'object') return null;
+        return {
+          overrides: state.overrides || {},
+          customItems: state.customItems || {},
+          dataVersion: state.dataVersion || '0.0.0'
+        };
+      } catch (e) {
+        console.warn('localStorage corrupto, descartando:', e.message);
+        localStorage.removeItem('lista-bebe-state');
+        return null;
+      }
+    }
+
+    /**
+     * Guarda el estado en localStorage.
+     * @param {object} overrides
+     * @param {object} customItems
+     * @param {string} dataVersion
+     */
+    function saveState(overrides, customItems, dataVersion) {
+      try {
+        const state = { overrides, customItems, dataVersion };
+        localStorage.setItem('lista-bebe-state', JSON.stringify(state));
+      } catch (e) {
+        console.error('No se pudo guardar en localStorage:', e.message);
+      }
+    }
+
+    /**
+     * Fusiona datos base con overrides e ítems personalizados.
+     * IMPORTANTE: primero inyecta ítems personalizados, luego aplica overrides,
+     * para que los overrides de ítems personalizados también se apliquen.
+     * @param {object} base — datos originales (no se mutan)
+     * @param {object} overrides — itemId → purchased count
+     * @param {object} customItems — catId → array de ítems personalizados
+     * @returns {object} copia fusionada (deep clone)
+     */
+    function mergeData(base, overrides, customItems) {
+      // Deep clone de los datos base
+      const merged = JSON.parse(JSON.stringify(base));
+
+      if (!Array.isArray(merged.categories)) return merged;
+
+      // Paso 1: Inyectar ítems personalizados en sus categorías
+      for (const [catId, items] of Object.entries(customItems)) {
+        if (!Array.isArray(items) || items.length === 0) continue;
+        const cat = merged.categories.find(c => c.id === catId);
+        if (cat) {
+          // Agregar flag _custom a cada ítem personalizado
+          const taggedItems = items.map(item => ({ ...item, _custom: true }));
+          cat.items.push(...taggedItems);
+        } else {
+          console.warn(`Categoría "${catId}" no encontrada para items personalizados, ignorando.`);
+        }
+      }
+
+      // Paso 2: Aplicar overrides a TODOS los ítems (base + personalizados)
+      for (const cat of merged.categories) {
+        if (!Array.isArray(cat.items)) continue;
+        for (const item of cat.items) {
+          if (overrides[item.id] !== undefined) {
+            item.purchased = overrides[item.id];
+          }
+        }
+      }
+
+      // Advertir sobre IDs obsoletos (en overrides pero no en ninguna categoría)
+      const allIds = new Set();
+      for (const cat of merged.categories) {
+        for (const item of cat.items) {
+          allIds.add(item.id);
+        }
+      }
+      for (const id of Object.keys(overrides)) {
+        if (!allIds.has(id)) {
+          console.warn(`Override ignorado: item "${id}" ya no existe en data.js`);
+        }
+      }
+
+      return merged;
+    }
+
+    /* ═══════════════════════════════════════════
+       ──  TASK 1.2: Change Handlers + Refresh  ──
+       ═══════════════════════════════════════════ */
+
+    /**
+     * Cambia la cantidad comprada de un ítem.
+     * Un solo override cubre todas las instancias compartidas del mismo ID.
+     * @param {string} itemId
+     * @param {number} delta — incremento positivo (+1) o negativo (−1)
+     */
+    function changePurchased(itemId, delta) {
+      // Buscar el valor base del ítem en baseData
+      let basePurchased = 0;
+      let found = false;
+      for (const cat of (baseData?.categories || [])) {
+        for (const item of (cat.items || [])) {
+          if (item.id === itemId) {
+            basePurchased = item.purchased;
+            found = true;
+            break;
+          }
+        }
+        if (found) break;
+      }
+
+      // Usar el override si existe, sino el valor base
+      const current = currentOverrides[itemId] !== undefined
+        ? currentOverrides[itemId]
+        : basePurchased;
+
+      const newValue = Math.max(0, current + delta);
+
+      // Verificar que el ítem exista en base o en personalizados
+      if (!found) {
+        for (const items of Object.values(currentCustomItems)) {
+          if (items.some(item => item.id === itemId)) {
+            found = true;
+            break;
+          }
+        }
+      }
+
+      if (!found) {
+        console.warn(`Item "${itemId}" no encontrado en ninguna categoría.`);
+        return;
+      }
+
+      // Guardar override — uno solo cubre todas las instancias compartidas
+      currentOverrides[itemId] = newValue;
+      saveState(currentOverrides, currentCustomItems, baseData?.meta?.version || '0.0.0');
+
+      // Re-render completo
+      refreshAll();
+    }
+
+    /**
+     * Agrega un ítem personalizado a una categoría.
+     * @param {string} catId — ID de la categoría
+     * @param {object} itemData — { name, suggestedMin, suggestedMax, stage, purchased, essential, notes }
+     */
+    function addCustomItem(catId, itemData) {
+      if (!currentCustomItems[catId]) {
+        currentCustomItems[catId] = [];
+      }
+
+      const newItem = {
+        id: 'custom-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
+        name: itemData.name,
+        suggestedMin: itemData.suggestedMin || 1,
+        suggestedMax: itemData.suggestedMax || 1,
+        stage: itemData.stage || 'pre-birth',
+        purchased: itemData.purchased || 0,
+        essential: itemData.essential !== undefined ? itemData.essential : false,
+        notes: itemData.notes || '',
+        _custom: true
+      };
+
+      currentCustomItems[catId].push(newItem);
+      saveState(currentOverrides, currentCustomItems, baseData?.meta?.version || '0.0.0');
+      refreshAll();
+    }
+
+    /**
+     * Elimina un ítem personalizado de una categoría.
+     * @param {string} catId — ID de la categoría
+     * @param {string} itemId — ID del ítem a eliminar
+     */
+    function deleteCustomItem(catId, itemId) {
+      if (!currentCustomItems[catId]) return;
+
+      currentCustomItems[catId] = currentCustomItems[catId].filter(item => item.id !== itemId);
+
+      // Limpiar arrays de categoría vacíos
+      if (currentCustomItems[catId].length === 0) {
+        delete currentCustomItems[catId];
+      }
+
+      // También eliminar cualquier override para este ítem
+      if (currentOverrides[itemId] !== undefined) {
+        delete currentOverrides[itemId];
+      }
+
+      saveState(currentOverrides, currentCustomItems, baseData?.meta?.version || '0.0.0');
+      refreshAll();
+    }
+
+    /**
+     * Restablece toda la lista al estado original.
+     * Requiere confirmación del usuario.
+     */
+    function resetAll() {
+      if (!confirm('¿Restablecer toda la lista?\n\nSe perderán tus cambios y artículos personalizados. Se recomienda hacer un respaldo primero con "Descargar respaldo".')) {
+        return;
+      }
+
+      localStorage.removeItem('lista-bebe-state');
+      currentOverrides = {};
+      currentCustomItems = {};
+
+      // Re-inicializar desde los datos base
+      currentData = JSON.parse(JSON.stringify(baseData));
+      currentStats = computeStats(currentData);
+
+      renderSummaryCards(currentData, currentStats);
+      renderCategoryAccordion(currentData, currentStats, currentFilter);
+      renderGapAnalysis(currentData, currentStats);
+      renderExtras(currentData);
+    }
+
+    /**
+     * Reconstruye todas las vistas desde los datos autoritativos fusionados.
+     * Llamada después de cada mutación de estado.
+     */
+    function refreshAll() {
+      if (!baseData) return;
+
+      // Fusionar base + overrides + ítems personalizados
+      currentData = mergeData(baseData, currentOverrides, currentCustomItems);
+
+      // Recalcular estadísticas
+      currentStats = computeStats(currentData);
+
+      // Re-renderizar las 4 vistas
+      renderSummaryCards(currentData, currentStats);
+      renderCategoryAccordion(currentData, currentStats, currentFilter);
+      renderGapAnalysis(currentData, currentStats);
+      renderExtras(currentData);
+
+    }
+
+    /**
+     * Renders the summary cards view (stub — will be fully implemented in Task 3.2).
+     */
+    function renderSummaryCards(data, stats) {
+      const overallCard = document.getElementById('overallCard');
+      const stageCards = document.getElementById('stageCards');
+      if (!overallCard || !stageCards) return;
+
+      const g = stats.global;
+      overallCard.innerHTML = `
+        <div class="progress-label">Progreso general</div>
+        <div class="progress-percent">${g.progress}%</div>
+        <div class="progress-bar" role="progressbar" aria-valuenow="${g.progress}" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso general: ${g.progress} por ciento">
+          <div class="progress-fill ${g.progress < 30 ? 'low' : g.progress < 70 ? 'mid' : 'high'}" style="width:${g.progress}%"></div>
+        </div>
+        <div class="progress-detail">${g.complete} de ${g.total} ítems completos · ${g.pending} pendientes · ${g.insufficient} insuficientes · ${g.exceeded} excedidos</div>
+      `;
+
+      const stageIds = ['pre-birth', 'first-month', '3-6-months', 'avoid'];
+      stageCards.innerHTML = stageIds.map(sid => {
+        const s = stats.byStage[sid];
+        if (!s) return '';
+        return `
+          <div class="stage-card ${sid}">
+            <div class="stage-label">${s.label}</div>
+            <div class="progress-bar" role="progressbar" aria-valuenow="${s.progress}" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso ${s.label}: ${s.progress} por ciento">
+              <div class="progress-fill ${s.progress < 30 ? 'low' : s.progress < 70 ? 'mid' : 'high'}" style="width:${s.progress}%"></div>
+            </div>
+            <div class="stage-count">${s.complete}/${s.total} completo${s.total !== 1 ? 's' : ''} (${s.progress}%)</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    /**
+     * Renders the category accordion (stub — will be fully implemented in Task 3.3).
+     */
+    function renderCategoryAccordion(data, stats, filterStage) {
+      const container = document.getElementById('categoryList');
+      if (!container) return;
+
+      const categories = data.categories || [];
+
+      // Build item index for combo resolution in accordion
+      const allAccordionItems = [];
+      for (const cat of categories) {
+        for (const item of cat.items || []) {
+          allAccordionItems.push(item);
+        }
+      }
+      const itemIdx = {};
+      for (const item of allAccordionItems) {
+        if (!itemIdx[item.id]) itemIdx[item.id] = item;
+      }
+
+      container.innerHTML = categories.map(cat => {
+        const catStats = stats.byCategory[cat.id];
+        if (!catStats) return '';
+
+        // Filter items by stage if not "all"
+        let items = (cat.items || []).map(item => ({ ...item, _category: cat }));
+        if (filterStage && filterStage !== 'all') {
+          items = items.filter(item => item.stage === filterStage);
+        }
+        if (items.length === 0) return '';
+
+        const progressPct = catStats.progress;
+        const progClass = progressPct < 30 ? 'low' : progressPct < 70 ? 'mid' : 'high';
+
+        return `
+          <details class="category-details" open>
+            <summary aria-label="${cat.name}: ${catStats.complete} de ${catStats.total} completos, clic para expandir">
+              <span>${cat.icon} ${cat.name}</span>
+              <span style="font-size:0.8rem;font-weight:400;color:var(--text-light)">${catStats.complete}/${catStats.total} · ${progressPct}%</span>
+            </summary>
+            <div class="category-content">
+              <div class="progress-bar" role="progressbar" aria-valuenow="${progressPct}" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso ${cat.name}: ${progressPct} por ciento">
+                <div class="progress-fill ${progClass}" style="width:${progressPct}%"></div>
+              </div>
+              <div class="item-table-wrapper">
+                <table class="item-table">
+                  <thead>
+                    <tr>
+                      <th>Ítem</th>
+                      <th>Sugerido</th>
+                      <th>Tengo</th>
+                      <th>Estado</th>
+                      <th>Notas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${items.map(item => {
+                      // Resolve combo inheritance for status display
+                      let effectiveItem = item;
+                      let comboResolved = false;
+                      let comboSourceName = '';
+                      if (item.comboSource && itemIdx[item.comboSource] && itemIdx[item.comboSource].purchased > 0) {
+                        effectiveItem = { ...item, purchased: itemIdx[item.comboSource].purchased };
+                        comboResolved = true;
+                        comboSourceName = itemIdx[item.comboSource].name;
+                      }
+                      const status = deriveStatus(effectiveItem);
+                      const notes = item.notes || '';
+                      const isEssential = item.essential ? ' <span class="badge essential">esencial</span>' : '';
+                      const comboIndicator = item.comboSource ? `<span class="combo-indicator" title="Cubierto por: ${stats.nameById[item.comboSource] || item.comboSource}">📦 Cubierto por combo</span>` : '';
+                      const customBadge = item._custom ? '<span class="custom-badge">✨ personalizado</span>' : '';
+
+                      // Mode A: Avoid items
+                      if (status === 'evitar') {
+                        return `
+                          <tr>
+                            <td>${item.name}${comboIndicator}${isEssential}</td>
+                            <td class="qty-cell" colspan="2">
+                              <span class="avoid-text">🚫 No comprar</span>
+                            </td>
+                            <td><span class="badge ${status}" aria-label="Estado: ${STATUS_LABELS[status]}">${STATUS_LABELS[status]}</span></td>
+                            <td style="font-size:0.78rem;color:var(--text-light)">${notes}</td>
+                          </tr>
+                        `;
+                      }
+
+                      // Mode B: Combo resolved (readonly)
+                      if (comboResolved) {
+                        return `
+                          <tr>
+                            <td>${item.name}${comboIndicator}${isEssential}</td>
+                            <td class="qty-cell">
+                              <span class="suggested">${item.suggestedMin}-${item.suggestedMax}</span>
+                            </td>
+                            <td class="qty-cell">
+                              <span class="combo-qty" title="Cubierto por: ${comboSourceName}">${effectiveItem.purchased}</span>
+                            </td>
+                            <td><span class="badge ${status}" aria-label="Estado: ${STATUS_LABELS[status]}">${STATUS_LABELS[status]}</span></td>
+                            <td style="font-size:0.78rem;color:var(--text-light)">${notes}</td>
+                          </tr>
+                        `;
+                      }
+
+                      // Mode C: Normal (interactive)
+                      return `
+                        <tr>
+                          <td>${item.name}${customBadge}${comboIndicator}${isEssential}</td>
+                          <td class="qty-cell">
+                            <span class="suggested">${item.suggestedMin}-${item.suggestedMax}</span>
+                          </td>
+                          <td class="qty-cell">
+                            ${item._custom ? `<button class="delete-custom-btn" data-action="delete-custom" data-id="${item.id}" data-cat="${cat.id}" aria-label="Eliminar ítem personalizado">✕</button>` : ''}
+                            <div class="stepper">
+                              <button class="stepper-btn" data-action="decrement" data-id="${item.id}" ${item.purchased <= 0 ? 'disabled' : ''} aria-label="Reducir cantidad">−</button>
+                              <span class="stepper-value">${item.purchased}</span>
+                              <button class="stepper-btn" data-action="increment" data-id="${item.id}" aria-label="Aumentar cantidad">+</button>
+                            </div>
+                          </td>
+                          <td><span class="badge ${status}" aria-label="Estado: ${STATUS_LABELS[status]}">${STATUS_LABELS[status]}</span></td>
+                          <td style="font-size:0.78rem;color:var(--text-light)">${notes}</td>
+                        </tr>
+                      `;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
+              <button class="add-item-btn" data-action="add-item" data-cat="${cat.id}" aria-label="Agregar ítem a ${cat.name}">➕ Agregar ítem</button>
+              <div class="add-item-form" id="form-${cat.id}" style="display:none;">
+                <input type="text" id="form-name-${cat.id}" placeholder="Nombre del ítem" required>
+                <div style="display:flex; gap:8px;">
+                  <input type="number" id="form-qty-${cat.id}" placeholder="Cantidad" min="0" max="99" value="0" style="flex:1;">
+                  <select id="form-stage-${cat.id}" style="flex:1;">
+                    <option value="pre-birth">Antes del nacimiento</option>
+                    <option value="first-month">Primer mes</option>
+                    <option value="3-6-months">3 a 6 meses</option>
+                    <option value="avoid">Evitar</option>
+                  </select>
+                </div>
+                <input type="text" id="form-notes-${cat.id}" placeholder="Notas (opcional)">
+                <div style="display:flex; gap:8px; margin-top:8px;">
+                  <button class="stepper-btn" data-action="submit-add" data-cat="${cat.id}" style="flex:1; background:#16a34a; color:white; border-color:#16a34a;">✓ Agregar</button>
+                  <button class="stepper-btn" data-action="cancel-add" data-cat="${cat.id}" style="flex:1;">Cancelar</button>
+                </div>
+              </div>
+            </div>
+          </details>
+        `;
+      }).join('');
+    }
+
+    /**
+     * Renders the gap analysis view (stub — will be fully implemented in Task 3.4).
+     */
+    function renderGapAnalysis(data, stats) {
+      const container = document.getElementById('gapList');
+      if (!container) return;
+
+      const gaps = stats.gaps;
+      if (gaps.length === 0) {
+        container.innerHTML = '<p style="color:var(--color-completo);font-weight:600;">🎉 ¡No hay ítems pendientes! Todo está cubierto.</p>';
+        return;
+      }
+
+      const hasPreBirthGaps = gaps.some(gap => gap.stage === 'pre-birth');
+      const ctaHtml = hasPreBirthGaps
+        ? '<div class="gap-cta" aria-label="Alerta: items críticos que deben comprarse antes del nacimiento">⚠️ ¡Comprar antes del nacimiento!</div>'
+        : '';
+
+      container.innerHTML = `${ctaHtml}<ul class="gap-list">${gaps.map(gap => {
+        const isCritical = gap.stage === 'pre-birth';
+        const criticalClass = isCritical ? ' critical' : '';
+        return `
+          <li class="gap-item${criticalClass}" aria-label="${gap.item}: faltan ${gap.missing}, etapa ${gap.stage}${isCritical ? ', crítico — comprar antes del nacimiento' : ''}">
+            <span class="gap-name">${gap.item}</span>
+            ${gap.essential ? '<span class="badge essential">esencial</span>' : ''}
+            <span class="gap-cat">${gap.category}</span>
+            <span class="gap-qty">Necesitas: ${gap.missing}</span>
+            <span class="gap-stage stage-${gap.stage}">${gap.stage}</span>
+          </li>
+        `;
+      }).join('')}</ul>`;
+    }
+
+    /**
+     * Renders the extras section (stub — will be fully implemented in Task 3.5).
+     */
+    function renderExtras(data) {
+      const container = document.getElementById('extrasList');
+      const section = document.getElementById('extras');
+      if (!container || !section) return;
+
+      const extras = data.extras || [];
+
+      if (extras.length === 0) {
+        section.classList.add('extras-hidden');
+        return;
+      }
+
+      section.classList.remove('extras-hidden');
+      container.innerHTML = extras.map(extra => `
+        <div class="extra-item">
+          <span class="extra-name">${extra.name}</span>
+          <span class="extra-qty">x${extra.quantity}</span>
+          <span class="extra-reason">${extra.reason}</span>
+          ${extra.notes ? `<span style="font-size:0.75rem;color:var(--text-light)">${extra.notes}</span>` : ''}
+        </div>
+      `).join('');
+    }
+
+    /**
+     * Sets up the download button to export current state as JSON backup.
+     */
+    function setupDownloadButton() {
+      const btn = document.getElementById('downloadBtn');
+      if (!btn) return;
+
+      btn.addEventListener('click', () => {
+        if (!currentData) return;
+        const json = JSON.stringify(currentData, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'lista-leandro-jose-backup.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    /**
+     * Wires up the category filter buttons.
+     */
+    function setupFilters() {
+      const buttons = document.querySelectorAll('#categoryFilters button');
+      // Initialize aria-pressed on the active button
+      buttons.forEach(btn => {
+        btn.setAttribute('aria-pressed', btn.classList.contains('active') ? 'true' : 'false');
+      });
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Update active state
+          buttons.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-pressed', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
+
+          currentFilter = btn.dataset.stage || 'all';
+
+          if (currentData && currentStats) {
+            renderCategoryAccordion(currentData, currentStats, currentFilter);
+          }
+        });
+      });
+    }
+
+    /* ═══════════════════════════════════════════
+       ──  TASK 2.2/3.1: Add Form Helpers + Event Delegation  ──
+       ═══════════════════════════════════════════ */
+
+    /**
+     * Muestra el formulario para agregar ítem en una categoría.
+     * @param {string} catId
+     */
+    function showAddForm(catId) {
+      const form = document.getElementById('form-' + catId);
+      if (form) form.style.display = 'block';
+      const btn = document.querySelector(`[data-action="add-item"][data-cat="${catId}"]`);
+      if (btn) btn.style.display = 'none';
+    }
+
+    /**
+     * Oculta el formulario para agregar ítem en una categoría.
+     * @param {string} catId
+     */
+    function hideAddForm(catId) {
+      const form = document.getElementById('form-' + catId);
+      if (form) form.style.display = 'none';
+      const btn = document.querySelector(`[data-action="add-item"][data-cat="${catId}"]`);
+      if (btn) btn.style.display = '';
+    }
+
+    /**
+     * Procesa el envío del formulario de agregar ítem.
+     * @param {string} catId
+     */
+    function submitAddItem(catId) {
+      const nameEl = document.getElementById('form-name-' + catId);
+      const qtyEl = document.getElementById('form-qty-' + catId);
+      const stageEl = document.getElementById('form-stage-' + catId);
+      const notesEl = document.getElementById('form-notes-' + catId);
+
+      const name = nameEl?.value?.trim();
+      if (!name) {
+        alert('El nombre del ítem es obligatorio.');
+        return;
+      }
+
+      const itemData = {
+        name: name,
+        suggestedMin: parseInt(qtyEl?.value) || 1,
+        suggestedMax: parseInt(qtyEl?.value) || 1,
+        purchased: parseInt(qtyEl?.value) || 0,
+        stage: stageEl?.value || 'pre-birth',
+        notes: notesEl?.value?.trim() || '',
+        essential: false
+      };
+
+      addCustomItem(catId, itemData);
+      hideAddForm(catId);
+
+      // Clear form
+      if (nameEl) nameEl.value = '';
+      if (qtyEl) qtyEl.value = '0';
+      if (notesEl) notesEl.value = '';
+    }
+
+    /**
+     * Configura event delegation en #categoryList para todos los controles interactivos.
+     */
+    function setupEventDelegation() {
+      const container = document.getElementById('categoryList');
+      if (!container) return;
+
+      container.addEventListener('click', function(e) {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+
+        const action = btn.dataset.action;
+        const itemId = btn.dataset.id;
+        const catId = btn.dataset.cat;
+
+        if (action === 'increment') changePurchased(itemId, +1);
+        else if (action === 'decrement') changePurchased(itemId, -1);
+        else if (action === 'delete-custom') deleteCustomItem(catId, itemId);
+        else if (action === 'add-item') showAddForm(catId);
+        else if (action === 'submit-add') submitAddItem(catId);
+        else if (action === 'cancel-add') hideAddForm(catId);
+      });
+    }
+
+    /**
+     * Displays a validation error banner.
+     */
+    function showError(errors) {
+      const banner = document.getElementById('errorBanner');
+      const list = document.getElementById('errorList');
+      if (!banner || !list) return;
+
+      banner.classList.add('visible');
+      list.innerHTML = errors.map(e => `<li>${e}</li>`).join('');
+    }
+
+    /**
+     * Entry point: loads data from data.js, validates, computes stats, renders views.
+     */
+    function init() {
+      try {
+        const rawData = window.__BABY_DATA__;
+        if (!rawData) {
+          throw new Error('No se encontraron datos. Asegurate de que data.js esté en la misma carpeta.');
+        }
+
+        // Deep clone base data — nunca mutar el original
+        baseData = JSON.parse(JSON.stringify(rawData));
+
+        // Cargar estado persistido desde localStorage
+        const saved = loadState();
+    if (saved) {
+      currentOverrides = saved.overrides || {};
+      currentCustomItems = saved.customItems || {};
+
+      // Check for data.js version changes
+      if (saved.dataVersion && baseData?.meta?.version) {
+        if (saved.dataVersion !== baseData.meta.version) {
+          console.warn(
+            `data.js fue actualizado (v${saved.dataVersion} → v${baseData.meta.version}). ` +
+            `Los cambios guardados podrían estar desactualizados.`
+          );
+        }
+      }
+    }
+
+        // Fusionar base + overrides + ítems personalizados
+        currentData = mergeData(baseData, currentOverrides, currentCustomItems);
+
+        // Step 1: Validate schema
+        const validation = validateSchema(currentData);
+        if (!validation.valid) {
+          showError(validation.errors);
+          return;
+        }
+
+        // Step 2: Compute stats
+        currentStats = computeStats(currentData);
+
+        // Step 3: Set last updated
+        const lastUpdatedEl = document.getElementById('lastUpdated');
+        if (lastUpdatedEl && currentData.meta && currentData.meta.lastUpdated) {
+          lastUpdatedEl.textContent = `Última actualización: ${currentData.meta.lastUpdated}`;
+        } else if (lastUpdatedEl && currentData.meta && currentData.meta.generated) {
+          lastUpdatedEl.textContent = `Generado: ${currentData.meta.generated}`;
+        }
+
+        // Step 4: Render all views
+        renderSummaryCards(currentData, currentStats);
+        renderCategoryAccordion(currentData, currentStats, currentFilter);
+        renderGapAnalysis(currentData, currentStats);
+        renderExtras(currentData);
+
+        // Step 5: Wire interactivity
+        setupDownloadButton();
+        setupFilters();
+        setupEventDelegation();
+
+        // Reset button
+        const resetBtn = document.getElementById('resetBtn');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', resetAll);
+        }
+      } catch (err) {
+        showError([`Error al cargar datos: ${err.message}`]);
+        console.error('Init error:', err);
+      }
+    }
+
+    // ═══ Launch ═══
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>
