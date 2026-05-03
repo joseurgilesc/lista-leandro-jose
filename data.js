@@ -17,7 +17,7 @@ window.__BABY_DATA__ = {
     {
       "id": "seguridad-transporte",
       "name": "Seguridad y transporte",
-      "icon": "🚗",
+      "icon": "icon-car",
       "items": [
         {
           "id": "silla-auto",
@@ -114,7 +114,7 @@ window.__BABY_DATA__ = {
     {
       "id": "sueno",
       "name": "Sueño",
-      "icon": "😴",
+      "icon": "icon-moon",
       "items": [
         {
           "id": "cuna-colecho",
@@ -254,7 +254,7 @@ window.__BABY_DATA__ = {
     {
       "id": "panales-higiene",
       "name": "Pañales e higiene",
-      "icon": "🧷",
+      "icon": "icon-package",
       "items": [
         {
           "id": "panales-rn",
@@ -373,7 +373,7 @@ window.__BABY_DATA__ = {
     {
       "id": "bano-cuidado",
       "name": "Baño y cuidado personal",
-      "icon": "🛁",
+      "icon": "icon-droplet",
       "items": [
         {
           "id": "banera-bebe",
@@ -531,7 +531,7 @@ window.__BABY_DATA__ = {
     {
       "id": "ropa-rn",
       "name": "Ropa talla RN",
-      "icon": "👕",
+      "icon": "icon-shirt",
       "items": [
         {
           "id": "bodies-rn",
@@ -614,7 +614,7 @@ window.__BABY_DATA__ = {
     {
       "id": "ropa-0-3m",
       "name": "Ropa talla 0-3 meses",
-      "icon": "👕",
+      "icon": "icon-shirt",
       "items": [
         {
           "id": "bodies-0-3m",
@@ -692,7 +692,7 @@ window.__BABY_DATA__ = {
     {
       "id": "ropa-3-6m",
       "name": "Ropa talla 3-6 meses",
-      "icon": "👕",
+      "icon": "icon-shirt",
       "items": [
         {
           "id": "bodies-3-6m",
@@ -779,7 +779,7 @@ window.__BABY_DATA__ = {
     {
       "id": "lactancia-alimentacion",
       "name": "Lactancia y alimentación",
-      "icon": "🍼",
+      "icon": "icon-heart",
       "items": [
         {
           "id": "brasieres-lactancia",
@@ -995,7 +995,7 @@ window.__BABY_DATA__ = {
     {
       "id": "panitos-mantas",
       "name": "Pañitos, mantas y accesorios",
-      "icon": "🧣",
+      "icon": "icon-scarf",
       "items": [
         {
           "id": "muselinas-grandes",
@@ -1063,7 +1063,7 @@ window.__BABY_DATA__ = {
     {
       "id": "paseos-salidas",
       "name": "Paseos y salidas",
-      "icon": "👜",
+      "icon": "icon-shopping-bag",
       "items": [
         {
           "id": "bolso-panalero",
@@ -1150,7 +1150,7 @@ window.__BABY_DATA__ = {
     {
       "id": "cargar-calmar",
       "name": "Cargar y calmar al bebé",
-      "icon": "🤱",
+      "icon": "icon-users",
       "items": [
         {
           "id": "porta-bebe",
@@ -1197,7 +1197,7 @@ window.__BABY_DATA__ = {
     {
       "id": "estimulacion-0-3m",
       "name": "Estimulación y juego 0-3 meses",
-      "icon": "🧸",
+      "icon": "icon-star",
       "items": [
         {
           "id": "alfombra-estimulacion",
@@ -1254,7 +1254,7 @@ window.__BABY_DATA__ = {
     {
       "id": "estimulacion-3-6m",
       "name": "Estimulación y juego 3-6 meses",
-      "icon": "🎯",
+      "icon": "icon-target",
       "items": [
         {
           "id": "gimnasio-actividades",

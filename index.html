@@ -3,31 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🐣 Lista para Bebé — Leandro José (0 a 6 meses)</title>
+  <title>Lista para Bebé — Leandro José (0 a 6 meses)</title>
   <style>
     /* ═══════════════════════════════════════════
        CSS Custom Properties — Design Tokens
        ═══════════════════════════════════════════ */
     :root {
-      --color-pre-birth: #dc2626;
-      --color-first-month: #ea580c;
-      --color-3-6-months: #ca8a04;
-      --color-avoid: #6b7280;
-      --color-pendiente: #9ca3af;
-      --color-insuficiente: #f59e0b;
-      --color-completo: #16a34a;
-      --color-excedido: #2563eb;
-      --color-evitar: #d1d5db;
-      --bg: #fafafa;
+      /* Stage colors — warm, not alarming */
+      --color-pre-birth: #d4a373;
+      --color-first-month: #ccd5ae;
+      --color-3-6-months: #e9edc9;
+      --color-avoid: #d4a37333;
+
+      /* Status colors — soft and natural */
+      --color-pendiente: #ccd5ae;
+      --color-insuficiente: #faedcd;
+      --color-completo: #ccd5ae;
+      --color-excedido: #d4a37399;  /* 60% opacity */
+      --color-evitar: #e9edc9;
+
+      /* Background and surface */
+      --bg: #fefae0;
       --card-bg: #ffffff;
-      --text: #2c3e50;
-      --text-light: #7f8c8d;
-      --border: #ecf0f1;
-      --radius: 12px;
-      --shadow: 0 2px 8px rgba(0,0,0,0.08);
-      --touch-target: 44px;
-      --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-                     Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+      --card-bg-alt: #e9edc9;
+
+      /* Text */
+      --text: #5c4033;  /* dark brown instead of harsh black */
+      --text-light: #8b7355;  /* warm brown-gray */
+      --text-on-dark: #fefae0;
+
+      /* Borders and dividers */
+      --border: #ccd5ae;
+      --border-light: #e9edc9;
+
+      /* Interactive */
+      --accent: #d4a373;
+      --accent-hover: #c1905f;
+      --success: #ccd5ae;
+      --success-text: #5c4033;
+      --warning-bg: #faedcd;
+      --warning-border: #d4a373;
+
+      /* Shapes */
+      --radius: 14px;
+      --radius-sm: 8px;
+      --radius-pill: 100px;
+      --shadow: 0 2px 12px rgba(212, 163, 115, 0.12);
+      --shadow-hover: 0 4px 20px rgba(212, 163, 115, 0.2);
+
+      /* Sizing */
+      --touch-target: 48px;
+      --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
     /* ═══════════════════════════════════════════
@@ -35,31 +61,69 @@
        ═══════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { font-size: 16px; }
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
 
     body {
       font-family: var(--font-stack);
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
       min-width: 320px;
       -webkit-text-size-adjust: 100%;
+    }
+
+    /* ═══════════════════════════════════════════
+       SVG Icons
+       ═══════════════════════════════════════════ */
+    .icon {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      vertical-align: -4px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+    .icon-lg { width: 28px; height: 28px; vertical-align: -6px; }
+    .icon-sm { width: 16px; height: 16px; vertical-align: -3px; }
+
+    .category-icon { margin-right: 8px; }
+    .header-icon { color: var(--accent); }
+
+    @media (min-width: 768px) {
+      .icon { width: 24px; height: 24px; vertical-align: -5px; }
+      .icon-lg { width: 32px; height: 32px; }
+    }
+
+    /* Filter stage dot */
+    .filter-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+      flex-shrink: 0;
     }
 
     /* ═══════════════════════════════════════════
        Header
        ═══════════════════════════════════════════ */
     header {
-      background: var(--card-bg);
-      padding: 1.25rem 1rem;
-      text-align: center;
-      box-shadow: var(--shadow);
       position: sticky;
       top: 0;
       z-index: 100;
+      background: var(--bg);
+      backdrop-filter: blur(8px);
+      padding: 16px 16px 8px;
+      border-bottom: 1px solid var(--border-light);
+      text-align: center;
     }
 
-    header h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+    header h1 { font-size: 1.125rem; margin-bottom: 0.25rem; }
 
     .subtitle {
       font-size: 0.875rem;
@@ -98,16 +162,17 @@
       font-size: 1.125rem;
       margin-bottom: 0.75rem;
       padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--border);
+      border-bottom: 2px solid var(--border-light);
+      color: var(--accent);
     }
 
     /* ═══════════════════════════════════════════
        Error Banner
        ═══════════════════════════════════════════ */
     .error-banner {
-      background: #fef2f2;
-      color: #991b1b;
-      border: 2px solid var(--color-pre-birth);
+      background: var(--warning-bg);
+      color: var(--text);
+      border: 1px solid var(--warning-border);
       border-radius: var(--radius);
       padding: 1rem;
       margin: 1rem;
@@ -128,6 +193,9 @@
       text-align: center;
       padding: 1.25rem;
       margin-bottom: 1rem;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
 
     .card.overall-progress .progress-label {
@@ -139,7 +207,7 @@
     .card.overall-progress .progress-percent {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--color-completo);
+      color: var(--accent);
     }
 
     .card.overall-progress .progress-detail {
@@ -159,13 +227,13 @@
       border-radius: var(--radius);
       border-left: 5px solid;
       background: var(--card-bg);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      box-shadow: var(--shadow);
     }
 
-    .stage-card.pre-birth   { border-left-color: var(--color-pre-birth); }
-    .stage-card.first-month { border-left-color: var(--color-first-month); }
-    .stage-card.\33 -6-months { border-left-color: var(--color-3-6-months); }
-    .stage-card.avoid       { border-left-color: var(--color-avoid); }
+    .stage-card.pre-birth   { border-left-color: var(--color-pre-birth); background: rgba(212, 163, 115, 0.12); }
+    .stage-card.first-month { border-left-color: var(--color-first-month); background: rgba(204, 213, 174, 0.3); }
+    .stage-card.\33 -6-months { border-left-color: var(--color-3-6-months); background: rgba(233, 237, 201, 0.4); }
+    .stage-card.avoid       { border-left-color: var(--color-avoid); background: rgba(212, 163, 115, 0.06); }
 
     .stage-card .stage-label {
       font-size: 0.85rem;
@@ -183,7 +251,7 @@
        ═══════════════════════════════════════════ */
     .progress-bar {
       height: 10px;
-      background: var(--border);
+      background: var(--border-light);
       border-radius: 5px;
       overflow: hidden;
       margin: 0.5rem 0;
@@ -191,48 +259,55 @@
 
     .progress-bar .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--color-completo), #2ecc71);
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
       border-radius: 5px;
       transition: width 0.3s ease;
     }
 
-    .progress-bar .progress-fill.low  { background: linear-gradient(90deg, var(--color-pre-birth), var(--color-first-month)); }
-    .progress-bar .progress-fill.mid  { background: linear-gradient(90deg, var(--color-first-month), var(--color-3-6-months)); }
-    .progress-bar .progress-fill.high { background: linear-gradient(90deg, var(--color-completo), #22c55e); }
+    .progress-bar .progress-fill.low  { background: linear-gradient(90deg, var(--color-pre-birth), var(--accent)); }
+    .progress-bar .progress-fill.mid  { background: linear-gradient(90deg, var(--accent), var(--color-first-month)); }
+    .progress-bar .progress-fill.high { background: linear-gradient(90deg, var(--success), var(--accent)); }
 
     /* ═══════════════════════════════════════════
        Filter Buttons
        ═══════════════════════════════════════════ */
     .filters {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 0.5rem;
       margin-bottom: 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding: 2px 0;
     }
 
+    .filters::-webkit-scrollbar { display: none; }
+
     .filters button {
-      padding: 0.5rem 0.75rem;
-      border: 2px solid var(--border);
-      border-radius: var(--radius);
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
       background: var(--card-bg);
       color: var(--text);
       font-size: 0.8rem;
       cursor: pointer;
       min-height: var(--touch-target);
-      min-width: var(--touch-target);
       transition: all 0.15s ease;
       white-space: nowrap;
+      user-select: none;
+      touch-action: manipulation;
     }
 
     .filters button:hover {
-      border-color: var(--color-completo);
-      background: #eafaf1;
+      border-color: var(--accent);
+      background: var(--card-bg-alt);
     }
 
     .filters button.active {
-      background: var(--color-completo);
-      color: #fff;
-      border-color: var(--color-completo);
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
       font-weight: 600;
     }
 
@@ -240,14 +315,15 @@
        Accordion (details/summary)
        ═══════════════════════════════════════════ */
     .category-details {
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-light);
       border-radius: var(--radius);
       margin-bottom: 0.5rem;
       overflow: hidden;
+      background: var(--card-bg);
     }
 
     .category-details summary {
-      padding: 0.75rem 1rem;
+      padding: 14px 16px;
       cursor: pointer;
       font-weight: 600;
       font-size: 1rem;
@@ -257,10 +333,16 @@
       justify-content: space-between;
       background: var(--card-bg);
       user-select: none;
+      touch-action: manipulation;
     }
 
     .category-details summary:hover {
-      background: #f8f9fa;
+      background: var(--card-bg-alt);
+    }
+
+    .category-details[open] summary {
+      border-bottom: 1px solid var(--border-light);
+      background: var(--card-bg-alt);
     }
 
     .category-details summary::-webkit-details-marker { display: none; }
@@ -280,6 +362,7 @@
 
     .category-details .category-content {
       padding: 0 1rem 1rem 1rem;
+      background: var(--card-bg-alt);
     }
 
     /* ═══════════════════════════════════════════
@@ -300,7 +383,7 @@
     .item-table th {
       text-align: left;
       padding: 0.5rem 0.4rem;
-      border-bottom: 2px solid var(--border);
+      border-bottom: 2px solid var(--border-light);
       font-size: 0.75rem;
       text-transform: uppercase;
       color: var(--text-light);
@@ -309,11 +392,51 @@
 
     .item-table td {
       padding: 0.5rem 0.4rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border-light);
       vertical-align: middle;
     }
 
+    .item-table tr:nth-child(even) td {
+      background: rgba(233, 237, 201, 0.25);
+    }
+
     .item-table tr:last-child td { border-bottom: none; }
+
+    /* Mobile card layout for tables */
+    @media (max-width: 480px) {
+      .item-table, .item-table thead, .item-table tbody, 
+      .item-table th, .item-table td, .item-table tr {
+        display: block;
+      }
+      .item-table thead { display: none; }
+      .item-table { min-width: unset; }
+      .item-table tr {
+        margin-bottom: 12px;
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-sm);
+        padding: 12px;
+        background: var(--card-bg);
+      }
+      .item-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border: none;
+      }
+      .item-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-light);
+        font-size: 11px;
+        text-transform: uppercase;
+        flex-shrink: 0;
+        margin-right: 12px;
+      }
+      .item-table tr:nth-child(even) td {
+        background: transparent;
+      }
+    }
 
     /* ═══════════════════════════════════════════
        Status Badges
@@ -321,25 +444,25 @@
     .badge {
       display: inline-block;
       padding: 0.2rem 0.6rem;
-      border-radius: 100px;
+      border-radius: var(--radius-pill);
       font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.03em;
       white-space: nowrap;
-      color: #fff;
+      color: var(--text);
     }
 
-    .badge.pendiente    { background: var(--color-pendiente); }
-    .badge.insuficiente { background: var(--color-insuficiente); }
-    .badge.completo     { background: var(--color-completo); }
-    .badge.excedido     { background: var(--color-excedido); }
+    .badge.pendiente    { background: var(--color-pendiente); color: var(--text); }
+    .badge.insuficiente { background: var(--color-insuficiente); color: var(--text); }
+    .badge.completo     { background: var(--color-completo); color: var(--success-text); }
+    .badge.excedido     { background: var(--color-excedido); color: var(--text); }
     .badge.evitar       { background: var(--color-evitar); color: var(--text); text-decoration: line-through; }
 
     .badge.essential {
       background: transparent;
-      color: var(--color-pre-birth);
-      border: 1px solid var(--color-pre-birth);
+      color: var(--accent);
+      border: 1px solid var(--accent);
       font-size: 0.65rem;
     }
 
@@ -347,9 +470,9 @@
     .combo-indicator {
       display: inline-block;
       font-size: 0.7rem;
-      color: #92400e;
-      background: #fef3c7;
-      border: 1px solid #f59e0b;
+      color: var(--text);
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
       border-radius: 4px;
       padding: 0.1rem 0.4rem;
       margin-left: 0.4rem;
@@ -369,8 +492,11 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.75rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border-light);
       font-size: 0.9rem;
+      background: var(--card-bg);
+      border-radius: var(--radius-sm);
+      margin-bottom: 4px;
     }
 
     .gap-item:last-child { border-bottom: none; }
@@ -378,21 +504,21 @@
     .gap-item .gap-name    { flex: 1 1 180px; font-weight: 600; }
     .gap-item .gap-cat     { font-size: 0.75rem; color: var(--text-light); }
     .gap-item .gap-qty     { font-size: 0.8rem; font-weight: 600; }
-    .gap-item .gap-stage   { font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 100px; color: #fff; }
+    .gap-item .gap-stage   { font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 100px; color: var(--text-on-dark); }
 
     .gap-item.critical {
-      background: #fdedec;
+      background: var(--warning-bg);
       border-left: 4px solid var(--color-pre-birth);
     }
 
     .gap-cta {
-      background: #fef2f2;
-      border: 2px solid var(--color-pre-birth);
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
       border-radius: var(--radius);
       padding: 0.75rem 1rem;
       margin-bottom: 1rem;
       font-weight: 700;
-      color: var(--color-pre-birth);
+      color: var(--text);
       font-size: 0.9rem;
       display: flex;
       align-items: center;
@@ -401,8 +527,8 @@
 
     .gap-item.critical .gap-stage { background: var(--color-pre-birth); }
     .gap-item .gap-stage.stage-pre-birth   { background: var(--color-pre-birth); }
-    .gap-item .gap-stage.stage-first-month { background: var(--color-first-month); }
-    .gap-item .gap-stage.stage-3-6-months  { background: var(--color-3-6-months); }
+    .gap-item .gap-stage.stage-first-month { background: var(--color-first-month); color: var(--text); }
+    .gap-item .gap-stage.stage-3-6-months  { background: var(--color-3-6-months); color: var(--text); }
 
     /* ═══════════════════════════════════════════
        Extras Section
@@ -429,28 +555,36 @@
        Footer & Legend
        ═══════════════════════════════════════════ */
     footer {
-      padding: 1rem;
-      text-align: center;
+      position: sticky;
+      bottom: 0;
+      background: var(--bg);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--border-light);
+      padding: 12px 16px;
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
       align-items: center;
-      gap: 0.75rem;
+      z-index: 100;
     }
 
     #downloadBtn {
       padding: 0.75rem 1.5rem;
       border: none;
-      border-radius: var(--radius);
-      background: var(--color-completo);
-      color: #fff;
+      border-radius: var(--radius-pill);
+      background: var(--accent);
+      color: var(--text-on-dark);
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       min-height: var(--touch-target);
       transition: background 0.15s ease;
+      touch-action: manipulation;
+      user-select: none;
     }
 
-    #downloadBtn:hover { background: #15803d; }
+    #downloadBtn:hover { background: var(--accent-hover); }
 
     .legend {
       display: flex;
@@ -458,6 +592,7 @@
       justify-content: center;
       gap: 0.5rem;
       font-size: 0.75rem;
+      width: 100%;
     }
 
     /* ═══════════════════════════════════════════
@@ -472,10 +607,10 @@
       }
 
       header {
-        padding: 1.5rem 2rem;
+        padding: 18px 2rem 10px;
       }
 
-      header h1 { font-size: 1.75rem; }
+      header h1 { font-size: 1.5rem; }
 
       section { padding: 1.5rem; }
 
@@ -487,13 +622,10 @@
 
       .filters button {
         font-size: 0.85rem;
-        padding: 0.6rem 1rem;
+        padding: 10px 20px;
       }
     }
 
-    /* ═══════════════════════════════════════════
-       Desktop (≥ 1024px)
-       ═══════════════════════════════════════════ */
     @media (min-width: 1024px) {
       html { font-size: 18px; }
 
@@ -501,6 +633,8 @@
         padding: 2rem 3rem;
         gap: 2.5rem;
       }
+
+      header h1 { font-size: 1.75rem; }
 
       .stage-cards {
         grid-template-columns: repeat(4, 1fr);
@@ -517,13 +651,13 @@
        Print Styles
        ═══════════════════════════════════════════ */
      @media print {
-      .filters, #downloadBtn, #resetBtn, .stepper, .add-item-btn, .add-item-form, .delete-custom-btn, footer { display: none; }
+      .filters, #downloadBtn, #resetBtn, .stepper, .add-item-btn, .add-item-form, .delete-custom-btn, footer, header {
+        display: none;
+      }
 
       .category-details { break-inside: avoid; }
 
-      .category-details[open] { /* always open in print via JS? handled by render */ }
-
-      body { background: #fff; }
+      body { background: #fff; color: #000; }
 
       section {
         box-shadow: none;
@@ -531,7 +665,14 @@
         break-inside: avoid;
       }
 
-      header { box-shadow: none; }
+      .stage-cards { grid-template-columns: repeat(2, 1fr); }
+
+      .item-table, .item-table thead, .item-table tbody, 
+      .item-table th, .item-table td, .item-table tr {
+        display: revert;
+      }
+      .item-table td::before { content: none; }
+      .item-table thead { display: table-header-group; }
     }
 
     /* ═══════════════════════════════════════════
@@ -541,9 +682,9 @@
     /* Stepper */
     .stepper { display: inline-flex; align-items: center; gap: 4px; }
     .stepper-btn {
-      width: 44px; height: 44px;
+      width: var(--touch-target); height: var(--touch-target);
       border: 2px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       background: var(--card-bg);
       font-size: 20px;
       cursor: pointer;
@@ -552,60 +693,66 @@
       justify-content: center;
       color: var(--text);
       transition: all 0.15s ease;
+      touch-action: manipulation;
+      user-select: none;
     }
-    .stepper-btn:hover:not(:disabled) { background: #f0fdf4; border-color: #86efac; color: #16a34a; }
-    .stepper-btn:active:not(:disabled) { transform: scale(0.95); }
+    .stepper-btn:hover:not(:disabled) { background: var(--card-bg-alt); border-color: var(--accent); color: var(--accent); }
+    .stepper-btn:active:not(:disabled) { transform: scale(0.92); }
     .stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; }
     .stepper-value {
       min-width: 28px;
       text-align: center;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 18px;
     }
+    .stepper-value.has-value { color: var(--accent); }
     .suggested { color: var(--text-light); font-size: 13px; }
-    .avoid-text { color: var(--color-evitar); font-style: italic; font-size: 13px; }
+    .avoid-text { color: var(--text-light); font-style: italic; font-size: 13px; }
     .combo-qty { color: var(--text-light); font-size: 14px; cursor: help; }
 
     /* Custom item badge */
     .custom-badge {
-      background: #c084fc;
-      color: white;
+      background: var(--accent);
+      color: var(--text-on-dark);
       font-size: 10px;
       padding: 1px 6px;
       border-radius: 4px;
       margin-left: 6px;
       white-space: nowrap;
     }
+    .custom-badge .icon { color: var(--text-on-dark); }
     .delete-custom-btn {
       background: none;
       border: none;
-      color: #ef4444;
+      color: var(--accent);
       cursor: pointer;
       font-size: 18px;
       padding: 4px 8px;
       line-height: 1;
       margin-right: 4px;
+      transition: transform 0.15s ease;
     }
-    .delete-custom-btn:hover { color: #dc2626; transform: scale(1.2); }
+    .delete-custom-btn:hover { color: var(--accent-hover); transform: scale(1.2); }
 
     /* Add item form */
     .add-item-btn {
       width: 100%;
       padding: 10px;
       margin-top: 8px;
-      background: #f0fdf4;
-      border: 1px dashed #86efac;
-      border-radius: 8px;
-      color: #16a34a;
+      background: var(--card-bg);
+      border: 1px dashed var(--accent);
+      border-radius: var(--radius-sm);
+      color: var(--accent);
       font-size: 14px;
       cursor: pointer;
       transition: all 0.15s ease;
+      touch-action: manipulation;
     }
-    .add-item-btn:hover { background: #dcfce7; border-color: #4ade80; }
+    .add-item-btn:hover { background: var(--card-bg-alt); border-color: var(--accent-hover); color: var(--accent-hover); }
     .add-item-form {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 8px;
+      background: var(--card-bg-alt);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
       padding: 12px;
       margin-top: 8px;
     }
@@ -614,24 +761,28 @@
       padding: 8px;
       margin: 4px 0;
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       font-size: 14px;
       box-sizing: border-box;
+      background: var(--card-bg);
+      color: var(--text);
     }
 
     /* Reset button */
     .reset-btn {
-      background: #fef2f2;
-      color: #dc2626;
-      border: 1px solid #fecaca;
+      background: var(--warning-bg);
+      color: var(--text);
+      border: 1px solid var(--warning-border);
       padding: 10px 20px;
-      border-radius: 8px;
+      border-radius: var(--radius-pill);
       font-size: 14px;
       cursor: pointer;
       margin-right: 8px;
       transition: all 0.15s ease;
+      touch-action: manipulation;
+      user-select: none;
     }
-    .reset-btn:hover { background: #fee2e2; border-color: #fca5a5; }
+    .reset-btn:hover { background: var(--border-light); border-color: var(--accent); }
 
     /* Quantity cell alignment */
     .qty-cell { vertical-align: middle; }
@@ -639,21 +790,86 @@
 
     /* Mobile adjustments */
     @media (max-width: 480px) {
-      .stepper-btn { width: 38px; height: 38px; font-size: 18px; }
-      .stepper-value { min-width: 24px; font-size: 15px; }
+      .stepper-btn { width: 44px; height: 44px; font-size: 18px; }
+      .stepper-value { min-width: 24px; font-size: 16px; }
       .custom-badge { font-size: 9px; }
     }
   </style>
 </head>
 <body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+    <!-- Categorías -->
+    <symbol id="icon-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.2c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C1.4 11.4 1 12.1 1 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </symbol>
+    <symbol id="icon-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/>
+    </symbol>
+    <symbol id="icon-droplet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+    </symbol>
+    <symbol id="icon-shirt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>
+    </symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </symbol>
+    <symbol id="icon-scarf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2"/><path d="M20 15v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4"/><path d="M4 11h16"/><line x1="8" y1="4" x2="8" y2="20"/><line x1="16" y1="4" x2="16" y2="20"/>
+    </symbol>
+    <symbol id="icon-shopping-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+    </symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/>
+    </symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+    </symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+    </symbol>
+
+    <!-- Acciones -->
+    <symbol id="icon-baby" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><circle cx="12" cy="12" r="10"/><path d="M8 8c0-2 2-3 4-3s4 1 4 3"/>
+    </symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+    </symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+    </symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+    </symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </symbol>
+    <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+    </symbol>
+    <symbol id="icon-slash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+    </symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+    </symbol>
+    <symbol id="icon-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+    </symbol>
+  </svg>
   <header>
-    <h1>🐣 Lista para Leandro José</h1>
+    <h1><svg class="icon icon-lg header-icon"><use href="#icon-baby"/></svg> Lista para Leandro José</h1>
     <p class="subtitle">Seguimiento de compras — 0 a 6 meses</p>
     <p class="last-updated" id="lastUpdated"></p>
   </header>
 
   <div class="error-banner" id="errorBanner">
-    <strong>⚠️ Error al cargar los datos</strong>
+    <strong><svg class="icon icon-sm"><use href="#icon-alert"/></svg> Error al cargar los datos</strong>
     <ul id="errorList"></ul>
   </div>
 
@@ -670,30 +886,30 @@
       <h2>Categorías</h2>
       <div class="filters" id="categoryFilters" role="navigation" aria-label="Filtros por etapa">
         <button data-stage="all" class="active" aria-pressed="true">Todos</button>
-        <button data-stage="pre-birth">🔴 Antes del nacimiento</button>
-        <button data-stage="first-month">🟠 Primer mes</button>
-        <button data-stage="3-6-months">🟡 3 a 6 meses</button>
-        <button data-stage="avoid">⚪ Evitar</button>
+        <button data-stage="pre-birth"><span class="filter-dot" style="background:#dc2626"></span> Antes del nacimiento</button>
+        <button data-stage="first-month"><span class="filter-dot" style="background:#ea580c"></span> Primer mes</button>
+        <button data-stage="3-6-months"><span class="filter-dot" style="background:#ca8a04"></span> 3 a 6 meses</button>
+        <button data-stage="avoid"><span class="filter-dot" style="background:#6b7280"></span> Evitar</button>
       </div>
       <div id="categoryList"></div>
     </section>
 
     <!-- View 3: Gap Analysis -->
     <section id="gaps">
-      <h2>⚠️ Qué falta comprar</h2>
+      <h2><svg class="icon"><use href="#icon-alert"/></svg> Qué falta comprar</h2>
       <div id="gapList"></div>
     </section>
 
     <!-- View 4: Extras -->
     <section id="extras">
-      <h2>📦 Extras (fuera de la lista)</h2>
+      <h2><svg class="icon"><use href="#icon-package"/></svg> Extras (fuera de la lista)</h2>
       <div id="extrasList"></div>
     </section>
   </main>
 
   <footer>
-    <button id="resetBtn" class="reset-btn" aria-label="Restablecer lista a valores originales">🔄 Restablecer lista</button>
-    <button id="downloadBtn" aria-label="Descargar respaldo de la lista">⬇️ Descargar respaldo</button>
+    <button id="resetBtn" class="reset-btn" aria-label="Restablecer lista a valores originales"><svg class="icon"><use href="#icon-refresh"/></svg> Restablecer lista</button>
+    <button id="downloadBtn" aria-label="Descargar respaldo de la lista"><svg class="icon"><use href="#icon-download"/></svg> Descargar respaldo</button>
     <p class="legend">
       <span class="badge pendiente" aria-label="Estado: pendiente">pendiente</span>
       <span class="badge insuficiente" aria-label="Estado: insuficiente">insuficiente</span>
@@ -1477,7 +1693,7 @@
         return `
           <details class="category-details" open>
             <summary aria-label="${cat.name}: ${catStats.complete} de ${catStats.total} completos, clic para expandir">
-              <span>${cat.icon} ${cat.name}</span>
+              <span><svg class="icon category-icon"><use href="#${cat.icon}"/></svg> ${cat.name}</span>
               <span style="font-size:0.8rem;font-weight:400;color:var(--text-light)">${catStats.complete}/${catStats.total} · ${progressPct}%</span>
             </summary>
             <div class="category-content">
@@ -1509,19 +1725,19 @@
                       const status = deriveStatus(effectiveItem);
                       const notes = item.notes || '';
                       const isEssential = item.essential ? ' <span class="badge essential">esencial</span>' : '';
-                      const comboIndicator = item.comboSource ? `<span class="combo-indicator" title="Cubierto por: ${stats.nameById[item.comboSource] || item.comboSource}">📦 Cubierto por combo</span>` : '';
-                      const customBadge = item._custom ? '<span class="custom-badge">✨ personalizado</span>' : '';
+                      const comboIndicator = item.comboSource ? `<span class="combo-indicator" title="Cubierto por: ${stats.nameById[item.comboSource] || item.comboSource}"><svg class="icon icon-sm"><use href="#icon-link"/></svg> Cubierto por combo</span>` : '';
+                      const customBadge = item._custom ? '<span class="custom-badge"><svg class="icon icon-sm"><use href="#icon-edit"/></svg> personalizado</span>' : '';
 
                       // Mode A: Avoid items
                       if (status === 'evitar') {
                         return `
                           <tr>
-                            <td>${item.name}${comboIndicator}${isEssential}</td>
-                            <td class="qty-cell" colspan="2">
-                              <span class="avoid-text">🚫 No comprar</span>
+                            <td data-label="Ítem">${item.name}${comboIndicator}${isEssential}</td>
+                            <td class="qty-cell" colspan="2" data-label="Cantidad">
+                              <span class="avoid-text"><svg class="icon icon-sm"><use href="#icon-slash"/></svg> No comprar</span>
                             </td>
-                            <td><span class="badge ${status}" aria-label="Estado: ${STATUS_LABELS[status]}">${STATUS_LABELS[status]}</span></td>
-                            <td style="font-size:0.78rem;color:var(--text-light)">${notes}</td>
+                            <td data-label="Estado"><span class="badge ${status}" aria-label="Estado: ${STATUS_LABELS[status]}">${STATUS_LABELS[status]}</span></td>
+                            <td data-label="Notas" style="font-size:0.78rem;color:var(--text-light)">${notes}</td>
                           </tr>
                         `;
                       }
@@ -1530,15 +1746,15 @@
                       if (comboResolved) {
                         return `
                           <tr>
-                            <td>${item.name}${comboIndicator}${isEssential}</td>
-                            <td class="qty-cell">
+                            <td data-label="Ítem">${item.name}${comboIndicator}${isEssential}</td>
+                            <td class="qty-cell" data-label="Sugerido">
                               <span class="suggested">${item.suggestedMin}-${item.suggestedMax}</span>
                             </td>
-                            <td class="qty-cell">
+                            <td class="qty-cell" data-label="Tengo">
                               <span class="combo-qty" title="Cubierto por: ${comboSourceName}">${effectiveItem.purchased}</span>
                             </td>
-                            <td><span class="badge ${status}" aria-label="Estado: ${STATUS_LABELS[status]}">${STATUS_LABELS[status]}</span></td>
-                            <td style="font-size:0.78rem;color:var(--text-light)">${notes}</td>
+                            <td data-label="Estado"><span class="badge ${status}" aria-label="Estado: ${STATUS_LABELS[status]}">${STATUS_LABELS[status]}</span></td>
+                            <td data-label="Notas" style="font-size:0.78rem;color:var(--text-light)">${notes}</td>
                           </tr>
                         `;
                       }
@@ -1546,27 +1762,27 @@
                       // Mode C: Normal (interactive)
                       return `
                         <tr>
-                          <td>${item.name}${customBadge}${comboIndicator}${isEssential}</td>
-                          <td class="qty-cell">
+                          <td data-label="Ítem">${item.name}${customBadge}${comboIndicator}${isEssential}</td>
+                          <td class="qty-cell" data-label="Sugerido">
                             <span class="suggested">${item.suggestedMin}-${item.suggestedMax}</span>
                           </td>
-                          <td class="qty-cell">
-                            ${item._custom ? `<button class="delete-custom-btn" data-action="delete-custom" data-id="${item.id}" data-cat="${cat.id}" aria-label="Eliminar ítem personalizado">✕</button>` : ''}
+                          <td class="qty-cell" data-label="Tengo">
+                            ${item._custom ? `<button class="delete-custom-btn" data-action="delete-custom" data-id="${item.id}" data-cat="${cat.id}" aria-label="Eliminar ítem personalizado"><svg class="icon icon-sm"><use href="#icon-x"/></svg></button>` : ''}
                             <div class="stepper">
                               <button class="stepper-btn" data-action="decrement" data-id="${item.id}" ${item.purchased <= 0 ? 'disabled' : ''} aria-label="Reducir cantidad">−</button>
-                              <span class="stepper-value">${item.purchased}</span>
+                              <span class="stepper-value${item.purchased > 0 ? ' has-value' : ''}">${item.purchased}</span>
                               <button class="stepper-btn" data-action="increment" data-id="${item.id}" aria-label="Aumentar cantidad">+</button>
                             </div>
                           </td>
-                          <td><span class="badge ${status}" aria-label="Estado: ${STATUS_LABELS[status]}">${STATUS_LABELS[status]}</span></td>
-                          <td style="font-size:0.78rem;color:var(--text-light)">${notes}</td>
+                          <td data-label="Estado"><span class="badge ${status}" aria-label="Estado: ${STATUS_LABELS[status]}">${STATUS_LABELS[status]}</span></td>
+                          <td data-label="Notas" style="font-size:0.78rem;color:var(--text-light)">${notes}</td>
                         </tr>
                       `;
                     }).join('')}
                   </tbody>
                 </table>
               </div>
-              <button class="add-item-btn" data-action="add-item" data-cat="${cat.id}" aria-label="Agregar ítem a ${cat.name}">➕ Agregar ítem</button>
+              <button class="add-item-btn" data-action="add-item" data-cat="${cat.id}" aria-label="Agregar ítem a ${cat.name}"><svg class="icon icon-sm"><use href="#icon-plus"/></svg> Agregar ítem</button>
               <div class="add-item-form" id="form-${cat.id}" style="display:none;">
                 <input type="text" id="form-name-${cat.id}" placeholder="Nombre del ítem" required>
                 <div style="display:flex; gap:8px;">
@@ -1580,7 +1796,7 @@
                 </div>
                 <input type="text" id="form-notes-${cat.id}" placeholder="Notas (opcional)">
                 <div style="display:flex; gap:8px; margin-top:8px;">
-                  <button class="stepper-btn" data-action="submit-add" data-cat="${cat.id}" style="flex:1; background:#16a34a; color:white; border-color:#16a34a;">✓ Agregar</button>
+                  <button class="stepper-btn" data-action="submit-add" data-cat="${cat.id}" style="flex:1; background:var(--accent); color:var(--text-on-dark); border-color:var(--accent);">✓ Agregar</button>
                   <button class="stepper-btn" data-action="cancel-add" data-cat="${cat.id}" style="flex:1;">Cancelar</button>
                 </div>
               </div>
@@ -1599,13 +1815,13 @@
 
       const gaps = stats.gaps;
       if (gaps.length === 0) {
-        container.innerHTML = '<p style="color:var(--color-completo);font-weight:600;">🎉 ¡No hay ítems pendientes! Todo está cubierto.</p>';
+        container.innerHTML = '<p style="color:var(--accent);font-weight:600;"><svg class="icon"><use href="#icon-star"/></svg> ¡No hay ítems pendientes! Todo está cubierto.</p>';
         return;
       }
 
       const hasPreBirthGaps = gaps.some(gap => gap.stage === 'pre-birth');
       const ctaHtml = hasPreBirthGaps
-        ? '<div class="gap-cta" aria-label="Alerta: items críticos que deben comprarse antes del nacimiento">⚠️ ¡Comprar antes del nacimiento!</div>'
+        ? '<div class="gap-cta" aria-label="Alerta: items críticos que deben comprarse antes del nacimiento"><svg class="icon"><use href="#icon-alert"/></svg> ¡Comprar antes del nacimiento!</div>'
         : '';
 
       container.innerHTML = `${ctaHtml}<ul class="gap-list">${gaps.map(gap => {
