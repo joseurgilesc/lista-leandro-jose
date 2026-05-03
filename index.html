@@ -1890,24 +1890,24 @@
                       }
 
                       // Mode C: Normal (interactive)
-                      return `
-                        <tr>
-                          <td data-label="Ítem">${item.name}${customBadge}${comboIndicator}${isEssential}</td>
-                          <td class="qty-cell" data-label="Sugerido">
-                            <span class="suggested">${item.suggestedMin}-${item.suggestedMax}</span>
-                          </td>
-                          <td class="qty-cell" data-label="Tengo">
-                            ${item._custom ? `<button class="delete-custom-btn" data-action="delete-custom" data-id="${item.id}" data-cat="${cat.id}" aria-label="Eliminar ítem personalizado"><svg class="icon icon-sm"><use href="#icon-x"/></svg></button>` : ''}
-                            <div class="stepper">
-                              <button class="stepper-btn" data-action="decrement" data-id="${item.id}" ${item.purchased <= 0 ? 'disabled' : ''} aria-label="Reducir cantidad">−</button>
-                              <span class="stepper-value${item.purchased > 0 ? ' has-value' : ''}">${item.purchased}</span>
-                              <button class="stepper-btn" data-action="increment" data-id="${item.id}" aria-label="Aumentar cantidad">+</button>
-                            </div>
-                          </td>
-                          <td data-label="Estado"><span class="badge ${status}" aria-label="Estado: ${STATUS_LABELS[status]}">${STATUS_LABELS[status]}</span></td>
-                          <td data-label="Notas" style="font-size:0.78rem;color:var(--text-light)">${notes}</td>
-                        </tr>
-                      `;
+                       return `
+                         <tr>
+                           <td data-label="Ítem">${item.name}${customBadge}${comboIndicator}${isEssential}</td>
+                           <td class="qty-cell" data-label="Sugerido">
+                             <span class="suggested">${item.suggestedMin}-${item.suggestedMax}</span>
+                           </td>
+                           <td class="qty-cell" data-label="Tengo">
+                             ${item._custom ? `<button class="delete-custom-btn" data-action="delete-custom" data-id="${item.id}" data-cat="${cat.id}" aria-label="Eliminar ítem personalizado"><svg class="icon icon-sm"><use href="#icon-x"/></svg></button>` : ''}
+                             <div class="stepper" style="display:inline-flex;align-items:center;gap:0;background:#fff;border:1.5px solid rgba(61,64,91,0.12);border-radius:40px;overflow:hidden;box-shadow:0 2px 8px rgba(61,64,91,0.08)">
+                               <button class="stepper-btn" data-action="decrement" data-id="${item.id}" ${item.purchased <= 0 ? 'disabled' : ''} aria-label="Reducir cantidad" style="width:56px;height:56px;border:none;background:transparent;font-size:26px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#3D405B;border-radius:40px 0 0 40px">−</button>
+                               <span class="stepper-value${item.purchased > 0 ? ' has-value' : ''}" style="min-width:40px;height:56px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;color:${item.purchased > 0 ? '#E07A5F' : '#3D405B'};background:#fff;border-left:1px solid rgba(61,64,91,0.12);border-right:1px solid rgba(61,64,91,0.12)">${item.purchased}</span>
+                               <button class="stepper-btn" data-action="increment" data-id="${item.id}" aria-label="Aumentar cantidad" style="width:56px;height:56px;border:none;background:#81B29A;font-size:26px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;border-radius:0 40px 40px 0">+</button>
+                             </div>
+                           </td>
+                           <td data-label="Estado"><span class="badge ${status}" aria-label="Estado: ${STATUS_LABELS[status]}">${STATUS_LABELS[status]}</span></td>
+                           <td data-label="Notas" style="font-size:0.78rem;color:var(--text-light)">${notes}</td>
+                         </tr>
+                       `;
                     }).join('')}
                   </tbody>
                 </table>
