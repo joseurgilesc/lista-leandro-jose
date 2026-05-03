@@ -9,51 +9,52 @@
        CSS Custom Properties — Design Tokens
        ═══════════════════════════════════════════ */
     :root {
-      /* Stage colors — warm, not alarming */
-      --color-pre-birth: #d4a373;
-      --color-first-month: #ccd5ae;
-      --color-3-6-months: #e9edc9;
-      --color-avoid: #d4a37333;
-
-      /* Status colors — soft and natural */
-      --color-pendiente: #ccd5ae;
-      --color-insuficiente: #faedcd;
-      --color-completo: #ccd5ae;
-      --color-excedido: #d4a37399;  /* 60% opacity */
-      --color-evitar: #e9edc9;
-
-      /* Background and surface */
-      --bg: #fefae0;
-      --card-bg: #ffffff;
-      --card-bg-alt: #e9edc9;
-
-      /* Text */
-      --text: #5c4033;  /* dark brown instead of harsh black */
-      --text-light: #8b7355;  /* warm brown-gray */
-      --text-on-dark: #fefae0;
-
-      /* Borders and dividers */
-      --border: #ccd5ae;
-      --border-light: #e9edc9;
-
-      /* Interactive */
-      --accent: #d4a373;
-      --accent-hover: #c1905f;
-      --success: #ccd5ae;
-      --success-text: #5c4033;
-      --warning-bg: #faedcd;
-      --warning-border: #d4a373;
-
-      /* Shapes */
-      --radius: 14px;
-      --radius-sm: 8px;
-      --radius-pill: 100px;
-      --shadow: 0 2px 12px rgba(212, 163, 115, 0.12);
-      --shadow-hover: 0 4px 20px rgba(212, 163, 115, 0.2);
-
-      /* Sizing */
-      --touch-target: 48px;
-      --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  /* Background and Surface */
+  --bg: #F4F1DE;                              /* Main page background (cream) */
+  --card-bg: #FFFFFF;                           /* Card/section background */
+  --card-bg-alt: rgba(242, 204, 143, 0.15);    /* Secondary/hover backgrounds (transparent golden) */
+  
+  /* Text */
+  --text: #3D405B;                              /* Primary text & strong borders (dark slate blue) */
+  --text-light: rgba(61, 64, 91, 0.6);         /* Secondary text / subtitles */
+  --text-on-dark: #FFFFFF;                      /* Text on dark backgrounds */
+  
+  /* Stage colors */
+  --color-pre-birth: #E07A5F;                   /* Terracotta — urgent */
+  --color-first-month: #81B29A;                 /* Sage green — soon */
+  --color-3-6-months: #F2CC8F;                 /* Golden/amber — later */
+  --color-avoid: rgba(61, 64, 91, 0.15);       /* Muted slate — don't buy */
+  
+  /* Status colors */
+  --color-pendiente: #F2CC8F;                   /* Golden — pending */
+  --color-insuficiente: #F2CC8F;                /* Golden — insufficient (same as pending, can be distinguished by text) */
+  --color-completo: #81B29A;                    /* Sage green — complete */
+  --color-excedido: #E07A5F;                    /* Terracotta — exceeded */
+  --color-evitar: rgba(61, 64, 91, 0.08);      /* Very muted — avoid */
+  
+  /* Interactive */
+  --accent: #E07A5F;                            /* Primary accent, buttons, alerts, reset */
+  --accent-hover: #c96a50;                      /* Darker terracotta for hover */
+  --success: #81B29A;                           /* Success state, + button */
+  --success-hover: #6b9a82;                     /* Darker sage for hover */
+  --success-text: #FFFFFF;                      /* Text on success backgrounds */
+  --warning-bg: #F2CC8F;                        /* Playful details, 3-6 months stage, icon backgrounds */
+  --warning-border: #E07A5F;                    /* Alert/CTA borders */
+  
+  /* Borders and dividers */
+  --border: rgba(61, 64, 91, 0.12);             /* Subtle border */
+  --border-light: rgba(61, 64, 91, 0.06);       /* Very subtle border */
+  
+  /* Shapes */
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-pill: 100px;
+  --shadow: 0 2px 12px rgba(61, 64, 91, 0.08);  /* Shadow based on slate blue */
+  --shadow-hover: 0 4px 20px rgba(61, 64, 91, 0.12);
+  
+  /* Sizing */
+  --touch-target: 48px;
+  --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
     /* ═══════════════════════════════════════════
@@ -163,16 +164,16 @@
       margin-bottom: 0.75rem;
       padding-bottom: 0.5rem;
       border-bottom: 2px solid var(--border-light);
-      color: var(--accent);
+      color: var(--text);
     }
 
     /* ═══════════════════════════════════════════
        Error Banner
        ═══════════════════════════════════════════ */
     .error-banner {
-      background: var(--warning-bg);
-      color: var(--text);
-      border: 1px solid var(--warning-border);
+      background: rgba(224, 122, 95, 0.1);
+      color: var(--accent);
+      border: 1px solid var(--accent);
       border-radius: var(--radius);
       padding: 1rem;
       margin: 1rem;
@@ -225,15 +226,15 @@
     .stage-card {
       padding: 1rem;
       border-radius: var(--radius);
-      border-left: 5px solid;
+      border-left: 4px solid;
       background: var(--card-bg);
       box-shadow: var(--shadow);
     }
 
-    .stage-card.pre-birth   { border-left-color: var(--color-pre-birth); background: rgba(212, 163, 115, 0.12); }
-    .stage-card.first-month { border-left-color: var(--color-first-month); background: rgba(204, 213, 174, 0.3); }
-    .stage-card.\33 -6-months { border-left-color: var(--color-3-6-months); background: rgba(233, 237, 201, 0.4); }
-    .stage-card.avoid       { border-left-color: var(--color-avoid); background: rgba(212, 163, 115, 0.06); }
+    .stage-card.pre-birth   { border-left-color: var(--color-pre-birth); background: rgba(224, 122, 95, 0.15); }
+    .stage-card.first-month { border-left-color: var(--color-first-month); background: rgba(129, 178, 154, 0.15); }
+    .stage-card.\33 -6-months { border-left-color: var(--color-3-6-months); background: rgba(242, 204, 143, 0.15); }
+    .stage-card.avoid       { border-left-color: var(--color-avoid); background: rgba(61, 64, 91, 0.06); }
 
     .stage-card .stage-label {
       font-size: 0.85rem;
@@ -259,14 +260,14 @@
 
     .progress-bar .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      background: linear-gradient(90deg, var(--accent), var(--success));
       border-radius: 5px;
       transition: width 0.3s ease;
     }
 
-    .progress-bar .progress-fill.low  { background: linear-gradient(90deg, var(--color-pre-birth), var(--accent)); }
-    .progress-bar .progress-fill.mid  { background: linear-gradient(90deg, var(--accent), var(--color-first-month)); }
-    .progress-bar .progress-fill.high { background: linear-gradient(90deg, var(--success), var(--accent)); }
+    .progress-bar .progress-fill.low  { background: linear-gradient(90deg, var(--accent), var(--color-pre-birth)); }
+    .progress-bar .progress-fill.mid  { background: linear-gradient(90deg, var(--accent), var(--success)); }
+    .progress-bar .progress-fill.high { background: linear-gradient(90deg, var(--success), var(--success-hover)); }
 
     /* ═══════════════════════════════════════════
        Filter Buttons
@@ -397,7 +398,7 @@
     }
 
     .item-table tr:nth-child(even) td {
-      background: rgba(233, 237, 201, 0.25);
+      background: rgba(242, 204, 143, 0.06);
     }
 
     .item-table tr:last-child td { border-bottom: none; }
@@ -453,11 +454,11 @@
       color: var(--text);
     }
 
-    .badge.pendiente    { background: var(--color-pendiente); color: var(--text); }
-    .badge.insuficiente { background: var(--color-insuficiente); color: var(--text); }
-    .badge.completo     { background: var(--color-completo); color: var(--success-text); }
-    .badge.excedido     { background: var(--color-excedido); color: var(--text); }
-    .badge.evitar       { background: var(--color-evitar); color: var(--text); text-decoration: line-through; }
+    .badge.pendiente    { background: var(--warning-bg); color: var(--text); }
+    .badge.insuficiente { background: var(--warning-bg); color: var(--text); }
+    .badge.completo     { background: var(--success); color: var(--success-text); }
+    .badge.excedido     { background: var(--accent); color: var(--text-on-dark); }
+    .badge.evitar       { background: var(--color-evitar); color: var(--text-light); text-decoration: line-through; }
 
     .badge.essential {
       background: transparent;
@@ -471,8 +472,8 @@
       display: inline-block;
       font-size: 0.7rem;
       color: var(--text);
-      background: var(--warning-bg);
-      border: 1px solid var(--warning-border);
+      background: rgba(242, 204, 143, 0.3);
+      border: 1px solid var(--warning-bg);
       border-radius: 4px;
       padding: 0.1rem 0.4rem;
       margin-left: 0.4rem;
@@ -512,13 +513,13 @@
     }
 
     .gap-cta {
-      background: var(--warning-bg);
-      border: 1px solid var(--warning-border);
+      background: rgba(224, 122, 95, 0.08);
+      border: 1px solid var(--accent);
       border-radius: var(--radius);
       padding: 0.75rem 1rem;
       margin-bottom: 1rem;
       font-weight: 700;
-      color: var(--text);
+      color: var(--accent);
       font-size: 0.9rem;
       display: flex;
       align-items: center;
@@ -571,10 +572,10 @@
 
     #downloadBtn {
       padding: 0.75rem 1.5rem;
-      border: none;
+      border: 1px solid var(--success);
       border-radius: var(--radius-pill);
-      background: var(--accent);
-      color: var(--text-on-dark);
+      background: var(--success);
+      color: white;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
@@ -584,7 +585,7 @@
       user-select: none;
     }
 
-    #downloadBtn:hover { background: var(--accent-hover); }
+    #downloadBtn:hover { background: var(--success-hover); }
 
     .legend {
       display: flex;
@@ -697,6 +698,8 @@
       user-select: none;
     }
     .stepper-btn:hover:not(:disabled) { background: var(--card-bg-alt); border-color: var(--accent); color: var(--accent); }
+    .stepper-btn[data-action="increment"]:hover:not(:disabled) { background: rgba(129, 178, 154, 0.1); border-color: var(--success); color: var(--success); }
+    .stepper-btn[data-action="decrement"]:hover:not(:disabled) { background: rgba(61, 64, 91, 0.05); border-color: var(--text); color: var(--text); }
     .stepper-btn:active:not(:disabled) { transform: scale(0.92); }
     .stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; }
     .stepper-value {
@@ -739,16 +742,16 @@
       width: 100%;
       padding: 10px;
       margin-top: 8px;
-      background: var(--card-bg);
-      border: 1px dashed var(--accent);
+      background: rgba(129, 178, 154, 0.08);
+      border: 1px dashed var(--success);
       border-radius: var(--radius-sm);
-      color: var(--accent);
+      color: var(--success);
       font-size: 14px;
       cursor: pointer;
       transition: all 0.15s ease;
       touch-action: manipulation;
     }
-    .add-item-btn:hover { background: var(--card-bg-alt); border-color: var(--accent-hover); color: var(--accent-hover); }
+    .add-item-btn:hover { background: rgba(129, 178, 154, 0.15); border-color: var(--success-hover); color: var(--success-hover); }
     .add-item-form {
       background: var(--card-bg-alt);
       border: 1px solid var(--border-light);
@@ -770,9 +773,9 @@
 
     /* Reset button */
     .reset-btn {
-      background: var(--warning-bg);
-      color: var(--text);
-      border: 1px solid var(--warning-border);
+      background: rgba(224, 122, 95, 0.08);
+      color: var(--accent);
+      border: 1px solid var(--accent);
       padding: 10px 20px;
       border-radius: var(--radius-pill);
       font-size: 14px;
@@ -782,7 +785,7 @@
       touch-action: manipulation;
       user-select: none;
     }
-    .reset-btn:hover { background: var(--border-light); border-color: var(--accent); }
+    .reset-btn:hover { background: rgba(224, 122, 95, 0.15); border-color: var(--accent-hover); }
 
     /* Quantity cell alignment */
     .qty-cell { vertical-align: middle; }
@@ -886,10 +889,10 @@
       <h2>Categorías</h2>
       <div class="filters" id="categoryFilters" role="navigation" aria-label="Filtros por etapa">
         <button data-stage="all" class="active" aria-pressed="true">Todos</button>
-        <button data-stage="pre-birth"><span class="filter-dot" style="background:#dc2626"></span> Antes del nacimiento</button>
-        <button data-stage="first-month"><span class="filter-dot" style="background:#ea580c"></span> Primer mes</button>
-        <button data-stage="3-6-months"><span class="filter-dot" style="background:#ca8a04"></span> 3 a 6 meses</button>
-        <button data-stage="avoid"><span class="filter-dot" style="background:#6b7280"></span> Evitar</button>
+        <button data-stage="pre-birth"><span class="filter-dot" style="background:#E07A5F"></span> Antes del nacimiento</button>
+        <button data-stage="first-month"><span class="filter-dot" style="background:#81B29A"></span> Primer mes</button>
+        <button data-stage="3-6-months"><span class="filter-dot" style="background:#F2CC8F"></span> 3 a 6 meses</button>
+        <button data-stage="avoid"><span class="filter-dot" style="background:rgba(61,64,91,0.15)"></span> Evitar</button>
       </div>
       <div id="categoryList"></div>
     </section>
@@ -1065,13 +1068,13 @@
      */
     function statusColor(status) {
       const map = {
-        pendiente:    '#9ca3af',
-        insuficiente: '#f59e0b',
-        completo:     '#16a34a',
-        excedido:     '#2563eb',
-        evitar:       '#d1d5db'
+        pendiente:    '#F2CC8F',
+        insuficiente: '#F2CC8F',
+        completo:     '#81B29A',
+        excedido:     '#E07A5F',
+        evitar:       '#e8e9ec'
       };
-      return map[status] || '#9ca3af';
+      return map[status] || '#F2CC8F';
     }
 
     /**
@@ -1796,7 +1799,7 @@
                 </div>
                 <input type="text" id="form-notes-${cat.id}" placeholder="Notas (opcional)">
                 <div style="display:flex; gap:8px; margin-top:8px;">
-                  <button class="stepper-btn" data-action="submit-add" data-cat="${cat.id}" style="flex:1; background:var(--accent); color:var(--text-on-dark); border-color:var(--accent);">✓ Agregar</button>
+                  <button class="stepper-btn" data-action="submit-add" data-cat="${cat.id}" style="flex:1; background:var(--success); color:white; border-color:var(--success);">✓ Agregar</button>
                   <button class="stepper-btn" data-action="cancel-add" data-cat="${cat.id}" style="flex:1;">Cancelar</button>
                 </div>
               </div>
