@@ -1328,9 +1328,9 @@
 
         switch (item._status) {
           case 'completo':     globalComplete++; break;
+          case 'excedido':     globalComplete++; globalExceeded++; break;
           case 'pendiente':    globalPending++; break;
           case 'insuficiente': globalInsufficient++; break;
-          case 'excedido':     globalExceeded++; break;
         }
       }
 
@@ -1354,6 +1354,7 @@
 
           switch (item._status) {
             case 'completo':  sComplete++; break;
+            case 'excedido':  sComplete++; break;
             case 'pendiente': sPending++; break;
           }
         }
@@ -1382,6 +1383,7 @@
           cTotal++;
           switch (item._status) {
             case 'completo':  cComplete++; break;
+            case 'excedido':  cComplete++; break;
             case 'pendiente': cPending++; break;
           }
         }
