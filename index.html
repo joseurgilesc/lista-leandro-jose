@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista para Bebé — Leandro José (0 a 6 meses)</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
     /* ═══════════════════════════════════════════
        CSS Custom Properties — Design Tokens
        ═══════════════════════════════════════════ */
@@ -54,7 +56,7 @@
   
   /* Sizing */
   --touch-target: 48px;
-  --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-stack: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
     /* ═══════════════════════════════════════════
@@ -559,16 +561,101 @@
       position: sticky;
       bottom: 0;
       background: var(--bg);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
       border-top: 1px solid var(--border-light);
-      padding: 12px 16px;
+      padding: 8px 12px;
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
       justify-content: center;
       align-items: center;
       z-index: 100;
+      font-size: 0.8rem;
     }
+
+    .footer-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .footer-btn {
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 36px;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    #downloadBtn {
+      background: var(--success);
+      color: var(--text-on-dark);
+      border: 1px solid var(--success);
+    }
+    #downloadBtn:hover { background: var(--success-hover); }
+
+    #importBtn {
+      background: var(--card-bg);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+    #importBtn:hover { background: rgba(129, 178, 154, 0.08); }
+
+    #resetBtn {
+      background: rgba(224, 122, 95, 0.06);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    #resetBtn:hover { background: rgba(224, 122, 95, 0.12); }
+
+    #toggleLegend {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 0.75rem;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+    #toggleLegend:hover { color: var(--text); }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease, padding 0.25s ease;
+      padding: 0;
+    }
+    .legend.visible {
+      max-height: 60px;
+      padding: 4px 0 0;
+    }
+
+    @media (min-width: 600px) {
+      .legend {
+        max-height: 60px;
+        padding: 4px 0 0;
+      }
+      #toggleLegend { display: none; }
+    }
+
+    @media print {
+      .filters, #downloadBtn, #resetBtn, #importBtn, #toggleLegend,
+      .stepper, .add-item-btn, .add-item-form, .delete-custom-btn, footer, header {
+        display: none;
+      }
 
     #downloadBtn {
       padding: 0.75rem 1.5rem;
@@ -840,9 +927,12 @@
     <symbol id="icon-baby" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><circle cx="12" cy="12" r="10"/><path d="M8 8c0-2 2-3 4-3s4 1 4 3"/>
     </symbol>
-    <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-    </symbol>
+  <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+  </symbol>
+  <symbol id="icon-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+  </symbol>
     <symbol id="icon-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
     </symbol>
@@ -911,8 +1001,13 @@
   </main>
 
   <footer>
-    <button id="resetBtn" class="reset-btn" aria-label="Restablecer lista a valores originales"><svg class="icon"><use href="#icon-refresh"/></svg> Restablecer lista</button>
-    <button id="downloadBtn" aria-label="Descargar respaldo de la lista"><svg class="icon"><use href="#icon-download"/></svg> Descargar respaldo</button>
+    <div class="footer-actions">
+      <button id="importBtn" class="footer-btn" aria-label="Importar respaldo"><svg class="icon icon-sm"><use href="#icon-upload"/></svg> Importar</button>
+      <button id="downloadBtn" class="footer-btn" aria-label="Descargar respaldo"><svg class="icon icon-sm"><use href="#icon-download"/></svg> Descargar</button>
+      <button id="resetBtn" class="footer-btn" aria-label="Restablecer lista"><svg class="icon icon-sm"><use href="#icon-refresh"/></svg></button>
+      <button id="toggleLegend" aria-label="Mostrar leyenda">ℹ️</button>
+    </div>
+    <input type="file" id="importFile" accept=".json" style="display:none;">
     <p class="legend">
       <span class="badge pendiente" aria-label="Estado: pendiente">pendiente</span>
       <span class="badge insuficiente" aria-label="Estado: insuficiente">insuficiente</span>
@@ -1891,6 +1986,84 @@
     }
 
     /**
+     * Sets up the import button to load a JSON backup file.
+     */
+    function setupImportButton() {
+      const btn = document.getElementById('importBtn');
+      const fileInput = document.getElementById('importFile');
+      if (!btn || !fileInput) return;
+
+      btn.addEventListener('click', () => {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            const imported = JSON.parse(ev.target.result);
+            
+            // Extract overrides from imported data
+            const newOverrides = {};
+            for (const cat of (imported.categories || [])) {
+              for (const item of (cat.items || [])) {
+                if (item.purchased > 0) {
+                  // Only import items that have been purchased
+                  newOverrides[item.id] = item.purchased;
+                }
+              }
+            }
+
+            // Extract custom items
+            const newCustomItems = {};
+            for (const cat of (imported.categories || [])) {
+              const customInCat = (cat.items || []).filter(i => i._custom);
+              if (customInCat.length > 0) {
+                newCustomItems[cat.id] = customInCat;
+              }
+            }
+
+            // Merge with existing — imported values take precedence
+            const mergedOverrides = { ...currentOverrides, ...newOverrides };
+            const mergedCustoms = { ...currentCustomItems };
+            for (const [catId, items] of Object.entries(newCustomItems)) {
+              mergedCustoms[catId] = [...(mergedCustoms[catId] || []), ...items];
+            }
+
+            // Save and refresh
+            currentOverrides = mergedOverrides;
+            currentCustomItems = mergedCustoms;
+            saveState(currentOverrides, currentCustomItems, baseData?.meta?.version || '0.0.0');
+            refreshAll();
+
+            // Reset file input
+            fileInput.value = '';
+          } catch (err) {
+            alert('El archivo no es un respaldo válido: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    /**
+     * Toggles the legend visibility on mobile.
+     */
+    function setupLegendToggle() {
+      const toggle = document.getElementById('toggleLegend');
+      const legend = document.querySelector('.legend');
+      if (!toggle || !legend) return;
+
+      toggle.addEventListener('click', () => {
+        legend.classList.toggle('visible');
+        toggle.textContent = legend.classList.contains('visible') ? '✕' : 'ℹ️';
+      });
+    }
+
+    /**
      * Wires up the category filter buttons.
      */
     function setupFilters() {
@@ -2083,6 +2256,12 @@
         if (resetBtn) {
           resetBtn.addEventListener('click', resetAll);
         }
+
+        // Import button
+        setupImportButton();
+
+        // Legend toggle
+        setupLegendToggle();
       } catch (err) {
         showError([`Error al cargar datos: ${err.message}`]);
         console.error('Init error:', err);
