@@ -2,14 +2,16 @@
   "meta": {
     "version": "1.0.0",
     "generated": "2026-05-03",
-    "ageRange": "0-6 meses",
-    "lastUpdated": "2026-05-03"
+    "ageRange": "0-12 meses",
+    "lastUpdated": "2026-05-22"
   },
   "stages": [
     { "id": "pre-birth", "label": "Antes del nacimiento", "priority": 1, "color": "#dc2626" },
     { "id": "first-month", "label": "Primer mes", "priority": 2, "color": "#ea580c" },
     { "id": "3-6-months", "label": "3 a 6 meses", "priority": 3, "color": "#ca8a04" },
-    { "id": "avoid", "label": "Después o evitar", "priority": 4, "color": "#6b7280" }
+    { "id": "6-9-months", "label": "6 a 9 meses", "priority": 4, "color": "#eab308" },
+    { "id": "9-12-months", "label": "9 a 12 meses", "priority": 5, "color": "#84cc16" },
+    { "id": "avoid", "label": "Después o evitar", "priority": 6, "color": "#6b7280" }
   ],
   "categories": [
     {
@@ -527,8 +529,8 @@
       ]
     },
     {
-      "id": "ropa-rn",
-      "name": "Ropa talla RN",
+      "id": "ropa-0-3m",
+      "name": "Ropa talla RN y 0-3 meses",
       "icon": "👕",
       "items": [
         {
@@ -606,14 +608,7 @@
           "purchased": 3,
           "notes": "1 buzo RN (del conjunto pantalón y buzo) + 1 chompa RN + 1 chompa tejida RN",
           "_comments": "Buzo RN, chompa RN y chompa tejida RN se mapean como conjuntos bonitos porque no tienen categoría específica en RN. Excede el máximo (3 > 2)."
-        }
-      ]
-    },
-    {
-      "id": "ropa-0-3m",
-      "name": "Ropa talla 0-3 meses",
-      "icon": "👕",
-      "items": [
+        },
         {
           "id": "bodies-0-3m",
           "name": "Bodys talla 0-3 meses",
@@ -766,6 +761,180 @@
           "id": "conjuntos-salir",
           "name": "Conjuntos para salir",
           "stage": "3-6-months",
+          "suggestedMin": 1,
+          "suggestedMax": 2,
+          "essential": false,
+          "purchased": 0,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "ropa-6-9m",
+      "name": "Ropa talla 6-9 meses",
+      "icon": "👕",
+      "items": [
+        {
+          "id": "bodies-6-9m",
+          "name": "Bodys talla 6-9 meses",
+          "stage": "6-9-months",
+          "suggestedMin": 6,
+          "suggestedMax": 8,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "pijamas-enteras-6-9m",
+          "name": "Pijamas enteras talla 6-9 meses",
+          "stage": "6-9-months",
+          "suggestedMin": 6,
+          "suggestedMax": 8,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "pantalones-6-9m",
+          "name": "Pantalones",
+          "stage": "6-9-months",
+          "suggestedMin": 5,
+          "suggestedMax": 6,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "camisetas-buzos-6-9m",
+          "name": "Camisetas o buzos",
+          "stage": "6-9-months",
+          "suggestedMin": 4,
+          "suggestedMax": 5,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "medias-6-9m",
+          "name": "Pares de medias",
+          "stage": "6-9-months",
+          "suggestedMin": 6,
+          "suggestedMax": 6,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "baberos-6-9m",
+          "name": "Baberos",
+          "stage": "6-9-months",
+          "suggestedMin": 4,
+          "suggestedMax": 6,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "chompas-sacos-6-9m",
+          "name": "Chompas o sacos",
+          "stage": "6-9-months",
+          "suggestedMin": 1,
+          "suggestedMax": 2,
+          "essential": false,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "conjuntos-salir-6-9m",
+          "name": "Conjuntos para salir",
+          "stage": "6-9-months",
+          "suggestedMin": 1,
+          "suggestedMax": 2,
+          "essential": false,
+          "purchased": 0,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "ropa-9-12m",
+      "name": "Ropa talla 9-12 meses",
+      "icon": "👕",
+      "items": [
+        {
+          "id": "bodies-9-12m",
+          "name": "Bodys talla 9-12 meses",
+          "stage": "9-12-months",
+          "suggestedMin": 6,
+          "suggestedMax": 8,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "pijamas-enteras-9-12m",
+          "name": "Pijamas enteras talla 9-12 meses",
+          "stage": "9-12-months",
+          "suggestedMin": 6,
+          "suggestedMax": 8,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "pantalones-9-12m",
+          "name": "Pantalones",
+          "stage": "9-12-months",
+          "suggestedMin": 5,
+          "suggestedMax": 6,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "camisetas-buzos-9-12m",
+          "name": "Camisetas o buzos",
+          "stage": "9-12-months",
+          "suggestedMin": 4,
+          "suggestedMax": 5,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "medias-9-12m",
+          "name": "Pares de medias",
+          "stage": "9-12-months",
+          "suggestedMin": 6,
+          "suggestedMax": 6,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "baberos-9-12m",
+          "name": "Baberos",
+          "stage": "9-12-months",
+          "suggestedMin": 4,
+          "suggestedMax": 6,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "chompas-sacos-9-12m",
+          "name": "Chompas o sacos",
+          "stage": "9-12-months",
+          "suggestedMin": 1,
+          "suggestedMax": 2,
+          "essential": false,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "conjuntos-salir-9-12m",
+          "name": "Conjuntos para salir",
+          "stage": "9-12-months",
           "suggestedMin": 1,
           "suggestedMax": 2,
           "essential": false,
@@ -1321,6 +1490,140 @@
           "suggestedMin": 1,
           "suggestedMax": 1,
           "essential": true,
+          "purchased": 0,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "estimulacion-6-9m",
+      "name": "Estimulación y juego 6-9 meses",
+      "icon": "🎯",
+      "items": [
+        {
+          "id": "juguetes-apilables",
+          "name": "Juguetes apilables",
+          "stage": "6-9-months",
+          "suggestedMin": 1,
+          "suggestedMax": 2,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "juguetes-encastre",
+          "name": "Juguetes de encastre",
+          "stage": "6-9-months",
+          "suggestedMin": 1,
+          "suggestedMax": 2,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "pelotas-texturas-6-9m",
+          "name": "Pelotas con texturas",
+          "stage": "6-9-months",
+          "suggestedMin": 2,
+          "suggestedMax": 4,
+          "essential": false,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "libros-interactivos",
+          "name": "Libros interactivos",
+          "stage": "6-9-months",
+          "suggestedMin": 1,
+          "suggestedMax": 3,
+          "essential": false,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "juguetes-bano",
+          "name": "Juguetes para el baño",
+          "stage": "6-9-months",
+          "suggestedMin": 1,
+          "suggestedMax": 3,
+          "essential": false,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "instrumentos-musicales",
+          "name": "Instrumentos musicales simples",
+          "stage": "6-9-months",
+          "suggestedMin": 1,
+          "suggestedMax": 2,
+          "essential": false,
+          "purchased": 0,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "estimulacion-9-12m",
+      "name": "Estimulación y juego 9-12 meses",
+      "icon": "🧩",
+      "items": [
+        {
+          "id": "juguetes-arrastre",
+          "name": "Juguetes de arrastre",
+          "stage": "9-12-months",
+          "suggestedMin": 1,
+          "suggestedMax": 2,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "juguetes-construccion",
+          "name": "Bloques de construcción",
+          "stage": "9-12-months",
+          "suggestedMin": 1,
+          "suggestedMax": 2,
+          "essential": true,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "andador-correpasillos",
+          "name": "Correpasillos o andador",
+          "stage": "9-12-months",
+          "suggestedMin": 1,
+          "suggestedMax": 1,
+          "essential": false,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "libros-carton",
+          "name": "Libros de cartón",
+          "stage": "9-12-months",
+          "suggestedMin": 2,
+          "suggestedMax": 4,
+          "essential": false,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "juguetes-causa-efecto",
+          "name": "Juguetes de causa-efecto",
+          "stage": "9-12-months",
+          "suggestedMin": 1,
+          "suggestedMax": 3,
+          "essential": false,
+          "purchased": 0,
+          "notes": ""
+        },
+        {
+          "id": "pelotas-grandes",
+          "name": "Pelotas grandes",
+          "stage": "9-12-months",
+          "suggestedMin": 1,
+          "suggestedMax": 2,
+          "essential": false,
           "purchased": 0,
           "notes": ""
         }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista para Bebé — Leandro José (0 a 6 meses)</title>
+  <title>Lista para Bebé — Leandro José (0 a 12 meses)</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 
@@ -24,8 +24,10 @@
   /* Stage colors */
   --color-pre-birth: #E07A5F;                   /* Terracotta — urgent */
   --color-first-month: #81B29A;                 /* Sage green — soon */
-  --color-3-6-months: #F2CC8F;                 /* Golden/amber — later */
-  --color-avoid: rgba(61, 64, 91, 0.15);       /* Muted slate — don't buy */
+   --color-3-6-months: #F2CC8F;                 /* Golden/amber — later */
+   --color-6-9-months: #eab308;                 /* Yellow — 6-9 months */
+   --color-9-12-months: #84cc16;                /* Lime — 9-12 months */
+   --color-avoid: rgba(61, 64, 91, 0.15);       /* Muted slate — don't buy */
   
   /* Status colors */
   --color-pendiente: #F2CC8F;                   /* Golden — pending */
@@ -236,6 +238,8 @@
     .stage-card.pre-birth   { border-left-color: var(--color-pre-birth); background: rgba(224, 122, 95, 0.15); }
     .stage-card.first-month { border-left-color: var(--color-first-month); background: rgba(129, 178, 154, 0.15); }
     .stage-card.\33 -6-months { border-left-color: var(--color-3-6-months); background: rgba(242, 204, 143, 0.15); }
+    .stage-card.\36 -9-months { border-left-color: var(--color-6-9-months); background: rgba(234, 179, 8, 0.12); }
+    .stage-card.\39 -12-months { border-left-color: var(--color-9-12-months); background: rgba(132, 204, 22, 0.12); }
     .stage-card.avoid       { border-left-color: var(--color-avoid); background: rgba(61, 64, 91, 0.06); }
 
     .stage-card .stage-label {
@@ -532,6 +536,8 @@
     .gap-item .gap-stage.stage-pre-birth   { background: var(--color-pre-birth); }
     .gap-item .gap-stage.stage-first-month { background: var(--color-first-month); color: var(--text); }
     .gap-item .gap-stage.stage-3-6-months  { background: var(--color-3-6-months); color: var(--text); }
+    .gap-item .gap-stage.stage-6-9-months  { background: var(--color-6-9-months); color: var(--text); }
+    .gap-item .gap-stage.stage-9-12-months  { background: var(--color-9-12-months); color: var(--text); }
 
     /* ═══════════════════════════════════════════
        Extras Section
@@ -1026,7 +1032,7 @@
   </svg>
   <header>
     <h1><svg class="icon icon-lg header-icon"><use href="#icon-baby"/></svg> Lista para Leandro José</h1>
-    <p class="subtitle">Seguimiento de compras — 0 a 6 meses</p>
+    <p class="subtitle">Seguimiento de compras — 0 a 12 meses</p>
     <p class="last-updated" id="lastUpdated"></p>
   </header>
 
@@ -1051,6 +1057,8 @@
         <button data-stage="pre-birth"><span class="filter-dot" style="background:#E07A5F"></span> Antes del nacimiento</button>
         <button data-stage="first-month"><span class="filter-dot" style="background:#81B29A"></span> Primer mes</button>
         <button data-stage="3-6-months"><span class="filter-dot" style="background:#F2CC8F"></span> 3 a 6 meses</button>
+        <button data-stage="6-9-months"><span class="filter-dot" style="background:#eab308"></span> 6 a 9 meses</button>
+        <button data-stage="9-12-months"><span class="filter-dot" style="background:#84cc16"></span> 9 a 12 meses</button>
         <button data-stage="avoid"><span class="filter-dot" style="background:rgba(61,64,91,0.15)"></span> Evitar</button>
       </div>
       <div id="categoryList"></div>
@@ -1865,7 +1873,7 @@
         <div class="progress-detail">${g.complete} de ${g.total} ítems completos · ${g.pending} pendientes · ${g.insufficient} insuficientes · ${g.exceeded} excedidos</div>
       `;
 
-      const stageIds = ['pre-birth', 'first-month', '3-6-months', 'avoid'];
+      const stageIds = ['pre-birth', 'first-month', '3-6-months', '6-9-months', '9-12-months', 'avoid'];
       stageCards.innerHTML = stageIds.map(sid => {
         const s = stats.byStage[sid];
         if (!s) return '';
@@ -2027,6 +2035,8 @@
                     <option value="pre-birth">Antes del nacimiento</option>
                     <option value="first-month">Primer mes</option>
                     <option value="3-6-months">3 a 6 meses</option>
+                    <option value="6-9-months">6 a 9 meses</option>
+                    <option value="9-12-months">9 a 12 meses</option>
                     <option value="avoid">Evitar</option>
                   </select>
                 </div>
