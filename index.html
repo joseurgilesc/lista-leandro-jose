@@ -1128,6 +1128,24 @@
     </p>
   </footer>
 
+  <!-- Firebase SDK (Realtime Database) -->
+  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-database-compat.js"></script>
+  <script>
+    // ═══ Firebase init ═══
+    firebase.initializeApp({
+      apiKey: "AIzaSyB5XbMCnX2y1ZVM7SsUbL7aQDgxvHQEEsY",
+      authDomain: "lista-leandro-jose.firebaseapp.com",
+      databaseURL: "https://lista-leandro-jose-default-rtdb.firebaseio.com",
+      projectId: "lista-leandro-jose",
+      storageBucket: "lista-leandro-jose.firebasestorage.app",
+      messagingSenderId: "363647299161",
+      appId: "1:363647299161:web:2822452941b3d944720b48"
+    });
+    const db = firebase.database();
+    const stateRef = db.ref('lista-bebe-state');
+    let remoteUpdateInProgress = false;
+  </script>
   <script src="data.js"></script>
   <script>
     /* ═══════════════════════════════════════════
@@ -1629,8 +1647,12 @@
      */
     function saveState(overrides, notesOverrides, customItems, dataVersion) {
       try {
-        const state = { overrides, notesOverrides, customItems, dataVersion };
+        const state = { overrides, notesOverrides, customItems, dataVersion, lastUpdated: Date.now() };
         localStorage.setItem('lista-bebe-state', JSON.stringify(state));
+        // Sincronizar con Firebase (solo si no es una actualización remota entrante)
+        if (!remoteUpdateInProgress) {
+          stateRef.set(state);
+        }
       } catch (e) {
         console.error('No se pudo guardar en localStorage:', e.message);
       }
@@ -1833,6 +1855,10 @@
       localStorage.removeItem('lista-bebe-state');
       currentOverrides = {};
       currentCustomItems = {};
+      currentNotesOverrides = {};
+
+      // También borrar datos remotos en Firebase
+      stateRef.remove();
 
       // Re-inicializar desde los datos base
       currentData = JSON.parse(JSON.stringify(baseData));
@@ -2446,7 +2472,7 @@
     /**
      * Entry point: loads data from data.js, validates, computes stats, renders views.
      */
-    function init() {
+    async function init() {
       try {
         const rawData = window.__BABY_DATA__;
         if (!rawData) {
@@ -2471,6 +2497,22 @@
             `Los cambios guardados podrían estar desactualizados.`
           );
         }
+      }
+    } else {
+      // No hay datos locales: intentar cargar desde Firebase
+      try {
+        const snapshot = await stateRef.once('value');
+        const remote = snapshot.val();
+        if (remote && remote.overrides) {
+          currentOverrides = remote.overrides || {};
+          currentNotesOverrides = remote.notesOverrides || {};
+          currentCustomItems = remote.customItems || {};
+          const state = { overrides: currentOverrides, notesOverrides: currentNotesOverrides, customItems: currentCustomItems, dataVersion: remote.dataVersion || '0.0.0', lastUpdated: remote.lastUpdated || Date.now() };
+          localStorage.setItem('lista-bebe-state', JSON.stringify(state));
+          showToast('🔄 Cargado desde la nube');
+        }
+      } catch (e) {
+        console.warn('No se pudo cargar desde Firebase:', e.message);
       }
     }
 
@@ -2517,6 +2559,40 @@
 
         // Legend toggle
         setupLegendToggle();
+
+        // ═══ Firebase listener: escuchar cambios remotos ═══
+        stateRef.on('value', snapshot => {
+          const remote = snapshot.val();
+          if (!remote) return;
+
+          // Solo aplicar si el remoto es más nuevo que lo local
+          const localRaw = localStorage.getItem('lista-bebe-state');
+          const localTs = localRaw ? (JSON.parse(localRaw).lastUpdated || 0) : 0;
+          const remoteTs = remote.lastUpdated || 0;
+
+          if (remoteTs <= localTs) return;
+
+          // Marcar para no re-subir a Firebase
+          remoteUpdateInProgress = true;
+
+          const newOverrides = remote.overrides || {};
+          const newNotes = remote.notesOverrides || {};
+          const newCustom = remote.customItems || {};
+
+          // Guardar en localStorage
+          const state = { overrides: newOverrides, notesOverrides: newNotes, customItems: newCustom, dataVersion: remote.dataVersion || '0.0.0', lastUpdated: remoteTs };
+          localStorage.setItem('lista-bebe-state', JSON.stringify(state));
+
+          // Aplicar
+          currentOverrides = newOverrides;
+          currentNotesOverrides = newNotes;
+          currentCustomItems = newCustom;
+
+          refreshAll();
+          showToast('🔄 Sincronizado');
+
+          remoteUpdateInProgress = false;
+        });
       } catch (err) {
         showError([`Error al cargar datos: ${err.message}`]);
         console.error('Init error:', err);
