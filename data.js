@@ -532,62 +532,58 @@ window.__BABY_DATA__ = {
     },
     {
       "id": "ropa-0-3m",
-      "name": "Ropa talla RN y 0-3 meses",
+      "name": "Ropa talla 0-3 meses",
       "icon": "icon-shirt",
       "items": [
         {
-          "id": "bodies-rn",
-          "name": "Bodys talla RN",
+          "id": "bodies",
+          "name": "Bodys",
           "stage": "pre-birth",
-          "suggestedMin": 4,
-          "suggestedMax": 6,
+          "suggestedMin": 10,
+          "suggestedMax": 14,
           "essential": true,
-          "purchased": 5,
-          "notes": "5 bodies RN"
+          "purchased": 9,
+          "notes": "5 bodies RN + 4 bodies 3 meses"
         },
         {
-          "id": "pijamas-enteras-rn",
-          "name": "Pijamas enteras talla RN",
+          "id": "pijamas-enteras",
+          "name": "Pijamas enteras",
           "stage": "pre-birth",
-          "suggestedMin": 4,
-          "suggestedMax": 6,
+          "suggestedMin": 10,
+          "suggestedMax": 14,
           "essential": true,
-          "purchased": 4,
-          "notes": "3 monos RN + 1 mono peludo RN",
-          "_comments": "El mono peludo RN se cuenta como pijama entera adicional. Total 4."
+          "purchased": 8,
+          "notes": "3 monos RN + 1 mono peludo RN + 4 monos 3 meses"
         },
         {
-          "id": "pantaloncitos-suaves-rn",
-          "name": "Pantaloncitos suaves talla RN",
+          "id": "pantalones",
+          "name": "Pantalones",
           "stage": "pre-birth",
-          "suggestedMin": 2,
-          "suggestedMax": 3,
+          "suggestedMin": 6,
+          "suggestedMax": 9,
           "essential": true,
-          "purchased": 1,
-          "notes": "1 pantalón RN (del conjunto pantalón y buzo)",
-          "_comments": "El buzo del mismo conjunto RN se asigna a Conjuntos bonitos."
+          "purchased": 3,
+          "notes": "1 pantalón RN + 2 pantalones 3 meses"
         },
         {
-          "id": "gorritos-livianos",
-          "name": "Gorritos livianos",
+          "id": "gorritos",
+          "name": "Gorritos",
           "stage": "pre-birth",
           "suggestedMin": 2,
           "suggestedMax": 2,
           "essential": false,
           "purchased": 3,
-          "notes": "1 gorra de aviador + 2 gorritos 0-3 meses",
-          "_comments": "Los gorritos 0-3 meses se cuentan aquí porque son todos livianos y se usan desde RN. Excede el máximo (3 > 2)."
+          "notes": "1 gorra de aviador + 2 gorritos 0-3 meses"
         },
         {
-          "id": "medias-rn",
+          "id": "medias",
           "name": "Pares de medias",
           "stage": "pre-birth",
-          "suggestedMin": 4,
-          "suggestedMax": 6,
+          "suggestedMin": 10,
+          "suggestedMax": 12,
           "essential": true,
-          "purchased": 7,
-          "notes": "6 pares medias RN directos + 1 par (botitas) del combo chompa tejida RN",
-          "_comments": "Excede el máximo sugerido (7 > 6). Las botitas del combo chompa tejida se cuentan como +1 par de medias."
+          "purchased": 17,
+          "notes": "6 pares medias RN + 10 pares 0-3 meses + 1 par (botitas) del combo chompa tejida RN"
         },
         {
           "id": "manoplas",
@@ -597,70 +593,27 @@ window.__BABY_DATA__ = {
           "suggestedMax": 3,
           "essential": false,
           "purchased": 4,
-          "notes": "1 par del combo chompa tejida RN + 3 pares guantes 0-3 meses",
-          "_comments": "Los guantes 0-3 meses se cuentan como manoplas porque cumplen la misma función en los primeros meses. Excede el máximo (4 > 3)."
+          "notes": "1 par del combo chompa tejida RN + 3 pares guantes 0-3 meses"
         },
         {
-          "id": "conjuntos-bonitos-rn",
-          "name": "Conjuntos bonitos salida/fotos",
+          "id": "conjuntos-bonitos",
+          "name": "Conjuntos bonitos",
           "stage": "pre-birth",
           "suggestedMin": 1,
           "suggestedMax": 2,
           "essential": false,
           "purchased": 3,
-          "notes": "1 buzo RN (del conjunto pantalón y buzo) + 1 chompa RN + 1 chompa tejida RN",
-          "_comments": "Buzo RN, chompa RN y chompa tejida RN se mapean como conjuntos bonitos porque no tienen categoría específica en RN. Excede el máximo (3 > 2)."
+          "notes": "1 buzo RN + 1 chompa RN + 1 chompa tejida RN"
         },
         {
-          "id": "bodies-0-3m",
-          "name": "Bodys talla 0-3 meses",
-          "stage": "pre-birth",
-          "suggestedMin": 6,
-          "suggestedMax": 8,
-          "essential": true,
-          "purchased": 4,
-          "notes": "4 bodies 3 meses"
-        },
-        {
-          "id": "pijamas-enteras-0-3m",
-          "name": "Pijamas enteras talla 0-3 meses",
-          "stage": "pre-birth",
-          "suggestedMin": 6,
-          "suggestedMax": 8,
-          "essential": true,
-          "purchased": 4,
-          "notes": "4 monos 3 meses"
-        },
-        {
-          "id": "pantalones-suaves",
-          "name": "Pantalones suaves",
-          "stage": "pre-birth",
-          "suggestedMin": 4,
-          "suggestedMax": 6,
-          "essential": true,
-          "purchased": 2,
-          "notes": "2 pantalones 3 meses"
-        },
-        {
-          "id": "camisetas-saquitos",
-          "name": "Camisetas o saquitos livianos",
+          "id": "camisetas",
+          "name": "Camisetas",
           "stage": "pre-birth",
           "suggestedMin": 3,
           "suggestedMax": 4,
           "essential": true,
           "purchased": 0,
           "notes": ""
-        },
-        {
-          "id": "medias-0-3m",
-          "name": "Pares de medias",
-          "stage": "pre-birth",
-          "suggestedMin": 6,
-          "suggestedMax": 6,
-          "essential": true,
-          "purchased": 10,
-          "notes": "10 pares medias 0-3 meses",
-          "_comments": "Excede el máximo sugerido (10 > 6)."
         },
         {
           "id": "baberos-pequenos",
