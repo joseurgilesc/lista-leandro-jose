@@ -114,6 +114,30 @@
       flex-shrink: 0;
     }
 
+    .filter-label {
+      white-space: nowrap;
+    }
+
+    .filter-stage-progress {
+      display: inline-block;
+      width: 32px;
+      height: 6px;
+      background: var(--border-light);
+      border-radius: 3px;
+      margin-left: 6px;
+      vertical-align: middle;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .filter-stage-progress .fsp-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    .filter-stage-progress .fsp-fill.low  { background: var(--accent); }
+    .filter-stage-progress .fsp-fill.mid  { background: var(--success); }
+    .filter-stage-progress .fsp-fill.high { background: var(--success-hover); }
+
     /* ═══════════════════════════════════════════
        Header
        ═══════════════════════════════════════════ */
@@ -192,69 +216,7 @@
     }
 
     /* ═══════════════════════════════════════════
-       Summary Cards
-       ═══════════════════════════════════════════ */
-    .card.overall-progress {
-      text-align: center;
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .card.overall-progress .progress-label {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .card.overall-progress .progress-percent {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .card.overall-progress .progress-detail {
-      font-size: 0.8rem;
-      color: var(--text-light);
-      margin-top: 0.25rem;
-    }
-
-    .stage-cards {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-    }
-
-    .stage-card {
-      padding: 1rem;
-      border-radius: var(--radius);
-      border-left: 4px solid;
-      background: var(--card-bg);
-      box-shadow: var(--shadow);
-    }
-
-    .stage-card.pre-birth   { border-left-color: var(--color-pre-birth); background: rgba(224, 122, 95, 0.15); }
-    .stage-card.first-month { border-left-color: var(--color-first-month); background: rgba(129, 178, 154, 0.15); }
-    .stage-card.\33 -6-months { border-left-color: var(--color-3-6-months); background: rgba(242, 204, 143, 0.15); }
-    .stage-card.\36 -9-months { border-left-color: var(--color-6-9-months); background: rgba(234, 179, 8, 0.12); }
-    .stage-card.\39 -12-months { border-left-color: var(--color-9-12-months); background: rgba(132, 204, 22, 0.12); }
-    .stage-card.avoid       { border-left-color: var(--color-avoid); background: rgba(61, 64, 91, 0.06); }
-
-    .stage-card .stage-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .stage-card .stage-count {
-      font-size: 0.75rem;
-      color: var(--text-light);
-    }
-
-    /* ═══════════════════════════════════════════
-       Progress Bars
+       Progress Bars (used in category accordions)
        ═══════════════════════════════════════════ */
     .progress-bar {
       height: 10px;
@@ -292,7 +254,7 @@
     .filters::-webkit-scrollbar { display: none; }
 
     .filters button {
-      padding: 8px 16px;
+      padding: 8px 14px;
       border: 1px solid var(--border);
       border-radius: var(--radius-pill);
       background: var(--card-bg);
@@ -304,6 +266,8 @@
       white-space: nowrap;
       user-select: none;
       touch-action: manipulation;
+      display: inline-flex;
+      align-items: center;
     }
 
     .filters button:hover {
@@ -750,7 +714,7 @@
 
       .filters button {
         font-size: 0.85rem;
-        padding: 10px 20px;
+        padding: 10px 18px;
       }
     }
 
@@ -801,6 +765,40 @@
       }
       .item-table td::before { content: none; }
       .item-table thead { display: table-header-group; }
+    }
+
+    /* ═══════════════════════════════════════════
+       Compact Progress Bar (in header)
+       ═══════════════════════════════════════════ */
+    .compact-progress {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 0 4px;
+    }
+    .compact-progress-bar {
+      flex: 1;
+      height: 10px;
+      background: var(--border-light);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .compact-progress-fill {
+      height: 100%;
+      border-radius: 5px;
+      transition: width 0.3s ease;
+    }
+    .compact-progress-fill.low  { background: linear-gradient(90deg, var(--accent), var(--color-pre-birth)); }
+    .compact-progress-fill.mid  { background: linear-gradient(90deg, var(--accent), var(--success)); }
+    .compact-progress-fill.high { background: linear-gradient(90deg, var(--success), var(--success-hover)); }
+    .compact-progress-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      white-space: nowrap;
+      min-width: 3ch;
+      text-align: right;
     }
 
     /* ═══════════════════════════════════════════
@@ -1034,6 +1032,12 @@
     <h1><svg class="icon icon-lg header-icon"><use href="#icon-baby"/></svg> Lista para Leandro José</h1>
     <p class="subtitle">Seguimiento de compras — 0 a 12 meses</p>
     <p class="last-updated" id="lastUpdated"></p>
+    <div id="compactProgress" class="compact-progress">
+      <div class="compact-progress-bar">
+        <div class="compact-progress-fill" id="compactProgressFill" style="width:0%"></div>
+      </div>
+      <span class="compact-progress-label" id="compactProgressLabel">0%</span>
+    </div>
   </header>
 
   <div class="error-banner" id="errorBanner">
@@ -1043,7 +1047,7 @@
 
   <main>
     <!-- View 1: Summary Cards -->
-    <section id="summary-cards">
+    <section id="summary-cards" style="display:none" aria-hidden="true">
       <h2>Resumen General</h2>
       <div class="card overall-progress" id="overallCard"></div>
       <div class="stage-cards" id="stageCards"></div>
@@ -1054,12 +1058,36 @@
       <h2>Categorías</h2>
       <div class="filters" id="categoryFilters" role="navigation" aria-label="Filtros por etapa">
         <button data-stage="all" class="active" aria-pressed="true">Todos</button>
-        <button data-stage="pre-birth"><span class="filter-dot" style="background:#E07A5F"></span> Antes del nacimiento</button>
-        <button data-stage="first-month"><span class="filter-dot" style="background:#81B29A"></span> Primer mes</button>
-        <button data-stage="3-6-months"><span class="filter-dot" style="background:#F2CC8F"></span> 3 a 6 meses</button>
-        <button data-stage="6-9-months"><span class="filter-dot" style="background:#eab308"></span> 6 a 9 meses</button>
-        <button data-stage="9-12-months"><span class="filter-dot" style="background:#84cc16"></span> 9 a 12 meses</button>
-        <button data-stage="avoid"><span class="filter-dot" style="background:rgba(61,64,91,0.15)"></span> Evitar</button>
+        <button data-stage="pre-birth">
+          <span class="filter-dot" style="background:#E07A5F"></span>
+          <span class="filter-label">Antes del nacimiento</span>
+          <span class="filter-stage-progress" id="fp-pre-birth"></span>
+        </button>
+        <button data-stage="first-month">
+          <span class="filter-dot" style="background:#81B29A"></span>
+          <span class="filter-label">Primer mes</span>
+          <span class="filter-stage-progress" id="fp-first-month"></span>
+        </button>
+        <button data-stage="3-6-months">
+          <span class="filter-dot" style="background:#F2CC8F"></span>
+          <span class="filter-label">3 a 6 meses</span>
+          <span class="filter-stage-progress" id="fp-3-6-months"></span>
+        </button>
+        <button data-stage="6-9-months">
+          <span class="filter-dot" style="background:#eab308"></span>
+          <span class="filter-label">6 a 9 meses</span>
+          <span class="filter-stage-progress" id="fp-6-9-months"></span>
+        </button>
+        <button data-stage="9-12-months">
+          <span class="filter-dot" style="background:#84cc16"></span>
+          <span class="filter-label">9 a 12 meses</span>
+          <span class="filter-stage-progress" id="fp-9-12-months"></span>
+        </button>
+        <button data-stage="avoid">
+          <span class="filter-dot" style="background:rgba(61,64,91,0.15)"></span>
+          <span class="filter-label">Evitar</span>
+          <span class="filter-stage-progress" id="fp-avoid"></span>
+        </button>
       </div>
       <div id="categoryList"></div>
     </section>
@@ -1406,9 +1434,15 @@
         };
       }
 
-      // ═══ GAPS (items with purchased=0, excluding evitar and combo-covered) ═══
+      // ═══ GAPS (items with purchased=0, excluding evitar, combo-covered, and deduped by id) ═══
+      const seenGap = new Set();
       const gaps = countableItems
         .filter(item => item._status === 'pendiente' && !item._comboResolved)
+        .filter(item => {
+          if (seenGap.has(item.id)) return false;
+          seenGap.add(item.id);
+          return true;
+        })
         .map(item => ({
           item: item.name,
           id: item.id,
@@ -1859,34 +1893,30 @@
      * Renders the summary cards view (stub — will be fully implemented in Task 3.2).
      */
     function renderSummaryCards(data, stats) {
-      const overallCard = document.getElementById('overallCard');
-      const stageCards = document.getElementById('stageCards');
-      if (!overallCard || !stageCards) return;
+      const compactFill = document.getElementById('compactProgressFill');
+      const compactLabel = document.getElementById('compactProgressLabel');
 
       const g = stats.global;
-      overallCard.innerHTML = `
-        <div class="progress-label">Progreso general</div>
-        <div class="progress-percent">${g.progress}%</div>
-        <div class="progress-bar" role="progressbar" aria-valuenow="${g.progress}" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso general: ${g.progress} por ciento">
-          <div class="progress-fill ${g.progress < 30 ? 'low' : g.progress < 70 ? 'mid' : 'high'}" style="width:${g.progress}%"></div>
-        </div>
-        <div class="progress-detail">${g.complete} de ${g.total} ítems completos · ${g.pending} pendientes · ${g.insufficient} insuficientes · ${g.exceeded} excedidos</div>
-      `;
 
+      // Compact progress bar in header
+      if (compactFill && compactLabel) {
+        const pctClass = g.progress < 30 ? 'low' : g.progress < 70 ? 'mid' : 'high';
+        compactFill.className = 'compact-progress-fill ' + pctClass;
+        compactFill.style.width = g.progress + '%';
+        compactFill.setAttribute('aria-valuenow', g.progress);
+        compactLabel.textContent = g.progress + '%';
+      }
+
+      // Render stage progress bars in filter buttons
       const stageIds = ['pre-birth', 'first-month', '3-6-months', '6-9-months', '9-12-months', 'avoid'];
-      stageCards.innerHTML = stageIds.map(sid => {
+      for (const sid of stageIds) {
         const s = stats.byStage[sid];
-        if (!s) return '';
-        return `
-          <div class="stage-card ${sid}">
-            <div class="stage-label">${s.label}</div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="${s.progress}" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso ${s.label}: ${s.progress} por ciento">
-              <div class="progress-fill ${s.progress < 30 ? 'low' : s.progress < 70 ? 'mid' : 'high'}" style="width:${s.progress}%"></div>
-            </div>
-            <div class="stage-count">${s.complete}/${s.total} completo${s.total !== 1 ? 's' : ''} (${s.progress}%)</div>
-          </div>
-        `;
-      }).join('');
+        const el = document.getElementById('fp-' + sid);
+        if (!s || !el) continue;
+        const pctClass = s.progress < 30 ? 'low' : s.progress < 70 ? 'mid' : 'high';
+        el.innerHTML = `<span class="fsp-fill ${pctClass}" style="width:${s.progress}%"></span>`;
+        el.title = `${s.label}: ${s.complete}/${s.total} completos (${s.progress}%)`;
+      }
     }
 
     /**
