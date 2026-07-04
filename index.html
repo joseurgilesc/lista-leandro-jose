@@ -104,6 +104,43 @@
     }
 
     /* Filter stage dot */
+    /* ═══════════════════════════════════════════
+       Search Box
+       ═══════════════════════════════════════════ */
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.75rem;
+      padding: 6px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      background: var(--card-bg);
+      transition: border-color 0.15s ease;
+    }
+    .search-box:focus-within {
+      border-color: var(--accent);
+    }
+    .search-icon {
+      width: 18px;
+      height: 18px;
+      color: var(--text-light);
+      flex-shrink: 0;
+    }
+    .search-input {
+      flex: 1;
+      border: none;
+      background: none;
+      outline: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text);
+      padding: 4px 0;
+    }
+    .search-input::placeholder {
+      color: var(--text-light);
+    }
+
     .filter-dot {
       display: inline-block;
       width: 10px;
@@ -1027,6 +1064,9 @@
   <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>
   </symbol>
+  <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+  </symbol>
   </svg>
   <header>
     <h1><svg class="icon icon-lg header-icon"><use href="#icon-baby"/></svg> Lista para Leandro José</h1>
@@ -1056,6 +1096,10 @@
     <!-- View 2: Category Accordion -->
     <section id="categories">
       <h2>Categorías</h2>
+      <div class="search-box">
+        <svg class="icon search-icon"><use href="#icon-search"/></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar ítem..." aria-label="Buscar ítem por nombre">
+      </div>
       <div class="filters" id="categoryFilters" role="navigation" aria-label="Filtros por etapa">
         <button data-stage="all" class="active" aria-pressed="true">Todos</button>
         <button data-stage="pre-birth">
@@ -1594,6 +1638,7 @@
     let currentData = null;
     let currentStats = null;
     let currentFilter = 'all';
+    let currentSearch = '';
     let baseData = null;          // Original from data.js, never modified
     let currentOverrides = {};    // Current localStorage purchased overrides
     let currentNotesOverrides = {}; // Current localStorage notes overrides
@@ -1877,6 +1922,9 @@
     function refreshAll(targetCatId) {
       if (!baseData) return;
 
+      // Guardar posición de scroll actual
+      const scrollY = window.scrollY;
+
       // Guardar qué categorías están abiertas ahora
       const openCats = new Set();
       document.querySelectorAll('.category-details[open]').forEach(d => {
@@ -1904,7 +1952,7 @@
         }
       });
 
-      // Scroll a la categoría objetivo
+      // Restaurar scroll exacto donde estaba
       if (targetCatId) {
         setTimeout(() => {
           const target = document.querySelector(`.category-details[data-cat="${targetCatId}"]`);
@@ -1912,6 +1960,9 @@
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }, 100);
+      } else {
+        // Sin categoría objetivo: restaurar scroll exacto
+        window.scrollTo(0, scrollY);
       }
     }
 
@@ -1953,6 +2004,7 @@
       if (!container) return;
 
       const categories = data.categories || [];
+      const searchTerm = currentSearch.toLowerCase().trim();
 
       // Build item index for combo resolution in accordion
       const allAccordionItems = [];
@@ -1974,6 +2026,10 @@
         let items = (cat.items || []).map(item => ({ ...item, _category: cat }));
         if (filterStage && filterStage !== 'all') {
           items = items.filter(item => item.stage === filterStage);
+        }
+        // Filter by search term
+        if (searchTerm) {
+          items = items.filter(item => item.name.toLowerCase().includes(searchTerm));
         }
         if (items.length === 0) return '';
 
@@ -2330,6 +2386,25 @@
       });
     }
 
+    /**
+     * Configura la búsqueda por nombre de ítem.
+     */
+    function setupSearch() {
+      const input = document.getElementById('searchInput');
+      if (!input) return;
+
+      let debounceTimer;
+      input.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          currentSearch = input.value;
+          if (currentData && currentStats) {
+            renderCategoryAccordion(currentData, currentStats, currentFilter);
+          }
+        }, 200);
+      });
+    }
+
     /* ═══════════════════════════════════════════
        ──  TASK 2.2/3.1: Add Form Helpers + Event Delegation  ──
        ═══════════════════════════════════════════ */
@@ -2559,6 +2634,9 @@
 
         // Legend toggle
         setupLegendToggle();
+
+        // Search
+        setupSearch();
 
         // ═══ Firebase listener: escuchar cambios remotos ═══
         stateRef.on('value', snapshot => {
