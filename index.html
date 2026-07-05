@@ -1695,10 +1695,34 @@
      * @param {object} customItems
      * @param {string} dataVersion
      */
+    function updateLastUpdated() {
+      const el = document.getElementById('lastUpdated');
+      if (!el) return;
+      const raw = localStorage.getItem('lista-bebe-state');
+      if (raw) {
+        try {
+          const state = JSON.parse(raw);
+          if (state.lastUpdated) {
+            const d = new Date(state.lastUpdated);
+            const fecha = d.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+            el.textContent = `Última actividad: ${fecha}`;
+            return;
+          }
+        } catch (e) {}
+      }
+      // Fallback a la fecha de data.js
+      if (baseData?.meta?.lastUpdated) {
+        el.textContent = `Última actualización: ${baseData.meta.lastUpdated}`;
+      } else if (baseData?.meta?.generated) {
+        el.textContent = `Generado: ${baseData.meta.generated}`;
+      }
+    }
+
     function saveState(overrides, notesOverrides, customItems, dataVersion) {
       try {
         const state = { overrides, notesOverrides, customItems, dataVersion, lastUpdated: Date.now() };
         localStorage.setItem('lista-bebe-state', JSON.stringify(state));
+        updateLastUpdated();
         // Sincronizar con Firebase (solo si no es una actualización remota entrante)
         if (!remoteUpdateInProgress) {
           stateRef.set(state);
@@ -1974,6 +1998,7 @@
           window.scrollTo(0, scrollY);
         }
       });
+      updateLastUpdated();
     }
 
     /**
@@ -2614,13 +2639,9 @@
         // Step 2: Compute stats
         currentStats = computeStats(currentData);
 
-        // Step 3: Set last updated
+        // Step 3: Set last updated — mostrar la última sincronización si existe
         const lastUpdatedEl = document.getElementById('lastUpdated');
-        if (lastUpdatedEl && currentData.meta && currentData.meta.lastUpdated) {
-          lastUpdatedEl.textContent = `Última actualización: ${currentData.meta.lastUpdated}`;
-        } else if (lastUpdatedEl && currentData.meta && currentData.meta.generated) {
-          lastUpdatedEl.textContent = `Generado: ${currentData.meta.generated}`;
-        }
+        updateLastUpdated();
 
         // Step 4: Render all views
         renderSummaryCards(currentData, currentStats);
