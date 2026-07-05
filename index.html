@@ -1927,13 +1927,18 @@
     function refreshAll(targetCatId) {
       if (!baseData) return;
 
-      // Guardar posición de scroll actual
+      // Guardar posición de scroll
       const scrollY = window.scrollY;
 
       // Guardar qué categorías están abiertas ahora
       const openCats = new Set();
+      const catScrollData = {};
       document.querySelectorAll('.category-details[open]').forEach(d => {
-        openCats.add(d.dataset.cat);
+        const catId = d.dataset.cat;
+        openCats.add(catId);
+        // Guardar qué botón de categoría está visible en pantalla
+        const rect = d.getBoundingClientRect();
+        catScrollData[catId] = { top: rect.top, height: rect.height };
       });
       // Si hay categoría objetivo, forzarla abierta
       if (targetCatId) openCats.add(targetCatId);
@@ -1944,31 +1949,31 @@
       // Recalcular estadísticas
       currentStats = computeStats(currentData);
 
-      // Re-renderizar las 4 vistas
+      // Re-renderizar las 4 vistas (sin smooth scroll)
       renderSummaryCards(currentData, currentStats);
       renderCategoryAccordion(currentData, currentStats, currentFilter);
       renderGapAnalysis(currentData, currentStats);
       renderExtras(currentData);
 
-      // Restaurar categorías abiertas
-      document.querySelectorAll('.category-details').forEach(d => {
-        if (openCats.has(d.dataset.cat)) {
-          d.setAttribute('open', '');
-        }
-      });
+      // Restaurar categorías abiertas y scroll suave
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.category-details').forEach(d => {
+          if (openCats.has(d.dataset.cat)) {
+            d.setAttribute('open', '');
+          }
+        });
 
-      // Restaurar scroll exacto donde estaba
-      if (targetCatId) {
-        setTimeout(() => {
+        // Restaurar scroll: si hay categoría objetivo, ir a ella
+        if (targetCatId) {
           const target = document.querySelector(`.category-details[data-cat="${targetCatId}"]`);
           if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            target.scrollIntoView({ behavior: 'instant', block: 'start' });
           }
-        }, 100);
-      } else {
-        // Sin categoría objetivo: restaurar scroll exacto
-        window.scrollTo(0, scrollY);
-      }
+        } else if (openCats.size > 0) {
+          // Restaurar scroll manteniendo la categoría visible
+          window.scrollTo(0, scrollY);
+        }
+      });
     }
 
     /**
@@ -2133,7 +2138,7 @@
                               <input class="note-input" type="text" value="${notes.replace(/"/g, '&quot;')}" data-id="${item.id}" style="display:none;width:100%;font-size:0.78rem;padding:2px 4px;border:1px solid var(--border);border-radius:4px;font-family:inherit">
                             </td>
                             <td data-label="" style="text-align:center;width:40px">
-                              <button class="delete-item-btn" data-action="delete-item" data-id="${item.id}" data-cat="${cat.id}" data-name="${item.name.replace(/"/g, '&quot;')}" aria-label="Eliminar ítem" title="Eliminar ítem" style="background:none;border:none;color:var(--text-light);cursor:pointer;padding:4px;opacity:0.4;transition:all 0.15s;display:inline-flex;align-items:center">
+                              <button class="delete-item-btn" onclick="deleteItem('${cat.id}','${item.id}','${item.name.replace(/'/g, "\\'")}')" data-id="${item.id}" aria-label="Eliminar ítem" title="Eliminar ítem" style="background:none;border:none;color:var(--text-light);cursor:pointer;padding:6px;opacity:0.5;transition:all 0.15s;display:inline-flex;align-items:center">
                                 <svg class="icon icon-sm"><use href="#icon-trash"/></svg>
                               </button>
                             </td>
