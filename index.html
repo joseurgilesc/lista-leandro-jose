@@ -1849,8 +1849,41 @@
       currentOverrides[itemId] = newValue;
       saveState(currentOverrides, currentNotesOverrides, currentCustomItems, baseData?.meta?.version || '0.0.0');
 
-      // Re-render completo, manteniendo la categoría visible
-      refreshAll(foundCatId);
+      // Actualización quirúrgica: solo el stepper y badge del ítem cambiado
+      // Actualizar TODOS los steppers con este itemId (items compartidos)
+      document.querySelectorAll(`.stepper-btn[data-id="${itemId}"]`).forEach(btn => {
+        const valueSpan = btn.closest('.qty-cell')?.querySelector('.stepper-value');
+        if (valueSpan) {
+          valueSpan.textContent = newValue;
+          valueSpan.classList.toggle('has-value', newValue > 0);
+          valueSpan.style.color = newValue > 0 ? '#E07A5F' : '#3D405B';
+        }
+        // Habilitar/deshabilitar botón -
+        if (btn.dataset.action === 'decrement') {
+          btn.disabled = newValue <= 0;
+        }
+      });
+
+      // Actualizar el badge de estado en todas las ocurrencias
+      const status = deriveStatus({ ...currentOverrides, ...{ suggestedMin: 0, suggestedMax: 0 }, purchased: newValue });
+      document.querySelectorAll(`tr`).forEach(tr => {
+        const td = tr.querySelector(`.stepper-btn[data-id="${itemId}"]`);
+        if (td) {
+          const badge = tr.querySelector('.badge');
+          if (badge) {
+            badge.className = `badge ${status}`;
+            badge.textContent = STATUS_LABELS[status];
+          }
+        }
+      });
+
+      // Actualizar stats y vistas que no requieren re-render completo
+      currentData = mergeData(baseData, currentOverrides, currentCustomItems);
+      currentStats = computeStats(currentData);
+      renderSummaryCards(currentData, currentStats);
+      renderGapAnalysis(currentData, currentStats);
+      renderExtras(currentData);
+      updateLastUpdated();
     }
 
     /**
@@ -2532,6 +2565,7 @@
 
         if (action === 'increment') { changePurchased(itemId, +1); showToast('✓ Guardado'); }
         else if (action === 'decrement') { changePurchased(itemId, -1); showToast('✓ Guardado'); }
+        else if (action === 'delete-custom') { deleteCustomItem(catId, itemId); showToast('✓ Eliminado'); }
         else if (action === 'delete-custom') { deleteCustomItem(catId, itemId); showToast('✓ Eliminado'); }
         else if (action === 'delete-item') deleteItem(catId, itemId, btn.dataset.name);
         else if (action === 'add-item') showAddForm(catId);

@@ -663,7 +663,7 @@ window.__BABY_DATA__ = {
           "notes": ""
         },
         {
-          "id": "pantalones",
+          "id": "pantalones-3-6m",
           "name": "Pantalones",
           "stage": "3-6-months",
           "suggestedMin": 5,
