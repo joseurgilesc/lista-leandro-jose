@@ -207,6 +207,81 @@
     }
 
     /* ═══════════════════════════════════════════
+       Stage Progress Row
+       ═══════════════════════════════════════════ */
+    .stage-progress-row {
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      background: var(--bg);
+      display: flex;
+      gap: 6px;
+      padding: 8px 12px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-bottom: 1px solid var(--border-light);
+      scrollbar-width: none;
+    }
+    .stage-progress-row::-webkit-scrollbar { display: none; }
+
+    .stage-progress-chip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 6px 10px;
+      border-radius: var(--radius);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      min-width: 72px;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .stage-progress-chip:hover { border-color: var(--accent); }
+    .stage-progress-chip.pre-birth   { border-left: 3px solid var(--color-pre-birth); }
+    .stage-progress-chip.first-month { border-left: 3px solid var(--color-first-month); }
+    .stage-progress-chip.\33-6-months { border-left: 3px solid var(--color-3-6-months); }
+    .stage-progress-chip.\36-9-months { border-left: 3px solid var(--color-6-9-months); }
+    .stage-progress-chip.\39-12-months { border-left: 3px solid var(--color-9-12-months); }
+    .stage-progress-chip.avoid       { border-left: 3px solid var(--color-avoid); }
+
+    .stage-progress-chip-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text);
+      text-align: center;
+      line-height: 1.15;
+      max-width: 70px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .stage-progress-chip-pct {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .stage-progress-chip-pct.low  { color: var(--color-pre-birth); }
+    .stage-progress-chip-pct.mid  { color: var(--success); }
+    .stage-progress-chip-pct.high { color: var(--success-hover); }
+    .stage-progress-chip-bar {
+      width: 100%;
+      height: 4px;
+      background: var(--border-light);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .stage-progress-chip-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .stage-progress-chip-fill.low  { background: var(--color-pre-birth); }
+    .stage-progress-chip-fill.mid  { background: var(--success); }
+    .stage-progress-chip-fill.high { background: var(--success-hover); }
+
+    /* ═══════════════════════════════════════════
        Main Layout
        ═══════════════════════════════════════════ */
     main {
@@ -1093,6 +1168,9 @@
     <strong><svg class="icon icon-sm"><use href="#icon-alert"/></svg> Error al cargar los datos</strong>
     <ul id="errorList"></ul>
   </div>
+
+  <!-- Stage progress row -->
+  <div class="stage-progress-row" id="stageProgressRow"></div>
 
   <main>
     <!-- View 1: Summary Cards -->
@@ -2052,8 +2130,29 @@
         compactLabel.textContent = g.progress + '%';
       }
 
-      // Render stage progress bars in filter buttons
+      // Render stage chips row + filter button bars
       const stageIds = ['pre-birth', 'first-month', '3-6-months', '6-9-months', '9-12-months', 'avoid'];
+
+      // Row: stage chips
+      const row = document.getElementById('stageProgressRow');
+      if (row) {
+        row.innerHTML = stageIds.map(sid => {
+          const s = stats.byStage[sid];
+          if (!s) return '';
+          const pctClass = s.progress < 30 ? 'low' : s.progress < 70 ? 'mid' : 'high';
+          return `
+            <button class="stage-progress-chip ${sid}" onclick="setStageFilter('${sid}')">
+              <span class="stage-progress-chip-label">${s.label}</span>
+              <span class="stage-progress-chip-pct ${pctClass}">${s.progress}%</span>
+              <div class="stage-progress-chip-bar">
+                <div class="stage-progress-chip-fill ${pctClass}" style="width:${s.progress}%"></div>
+              </div>
+            </button>
+          `;
+        }).join('');
+      }
+
+      // Filter button mini bars
       for (const sid of stageIds) {
         const s = stats.byStage[sid];
         const el = document.getElementById('fp-' + sid);
@@ -2061,6 +2160,22 @@
         const pctClass = s.progress < 30 ? 'low' : s.progress < 70 ? 'mid' : 'high';
         el.innerHTML = `<span class="fsp-fill ${pctClass}" style="width:${s.progress}%"></span>`;
         el.title = `${s.label}: ${s.complete}/${s.total} completos (${s.progress}%)`;
+      }
+    }
+
+    /**
+     * Setea el filtro desde los stage chips y sincroniza los botones.
+     */
+    function setStageFilter(stage) {
+      currentFilter = stage;
+      // Update filter buttons active state
+      document.querySelectorAll('#categoryFilters button').forEach(b => {
+        const isActive = stage === 'all' ? b.dataset.stage === undefined : b.dataset.stage === stage;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+      if (currentData && currentStats) {
+        renderCategoryAccordion(currentData, currentStats, currentFilter);
       }
     }
 
@@ -2445,11 +2560,8 @@
           btn.classList.add('active');
           btn.setAttribute('aria-pressed', 'true');
 
-          currentFilter = btn.dataset.stage || 'all';
-
-          if (currentData && currentStats) {
-            renderCategoryAccordion(currentData, currentStats, currentFilter);
-          }
+          const stage = btn.dataset.stage || 'all';
+          setStageFilter(stage);
         });
       });
     }
