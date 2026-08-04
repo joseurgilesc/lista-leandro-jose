@@ -1037,6 +1037,199 @@
       .stepper-value { min-width: 28px; height: 40px; font-size: 16px; }
       .custom-badge { font-size: 9px; }
     }
+
+    /* ═══════════════════════════════════════════
+       View Tabs (Compras / Maletas del parto)
+       ═══════════════════════════════════════════ */
+    .view-tabs {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .view-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: var(--touch-target);
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+      user-select: none;
+      font-family: inherit;
+    }
+    .view-tab:hover { border-color: var(--accent); }
+    .view-tab.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .view-tab .icon { color: var(--accent); }
+    .view-tab.active .icon { color: white; }
+
+    /* ═══════════════════════════════════════════
+       Checklist Maletas del Parto
+       ═══════════════════════════════════════════ */
+    #compras-view { display: none; }
+    #compras-view.active { display: contents; }
+    .checklist-section { display: none; }
+    .checklist-section.active { display: block; }
+
+    .valija-intro p { margin-bottom: 1rem; }
+
+    .valija {
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      overflow: hidden;
+      background: var(--card-bg);
+    }
+    .valija[open] { border-color: var(--border); }
+    .valija summary {
+      padding: 14px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      user-select: none;
+      touch-action: manipulation;
+      background: var(--card-bg);
+    }
+    .valija summary:hover { background: var(--card-bg-alt); }
+    .valija summary::-webkit-details-marker { display: none; }
+    .valija summary::marker { content: none; }
+    .valija summary::after {
+      content: '▶';
+      font-size: 0.7rem;
+      margin-left: auto;
+      transition: transform 0.2s ease;
+      color: var(--text-light);
+    }
+    .valija[open] summary::after { transform: rotate(90deg); }
+    .valija[open] summary { border-bottom: 1px solid var(--border-light); }
+    .valija-summary-tag {
+      margin-left: auto;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      background: var(--warning-bg);
+      border-radius: var(--radius-pill);
+      padding: 2px 10px;
+      white-space: nowrap;
+    }
+    .valija .valija-body { padding: 12px 16px 16px; }
+
+    .valija-block-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-light);
+      font-weight: 700;
+      margin: 1rem 0 0.25rem;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .valija-block-title:first-child { margin-top: 0; }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 6px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+      transition: background 0.12s ease;
+    }
+    .checklist li:hover { background: var(--card-bg-alt); }
+    .checklist li label {
+      flex: 1;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      cursor: pointer;
+    }
+    .checklist input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      margin-top: 1px;
+      flex-shrink: 0;
+      accent-color: var(--success);
+      cursor: pointer;
+    }
+    .checklist li.checked label {
+      text-decoration: line-through;
+      color: var(--text-light);
+    }
+    .checklist li.checked svg {
+      color: var(--success);
+    }
+
+    .recordatorio-box {
+      background: rgba(242, 204, 143, 0.15);
+      border: 1px dashed var(--warning-border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin-top: 4px;
+    }
+    .recordatorio-box h3 {
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .recordatorio-box .checklist li { padding: 6px 4px; }
+
+    .checklist-empty-progress {
+      margin: 1rem 0 0;
+      text-align: right;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .checklist-reset-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      background: rgba(224, 122, 95, 0.06);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-pill);
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+    .checklist-reset-btn:hover { background: rgba(224, 122, 95, 0.12); }
+
+    /* Aviso debajo de la tabla de organización del bebé */
+    .checklist-note {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      background: rgba(242, 204, 143, 0.12);
+      border-left: 3px solid var(--warning-bg);
+      border-radius: 4px;
+      padding: 8px 12px;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -1118,7 +1311,18 @@
     <h1><svg class="icon icon-lg header-icon"><use href="#icon-baby"/></svg> Lista para Leandro José</h1>
     <p class="subtitle">Seguimiento de compras — 0 a 12 meses</p>
     <p class="last-updated" id="lastUpdated"></p>
-    <div class="search-box header-search">
+
+    <!-- View switcher: Compras / Maletas Parto -->
+    <nav class="view-tabs" role="tablist" aria-label="Secciones">
+      <button class="view-tab active" role="tab" data-view="compras" aria-selected="true" id="tab-compras">
+        <svg class="icon icon-sm"><use href="#icon-shopping-bag"/></svg> Compras
+      </button>
+      <button class="view-tab" role="tab" data-view="maletas" aria-selected="false" id="tab-maletas">
+        <svg class="icon icon-sm"><use href="#icon-package"/></svg> Maletas del parto
+      </button>
+    </nav>
+
+    <div class="search-box header-search" id="searchBoxCompras">
       <svg class="icon search-icon"><use href="#icon-search"/></svg>
       <input type="text" id="searchInput" class="search-input" placeholder="Buscar ítem..." aria-label="Buscar ítem por nombre">
     </div>
@@ -1133,66 +1337,267 @@
   <div class="stage-progress-row" id="stageProgressRow"></div>
 
   <main>
-    <!-- View 1: Summary Cards -->
-    <section id="summary-cards" style="display:none" aria-hidden="true">
-      <h2>Resumen General</h2>
-      <div class="card overall-progress" id="overallCard"></div>
-      <div class="stage-cards" id="stageCards"></div>
-    </section>
+    <!-- ═══════════════ VIEW: COMPRAS (lista principal) ═══════════════ -->
+    <div id="compras-view" class="active">
+      <!-- View 1: Summary Cards -->
+      <section id="summary-cards" style="display:none" aria-hidden="true">
+        <h2>Resumen General</h2>
+        <div class="card overall-progress" id="overallCard"></div>
+        <div class="stage-cards" id="stageCards"></div>
+      </section>
 
-    <!-- View 2: Category Accordion -->
-    <section id="categories">
-      <h2>Categorías</h2>
-      <div class="filters" id="categoryFilters" role="navigation" aria-label="Filtros por etapa">
-        <button data-stage="all" class="active" aria-pressed="true">Todos</button>
-        <button data-stage="pre-birth">
-          <span class="filter-dot" style="background:#E07A5F"></span>
-          <span class="filter-label">Antes del nacimiento</span>
-          <span class="filter-stage-progress" id="fp-pre-birth"></span>
-        </button>
-        <button data-stage="first-month">
-          <span class="filter-dot" style="background:#81B29A"></span>
-          <span class="filter-label">Primer mes</span>
-          <span class="filter-stage-progress" id="fp-first-month"></span>
-        </button>
-        <button data-stage="3-6-months">
-          <span class="filter-dot" style="background:#F2CC8F"></span>
-          <span class="filter-label">3 a 6 meses</span>
-          <span class="filter-stage-progress" id="fp-3-6-months"></span>
-        </button>
-        <button data-stage="6-9-months">
-          <span class="filter-dot" style="background:#eab308"></span>
-          <span class="filter-label">6 a 9 meses</span>
-          <span class="filter-stage-progress" id="fp-6-9-months"></span>
-        </button>
-        <button data-stage="9-12-months">
-          <span class="filter-dot" style="background:#84cc16"></span>
-          <span class="filter-label">9 a 12 meses</span>
-          <span class="filter-stage-progress" id="fp-9-12-months"></span>
-        </button>
-        <button data-stage="avoid">
-          <span class="filter-dot" style="background:rgba(61,64,91,0.15)"></span>
-          <span class="filter-label">Evitar</span>
-          <span class="filter-stage-progress" id="fp-avoid"></span>
-        </button>
+      <!-- View 2: Category Accordion -->
+      <section id="categories">
+        <h2>Categorías</h2>
+        <div class="filters" id="categoryFilters" role="navigation" aria-label="Filtros por etapa">
+          <button data-stage="all" class="active" aria-pressed="true">Todos</button>
+          <button data-stage="pre-birth">
+            <span class="filter-dot" style="background:#E07A5F"></span>
+            <span class="filter-label">Antes del nacimiento</span>
+            <span class="filter-stage-progress" id="fp-pre-birth"></span>
+          </button>
+          <button data-stage="first-month">
+            <span class="filter-dot" style="background:#81B29A"></span>
+            <span class="filter-label">Primer mes</span>
+            <span class="filter-stage-progress" id="fp-first-month"></span>
+          </button>
+          <button data-stage="3-6-months">
+            <span class="filter-dot" style="background:#F2CC8F"></span>
+            <span class="filter-label">3 a 6 meses</span>
+            <span class="filter-stage-progress" id="fp-3-6-months"></span>
+          </button>
+          <button data-stage="6-9-months">
+            <span class="filter-dot" style="background:#eab308"></span>
+            <span class="filter-label">6 a 9 meses</span>
+            <span class="filter-stage-progress" id="fp-6-9-months"></span>
+          </button>
+          <button data-stage="9-12-months">
+            <span class="filter-dot" style="background:#84cc16"></span>
+            <span class="filter-label">9 a 12 meses</span>
+            <span class="filter-stage-progress" id="fp-9-12-months"></span>
+          </button>
+          <button data-stage="avoid">
+            <span class="filter-dot" style="background:rgba(61,64,91,0.15)"></span>
+            <span class="filter-label">Evitar</span>
+            <span class="filter-stage-progress" id="fp-avoid"></span>
+          </button>
+        </div>
+        <div id="categoryList"></div>
+      </section>
+
+      <!-- View 3: Gap Analysis -->
+      <section id="gaps">
+        <details class="category-details">
+          <summary><h2 style="display:inline;font-size:1rem"><svg class="icon"><use href="#icon-alert"/></svg> Qué falta comprar</h2></summary>
+          <div class="category-content">
+            <div id="gapList"></div>
+          </div>
+        </details>
+      </section>
+
+      <!-- View 4: Extras -->
+      <section id="extras">
+        <h2><svg class="icon"><use href="#icon-package"/></svg> Extras (fuera de la lista)</h2>
+        <div id="extrasList"></div>
+      </section>
+    </div>
+
+    <!-- ═══════════════ VIEW: MALETAS DEL PARTO ═══════════════ -->
+    <section id="maletas-view" class="checklist-section" aria-hidden="true">
+      <div class="valija-intro">
+        <h2 style="border-bottom:2px solid var(--border-light);padding-bottom:0.5rem;margin-bottom:0.25rem">
+          <svg class="icon icon-lg"><use href="#icon-package"/></svg> Checklist de Maletas para el Parto
+        </h2>
+        <p style="font-size:0.85rem;color:var(--text-light)">Mamá, bebé y padre — Estancia aproximada: 2 a 3 días</p>
       </div>
-      <div id="categoryList"></div>
-    </section>
 
-    <!-- View 3: Gap Analysis -->
-    <section id="gaps">
-      <details class="category-details">
-        <summary><h2 style="display:inline;font-size:1rem"><svg class="icon"><use href="#icon-alert"/></svg> Qué falta comprar</h2></summary>
-        <div class="category-content">
-          <div id="gapList"></div>
+      <!-- MALETA DE MAMÁ -->
+      <details class="valija" id="valija-mama" open>
+        <summary>
+          <span><svg class="icon"><use href="#icon-users"/></svg> Maleta de Mamá</span>
+          <span class="valija-summary-tag" id="valija-mama-tag">0/0</span>
+        </summary>
+        <div class="valija-body">
+
+          <div class="valija-block-title">DOCUMENTOS</div>
+          <ul class="checklist" data-owning="mama" data-block="documentos">
+            <li data-idx="mama-doc-1"><input type="checkbox" id="mama-doc-1"><label for="mama-doc-1">Cédula de identidad</label></li>
+            <li data-idx="mama-doc-2"><input type="checkbox" id="mama-doc-2"><label for="mama-doc-2">Documentos o autorización de la clínica</label></li>
+            <li data-idx="mama-doc-3"><input type="checkbox" id="mama-doc-3"><label for="mama-doc-3">Carné del seguro médico</label></li>
+            <li data-idx="mama-doc-4"><input type="checkbox" id="mama-doc-4"><label for="mama-doc-4">Controles y exámenes del embarazo</label></li>
+            <li data-idx="mama-doc-5"><input type="checkbox" id="mama-doc-5"><label for="mama-doc-5">Última ecografía</label></li>
+            <li data-idx="mama-doc-6"><input type="checkbox" id="mama-doc-6"><label for="mama-doc-6">Indicaciones del médico</label></li>
+            <li data-idx="mama-doc-7"><input type="checkbox" id="mama-doc-7"><label for="mama-doc-7">Plan de parto, si lo tienen</label></li>
+          </ul>
+
+          <div class="valija-block-title">ROPA</div>
+          <ul class="checklist" data-owning="mama" data-block="ropa">
+            <li data-idx="mama-ropa-1"><input type="checkbox" id="mama-ropa-1"><label for="mama-ropa-1">2 pijamas o camisones cómodos</label></li>
+            <li data-idx="mama-ropa-2"><input type="checkbox" id="mama-ropa-2"><label for="mama-ropa-2">Pijamas con abertura frontal para lactancia</label></li>
+            <li data-idx="mama-ropa-3"><input type="checkbox" id="mama-ropa-3"><label for="mama-ropa-3">1 bata</label></li>
+            <li data-idx="mama-ropa-4"><input type="checkbox" id="mama-ropa-4"><label for="mama-ropa-4">1 par de pantuflas antideslizantes</label></li>
+            <li data-idx="mama-ropa-5"><input type="checkbox" id="mama-ropa-5"><label for="mama-ropa-5">2 pares de medias</label></li>
+            <li data-idx="mama-ropa-6"><input type="checkbox" id="mama-ropa-6"><label for="mama-ropa-6">4 prendas interiores cómodas</label></li>
+            <li data-idx="mama-ropa-7"><input type="checkbox" id="mama-ropa-7"><label for="mama-ropa-7">1 o 2 brasieres de lactancia</label></li>
+            <li data-idx="mama-ropa-8"><input type="checkbox" id="mama-ropa-8"><label for="mama-ropa-8">1 cambio de ropa holgada para salir</label></li>
+            <li data-idx="mama-ropa-9"><input type="checkbox" id="mama-ropa-9"><label for="mama-ropa-9">Bolsa para guardar la ropa usada</label></li>
+          </ul>
+
+          <div class="valija-block-title">CUIDADO POSPARTO</div>
+          <ul class="checklist" data-owning="mama" data-block="posparto">
+            <li data-idx="mama-pos-1"><input type="checkbox" id="mama-pos-1"><label for="mama-pos-1">Pañales para adulto o ropa interior posparto</label></li>
+            <li data-idx="mama-pos-2"><input type="checkbox" id="mama-pos-2"><label for="mama-pos-2">Toallas sanitarias posparto de alta absorción</label></li>
+            <li data-idx="mama-pos-3"><input type="checkbox" id="mama-pos-3"><label for="mama-pos-3">Protectores o discos de lactancia</label></li>
+            <li data-idx="mama-pos-4"><input type="checkbox" id="mama-pos-4"><label for="mama-pos-4">Crema de lanolina para los pezones</label></li>
+            <li data-idx="mama-pos-5"><input type="checkbox" id="mama-pos-5"><label for="mama-pos-5">Toalla de baño</label></li>
+            <li data-idx="mama-pos-6"><input type="checkbox" id="mama-pos-6"><label for="mama-pos-6">Toalla pequeña para manos o rostro</label></li>
+          </ul>
+
+          <div class="valija-block-title">ASEO PERSONAL</div>
+          <ul class="checklist" data-owning="mama" data-block="aseo">
+            <li data-idx="mama-aseo-1"><input type="checkbox" id="mama-aseo-1"><label for="mama-aseo-1">Cepillo dental</label></li>
+            <li data-idx="mama-aseo-2"><input type="checkbox" id="mama-aseo-2"><label for="mama-aseo-2">Pasta dental</label></li>
+            <li data-idx="mama-aseo-3"><input type="checkbox" id="mama-aseo-3"><label for="mama-aseo-3">Jabón</label></li>
+            <li data-idx="mama-aseo-4"><input type="checkbox" id="mama-aseo-4"><label for="mama-aseo-4">Champú</label></li>
+            <li data-idx="mama-aseo-5"><input type="checkbox" id="mama-aseo-5"><label for="mama-aseo-5">Acondicionador</label></li>
+            <li data-idx="mama-aseo-6"><input type="checkbox" id="mama-aseo-6"><label for="mama-aseo-6">Desodorante de aroma suave</label></li>
+            <li data-idx="mama-aseo-7"><input type="checkbox" id="mama-aseo-7"><label for="mama-aseo-7">Cepillo o peine</label></li>
+            <li data-idx="mama-aseo-8"><input type="checkbox" id="mama-aseo-8"><label for="mama-aseo-8">Ligas para el cabello</label></li>
+            <li data-idx="mama-aseo-9"><input type="checkbox" id="mama-aseo-9"><label for="mama-aseo-9">Bálsamo para los labios</label></li>
+            <li data-idx="mama-aseo-10"><input type="checkbox" id="mama-aseo-10"><label for="mama-aseo-10">Crema hidratante</label></li>
+            <li data-idx="mama-aseo-11"><input type="checkbox" id="mama-aseo-11"><label for="mama-aseo-11">Papel higiénico o pañuelos</label></li>
+            <li data-idx="mama-aseo-12"><input type="checkbox" id="mama-aseo-12"><label for="mama-aseo-12">Toallitas húmedas personales</label></li>
+          </ul>
+
+          <div class="valija-block-title">OBJETOS ÚTILES</div>
+          <ul class="checklist" data-owning="mama" data-block="objetos">
+            <li data-idx="mama-obj-1"><input type="checkbox" id="mama-obj-1"><label for="mama-obj-1">Teléfono</label></li>
+            <li data-idx="mama-obj-2"><input type="checkbox" id="mama-obj-2"><label for="mama-obj-2">Cargador de cable largo</label></li>
+            <li data-idx="mama-obj-3"><input type="checkbox" id="mama-obj-3"><label for="mama-obj-3">Batería portátil</label></li>
+            <li data-idx="mama-obj-4"><input type="checkbox" id="mama-obj-4"><label for="mama-obj-4">Botella o termo para agua</label></li>
+            <li data-idx="mama-obj-5"><input type="checkbox" id="mama-obj-5"><label for="mama-obj-5">Audífonos</label></li>
+            <li data-idx="mama-obj-6"><input type="checkbox" id="mama-obj-6"><label for="mama-obj-6">Lentes y estuche, si utiliza</label></li>
+            <li data-idx="mama-obj-7"><input type="checkbox" id="mama-obj-7"><label for="mama-obj-7">Almohada pequeña, si la clínica permite</label></li>
+            <li data-idx="mama-obj-8"><input type="checkbox" id="mama-obj-8"><label for="mama-obj-8">Refrigerios para después del parto, si están permitidos</label></li>
+          </ul>
+
+          <p class="checklist-empty-progress" id="mama-progress"></p>
         </div>
       </details>
-    </section>
 
-    <!-- View 4: Extras -->
-    <section id="extras">
-      <h2><svg class="icon"><use href="#icon-package"/></svg> Extras (fuera de la lista)</h2>
-      <div id="extrasList"></div>
+      <!-- MALETA DEL BEBÉ -->
+      <details class="valija" id="valija-bebe">
+        <summary>
+          <span><svg class="icon"><use href="#icon-baby"/></svg> Maleta del Bebé</span>
+          <span class="valija-summary-tag" id="valija-bebe-tag">0/0</span>
+        </summary>
+        <div class="valija-body">
+
+          <div class="valija-block-title">PAÑALES E HIGIENE</div>
+          <ul class="checklist" data-owning="bebe" data-block="panales">
+            <li data-idx="bebe-pan-1"><input type="checkbox" id="bebe-pan-1"><label for="bebe-pan-1">12 a 15 pañales talla recién nacido</label></li>
+            <li data-idx="bebe-pan-2"><input type="checkbox" id="bebe-pan-2"><label for="bebe-pan-2">Toallitas húmedas para recién nacido</label></li>
+            <li data-idx="bebe-pan-3"><input type="checkbox" id="bebe-pan-3"><label for="bebe-pan-3">Algodón o gasas</label></li>
+            <li data-idx="bebe-pan-4"><input type="checkbox" id="bebe-pan-4"><label for="bebe-pan-4">Crema para la zona del pañal, solo si la clínica la recomienda</label></li>
+            <li data-idx="bebe-pan-5"><input type="checkbox" id="bebe-pan-5"><label for="bebe-pan-5">Bolsa para pañales o ropa sucia</label></li>
+          </ul>
+
+          <div class="valija-block-title">ROPA</div>
+          <ul class="checklist" data-owning="bebe" data-block="ropa">
+            <li data-idx="bebe-ropa-1"><input type="checkbox" id="bebe-ropa-1"><label for="bebe-ropa-1">3 bodies de algodón</label></li>
+            <li data-idx="bebe-ropa-2"><input type="checkbox" id="bebe-ropa-2"><label for="bebe-ropa-2">3 pijamas o enterizos</label></li>
+            <li data-idx="bebe-ropa-3"><input type="checkbox" id="bebe-ropa-3"><label for="bebe-ropa-3">3 pantalones o monitos</label></li>
+            <li data-idx="bebe-ropa-4"><input type="checkbox" id="bebe-ropa-4"><label for="bebe-ropa-4">3 pares de medias</label></li>
+            <li data-idx="bebe-ropa-5"><input type="checkbox" id="bebe-ropa-5"><label for="bebe-ropa-5">2 gorritos de algodón</label></li>
+            <li data-idx="bebe-ropa-6"><input type="checkbox" id="bebe-ropa-6"><label for="bebe-ropa-6">2 pares de manoplas</label></li>
+            <li data-idx="bebe-ropa-7"><input type="checkbox" id="bebe-ropa-7"><label for="bebe-ropa-7">2 pañales de tela o muselinas</label></li>
+            <li data-idx="bebe-ropa-8"><input type="checkbox" id="bebe-ropa-8"><label for="bebe-ropa-8">1 cambio especial para salir de la clínica</label></li>
+          </ul>
+
+          <div class="valija-block-title">ABRIGO Y TRANSPORTE</div>
+          <ul class="checklist" data-owning="bebe" data-block="abrigo">
+            <li data-idx="bebe-abr-1"><input type="checkbox" id="bebe-abr-1"><label for="bebe-abr-1">1 manta o cobija ligera</label></li>
+            <li data-idx="bebe-abr-2"><input type="checkbox" id="bebe-abr-2"><label for="bebe-abr-2">1 manta más abrigada para salir</label></li>
+            <li data-idx="bebe-abr-3"><input type="checkbox" id="bebe-abr-3"><label for="bebe-abr-3">1 arrullo o muselina grande</label></li>
+            <li data-idx="bebe-abr-4"><input type="checkbox" id="bebe-abr-4"><label for="bebe-abr-4">Silla de automóvil correctamente instalada</label></li>
+          </ul>
+
+          <div class="valija-block-title">ORGANIZACIÓN DE LOS CAMBIOS DEL BEBÉ</div>
+          <p style="font-size:0.8rem;color:var(--text-light)">Preparar cada cambio en una funda transparente independiente:</p>
+          <ul class="checklist" data-owning="bebe" data-block="cambios">
+            <li data-idx="bebe-cam-1"><input type="checkbox" id="bebe-cam-1"><label for="bebe-cam-1">Cambio 1: body, pijama, gorro, medias, manoplas y pañal</label></li>
+            <li data-idx="bebe-cam-2"><input type="checkbox" id="bebe-cam-2"><label for="bebe-cam-2">Cambio 2: body, pijama, gorro, medias, manoplas y pañal</label></li>
+            <li data-idx="bebe-cam-3"><input type="checkbox" id="bebe-cam-3"><label for="bebe-cam-3">Cambio 3: body, pijama, medias y pañal</label></li>
+            <li data-idx="bebe-cam-4"><input type="checkbox" id="bebe-cam-4"><label for="bebe-cam-4">Cambio de salida: conjunto completo, gorro y manta</label></li>
+          </ul>
+
+          <div class="checklist-note">
+            <strong>Etiquetar las fundas</strong> como "Primer cambio", "Segundo cambio", "Tercer cambio" y "Salida".<br>
+            Toda la ropa debe estar previamente lavada con un producto suave y sin fragancias fuertes.
+          </div>
+
+          <p class="checklist-empty-progress" id="bebe-progress"></p>
+        </div>
+      </details>
+
+      <!-- MALETA BÁSICA DEL PADRE -->
+      <details class="valija" id="valija-padre">
+        <summary>
+          <span><svg class="icon"><use href="#icon-users"/></svg> Maleta básica del Padre</span>
+          <span class="valija-summary-tag" id="valija-padre-tag">0/0</span>
+        </summary>
+        <div class="valija-body">
+          <ul class="checklist" data-owning="padre" data-block="todo">
+            <li data-idx="padre-1"><input type="checkbox" id="padre-1"><label for="padre-1">Cédula de identidad</label></li>
+            <li data-idx="padre-2"><input type="checkbox" id="padre-2"><label for="padre-2">Documentos de la clínica y del seguro</label></li>
+            <li data-idx="padre-3"><input type="checkbox" id="padre-3"><label for="padre-3">2 cambios de ropa cómoda</label></li>
+            <li data-idx="padre-4"><input type="checkbox" id="padre-4"><label for="padre-4">Ropa interior y medias</label></li>
+            <li data-idx="padre-5"><input type="checkbox" id="padre-5"><label for="padre-5">Chaqueta o abrigo ligero</label></li>
+            <li data-idx="padre-6"><input type="checkbox" id="padre-6"><label for="padre-6">Pijama o ropa para dormir</label></li>
+            <li data-idx="padre-7"><input type="checkbox" id="padre-7"><label for="padre-7">Zapatos cómodos o pantuflas</label></li>
+            <li data-idx="padre-8"><input type="checkbox" id="padre-8"><label for="padre-8">Cepillo y pasta dental</label></li>
+            <li data-idx="padre-9"><input type="checkbox" id="padre-9"><label for="padre-9">Jabón y desodorante</label></li>
+            <li data-idx="padre-10"><input type="checkbox" id="padre-10"><label for="padre-10">Toalla pequeña</label></li>
+            <li data-idx="padre-11"><input type="checkbox" id="padre-11"><label for="padre-11">Medicamentos personales</label></li>
+            <li data-idx="padre-12"><input type="checkbox" id="padre-12"><label for="padre-12">Teléfono</label></li>
+            <li data-idx="padre-13"><input type="checkbox" id="padre-13"><label for="padre-13">Cargador de cable largo</label></li>
+            <li data-idx="padre-14"><input type="checkbox" id="padre-14"><label for="padre-14">Batería portátil</label></li>
+            <li data-idx="padre-15"><input type="checkbox" id="padre-15"><label for="padre-15">Audífonos</label></li>
+            <li data-idx="padre-16"><input type="checkbox" id="padre-16"><label for="padre-16">Botella de agua</label></li>
+            <li data-idx="padre-17"><input type="checkbox" id="padre-17"><label for="padre-17">Refrigerios sencillos</label></li>
+            <li data-idx="padre-18"><input type="checkbox" id="padre-18"><label for="padre-18">Dinero en efectivo y tarjeta</label></li>
+            <li data-idx="padre-19"><input type="checkbox" id="padre-19"><label for="padre-19">Llaves de casa y del vehículo</label></li>
+            <li data-idx="padre-20"><input type="checkbox" id="padre-20"><label for="padre-20">Bolsa para ropa usada</label></li>
+            <li data-idx="padre-21"><input type="checkbox" id="padre-21"><label for="padre-21">Lista de contactos importantes</label></li>
+            <li data-idx="padre-22"><input type="checkbox" id="padre-22"><label for="padre-22">Silla del bebé instalada en el vehículo</label></li>
+          </ul>
+          <p class="checklist-empty-progress" id="padre-progress"></p>
+        </div>
+      </details>
+
+      <!-- RECORDATORIO FINAL -->
+      <details class="valija" id="valija-recordatorio">
+        <summary>
+          <span><svg class="icon" style="color:var(--accent)"><use href="#icon-alert" style="color:var(--accent)"/></svg> Recordatorio Final</span>
+          <span class="valija-summary-tag" id="valija-recordatorio-tag">0/0</span>
+        </summary>
+        <div class="valija-body">
+          <div class="recordatorio-box">
+            <ul class="checklist" data-owning="recordatorio" data-block="todo">
+              <li data-idx="recordatorio-1"><input type="checkbox" id="recordatorio-1"><label for="recordatorio-1">Confirmar con la clínica qué artículos proporciona</label></li>
+              <li data-idx="recordatorio-2"><input type="checkbox" id="recordatorio-2"><label for="recordatorio-2">Dejar las tres maletas listas y ubicadas cerca de la salida</label></li>
+              <li data-idx="recordatorio-3"><input type="checkbox" id="recordatorio-3"><label for="recordatorio-3">Revisar que los teléfonos y la batería portátil estén cargados</label></li>
+              <li data-idx="recordatorio-4"><input type="checkbox" id="recordatorio-4"><label for="recordatorio-4">Verificar la instalación de la silla del bebé</label></li>
+              <li data-idx="recordatorio-5"><input type="checkbox" id="recordatorio-5"><label for="recordatorio-5">Guardar los documentos en un compartimento de fácil acceso</label></li>
+            </ul>
+          </div>
+          <p class="checklist-empty-progress" id="recordatorio-progress"></p>
+        </div>
+      </details>
+
+      <button class="checklist-reset-btn" id="checklistResetBtn" aria-label="Desmarcar todos los ítems del checklist">
+        <svg class="icon icon-sm"><use href="#icon-refresh"/></svg> Reiniciar checklist
+      </button>
     </section>
   </main>
 
@@ -2806,6 +3211,151 @@
     } else {
       init();
     }
+  </script>
+
+  <!-- ═══ Checklist Maletas del Parto (independiente, sincronizada con Firebase) ═══ -->
+  <script>
+    (function () {
+      const CL_KEY = 'lista-bebe-maletas';        // localStorage
+      const FB_REF = 'lista-bebe-maletas';        // nodo Firebase
+      const VALIJAS = ['mama', 'bebe', 'padre', 'recordatorio'];
+
+      // Estado: { [idx]: true|false }
+      let clState = {};
+
+      function loadLocal() {
+        try {
+          const raw = localStorage.getItem(CL_KEY);
+          if (raw) clState = JSON.parse(raw) || {};
+        } catch (e) { clState = {}; }
+      }
+
+      function persistLocal() {
+        try { localStorage.setItem(CL_KEY, JSON.stringify(clState)); } catch (e) {}
+      }
+
+      function saveToFirebase() {
+        try {
+          const ts = Date.now();
+          db.ref(FB_REF).update({ checked: clState, updatedAt: ts });
+        } catch (e) {}
+      }
+
+      function applyState() {
+        document.querySelectorAll('#maletas-view .checklist input[type="checkbox"]').forEach(cb => {
+          const checked = !!clState[cb.id];
+          cb.checked = checked;
+          cb.closest('li').classList.toggle('checked', checked);
+        });
+        // Reset guard when no state at all
+        if (Object.keys(clState).length === 0) {
+          document.querySelectorAll('#maletas-view .checklist input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+            cb.closest('li').classList.remove('checked');
+          });
+        }
+        updateAllProgress();
+      }
+
+      function updateAllProgress() {
+        VALIJAS.forEach(function (valija) {
+          const scope = valija;
+          const boxes = document.querySelectorAll('#maletas-view .checklist[data-owning="' + scope + '"] input[type="checkbox"]');
+          const total = boxes.length;
+          const done = [].filter.call(boxes, cb => cb.checked).length;
+          const tag = document.getElementById('valija-' + scope + '-tag');
+          if (tag) tag.textContent = done + '/' + total;
+          const prog = document.getElementById(scope + '-progress');
+          if (prog) prog.textContent = (total === 0 ? '0' : Math.round((done / total) * 100)) + '% listo (' + done + '/' + total + ')';
+        });
+      }
+
+      function initChecklist() {
+        // View switching
+        const tabs = document.querySelectorAll('.view-tab');
+        const comprasView = document.getElementById('compras-view');
+        const maletasView = document.getElementById('maletas-view');
+        const stageRow = document.getElementById('stageProgressRow');
+        const searchBox = document.getElementById('searchBoxCompras');
+
+        tabs.forEach(function (tab) {
+          tab.addEventListener('click', function () {
+            const target = tab.dataset.view;
+            tabs.forEach(t => {
+              const on = t === tab;
+              t.classList.toggle('active', on);
+              t.setAttribute('aria-selected', on ? 'true' : 'false');
+            });
+            const compras = target === 'compras';
+            if (comprasView) comprasView.classList.toggle('active', compras);
+            if (maletasView) maletasView.classList.toggle('active', !compras);
+            if (maletasView) maletasView.setAttribute('aria-hidden', compras ? 'true' : 'false');
+            if (stageRow) stageRow.style.display = compras ? '' : 'none';
+            if (searchBox) searchBox.style.display = compras ? '' : 'none';
+            // Subtitle reflects active section
+            const sub = document.querySelector('header .subtitle');
+            if (sub) sub.textContent = compras ? 'Seguimiento de compras — 0 a 12 meses' : 'Checklist de maletas para el parto';
+          });
+        });
+
+        // Highlight whole row when label clicked
+        document.querySelectorAll('#maletas-view .checklist li').forEach(function (li) {
+          const cb = li.querySelector('input[type="checkbox"]');
+          li.addEventListener('click', function (e) {
+            // If the click is on the checkbox or its label, native behavior toggles it.
+            // Otherwise (row padding/gap), toggle programmatically via click().
+            if (e.target.closest('label') || e.target.closest('input[type="checkbox"]')) return;
+            cb.click();
+          });
+          cb.addEventListener('change', function () {
+            clState[cb.id] = cb.checked;
+            cb.closest('li').classList.toggle('checked', cb.checked);
+            persistLocal();
+            saveToFirebase();
+            updateAllProgress();
+          });
+        });
+
+        // Reset button
+        const resetBtn = document.getElementById('checklistResetBtn');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', function () {
+            const msg = 'Reiniciar el checklist de maletas? Se desmarcarán todos los ítems.';
+            if (!confirm(msg)) return;
+            clState = {};
+            applyState();
+            persistLocal();
+            saveToFirebase();
+            if (typeof showToast === 'function') showToast('🔄 Checklist reiniciado');
+          });
+        }
+
+        // Sync from Firebase
+        try {
+          const maletasRef = db.ref(FB_REF + '/checked');
+          maletasRef.on('value', function (snap) {
+            const val = snap.val();
+            if (!val || typeof val !== 'object') return;
+            clState = {};
+            for (const k in val) { if (Object.prototype.hasOwnProperty.call(val, k)) clState[k] = !!val[k]; }
+            applyState();
+          });
+        } catch (e) {}
+      }
+
+      // Run after DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          loadLocal();
+          initChecklist();
+          applyState();
+        });
+      } else {
+        loadLocal();
+        initChecklist();
+        applyState();
+      }
+    })();
   </script>
 </body>
 </html>
