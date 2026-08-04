@@ -803,6 +803,7 @@
       font-size: 0.75rem;
       width: 100%;
     }
+    } /* fin @media print */
 
     /* ═══════════════════════════════════════════
        Tablet (≥ 768px)
@@ -1085,50 +1086,94 @@
 
     .valija-intro p { margin-bottom: 1rem; }
 
-    .valija {
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius);
+    /* Grid de tarjetas de maletas */
+    .valijas-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
       margin-bottom: 1rem;
+    }
+
+    /* Responsive: tarjetas en 2 columnas en pantallas medianas/grandes */
+    @media (min-width: 768px) {
+      .valijas-grid {
+        grid-template-columns: repeat(2, 1fr);
+        align-items: start;
+      }
+    }
+    @media (min-width: 1200px) {
+      .valijas-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .valija.recordatorio {
+        grid-column: span 2;
+      }
+    }
+
+    .valija {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       overflow: hidden;
       background: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
     }
-    .valija[open] { border-color: var(--border); }
-    .valija summary {
+    .valija:hover { box-shadow: var(--shadow-hover); }
+
+    /* Colores por maleta */
+    .valija.mama  { border-top: 5px solid var(--color-3-6-months); }
+    .valija.bebe  { border-top: 5px solid var(--color-first-month); }
+    .valija.padre { border-top: 5px solid var(--color-9-12-months); }
+    .valija.recordatorio { border-top: 5px solid var(--color-pre-birth); }
+
+    .valija-header {
       padding: 14px 16px;
-      cursor: pointer;
       font-weight: 700;
       font-size: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      user-select: none;
-      touch-action: manipulation;
-      background: var(--card-bg);
+      background: var(--card-bg-alt);
+      border-bottom: 1px solid var(--border-light);
     }
-    .valija summary:hover { background: var(--card-bg-alt); }
-    .valija summary::-webkit-details-marker { display: none; }
-    .valija summary::marker { content: none; }
-    .valija summary::after {
-      content: '▶';
-      font-size: 0.7rem;
-      margin-left: auto;
-      transition: transform 0.2s ease;
-      color: var(--text-light);
+    .valija-header .valija-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
-    .valija[open] summary::after { transform: rotate(90deg); }
-    .valija[open] summary { border-bottom: 1px solid var(--border-light); }
     .valija-summary-tag {
-      margin-left: auto;
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-size: 0.78rem;
+      font-weight: 800;
       color: var(--text);
-      background: var(--warning-bg);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
       border-radius: var(--radius-pill);
-      padding: 2px 10px;
+      padding: 2px 12px;
       white-space: nowrap;
     }
-    .valija .valija-body { padding: 12px 16px 16px; }
+    .valija .valija-body { flex: 1; padding: 14px 16px 16px; }
+
+    /* Barra de progreso dentro de la tarjeta */
+    .valija-progress {
+      height: 8px;
+      background: var(--border-light);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 10px 16px 0;
+      flex-shrink: 0;
+    }
+    .valija-progress .vp-fill {
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+    .valija.mama .valija-progress .vp-fill         { background: var(--color-3-6-months); }
+    .valija.bebe .valija-progress .vp-fill         { background: var(--color-first-month); }
+    .valija.padre .valija-progress .vp-fill        { background: var(--color-9-12-months); }
+    .valija.recordatorio .valija-progress .vp-fill { background: var(--color-pre-birth); }
 
     .valija-block-title {
       font-size: 0.75rem;
@@ -1195,13 +1240,6 @@
     }
     .recordatorio-box .checklist li { padding: 6px 4px; }
 
-    .checklist-empty-progress {
-      margin: 1rem 0 0;
-      text-align: right;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
     .checklist-reset-btn {
       display: inline-flex;
       align-items: center;
@@ -1411,12 +1449,15 @@
         <p style="font-size:0.85rem;color:var(--text-light)">Mamá, bebé y padre — Estancia aproximada: 2 a 3 días</p>
       </div>
 
+      <div class="valijas-grid">
+
       <!-- MALETA DE MAMÁ -->
-      <details class="valija" id="valija-mama" open>
-        <summary>
-          <span><svg class="icon"><use href="#icon-users"/></svg> Maleta de Mamá</span>
+      <article class="valija mama" id="valija-mama">
+        <div class="valija-header">
+          <span class="valija-title"><svg class="icon icon-lg"><use href="#icon-users"/></svg> Maleta de Mamá</span>
           <span class="valija-summary-tag" id="valija-mama-tag">0/0</span>
-        </summary>
+        </div>
+        <div class="valija-progress" aria-hidden="true"><div class="vp-fill" id="vp-mama" style="width:0%"></div></div>
         <div class="valija-body">
 
           <div class="valija-block-title">DOCUMENTOS</div>
@@ -1481,16 +1522,16 @@
             <li data-idx="mama-obj-8"><input type="checkbox" id="mama-obj-8"><label for="mama-obj-8">Refrigerios para después del parto, si están permitidos</label></li>
           </ul>
 
-          <p class="checklist-empty-progress" id="mama-progress"></p>
         </div>
-      </details>
+      </article>
 
       <!-- MALETA DEL BEBÉ -->
-      <details class="valija" id="valija-bebe">
-        <summary>
-          <span><svg class="icon"><use href="#icon-baby"/></svg> Maleta del Bebé</span>
+      <article class="valija bebe" id="valija-bebe">
+        <div class="valija-header">
+          <span class="valija-title"><svg class="icon icon-lg"><use href="#icon-baby"/></svg> Maleta del Bebé</span>
           <span class="valija-summary-tag" id="valija-bebe-tag">0/0</span>
-        </summary>
+        </div>
+        <div class="valija-progress" aria-hidden="true"><div class="vp-fill" id="vp-bebe" style="width:0%"></div></div>
         <div class="valija-body">
 
           <div class="valija-block-title">PAÑALES E HIGIENE</div>
@@ -1536,16 +1577,16 @@
             Toda la ropa debe estar previamente lavada con un producto suave y sin fragancias fuertes.
           </div>
 
-          <p class="checklist-empty-progress" id="bebe-progress"></p>
         </div>
-      </details>
+      </article>
 
       <!-- MALETA BÁSICA DEL PADRE -->
-      <details class="valija" id="valija-padre">
-        <summary>
-          <span><svg class="icon"><use href="#icon-users"/></svg> Maleta básica del Padre</span>
+      <article class="valija padre" id="valija-padre">
+        <div class="valija-header">
+          <span class="valija-title"><svg class="icon icon-lg"><use href="#icon-users"/></svg> Maleta básica del Padre</span>
           <span class="valija-summary-tag" id="valija-padre-tag">0/0</span>
-        </summary>
+        </div>
+        <div class="valija-progress" aria-hidden="true"><div class="vp-fill" id="vp-padre" style="width:0%"></div></div>
         <div class="valija-body">
           <ul class="checklist" data-owning="padre" data-block="todo">
             <li data-idx="padre-1"><input type="checkbox" id="padre-1"><label for="padre-1">Cédula de identidad</label></li>
@@ -1571,16 +1612,16 @@
             <li data-idx="padre-21"><input type="checkbox" id="padre-21"><label for="padre-21">Lista de contactos importantes</label></li>
             <li data-idx="padre-22"><input type="checkbox" id="padre-22"><label for="padre-22">Silla del bebé instalada en el vehículo</label></li>
           </ul>
-          <p class="checklist-empty-progress" id="padre-progress"></p>
         </div>
-      </details>
+      </article>
 
       <!-- RECORDATORIO FINAL -->
-      <details class="valija" id="valija-recordatorio">
-        <summary>
-          <span><svg class="icon" style="color:var(--accent)"><use href="#icon-alert" style="color:var(--accent)"/></svg> Recordatorio Final</span>
+      <article class="valija recordatorio" id="valija-recordatorio">
+        <div class="valija-header">
+          <span class="valija-title"><svg class="icon icon-lg"><use href="#icon-alert"/></svg> Recordatorio Final</span>
           <span class="valija-summary-tag" id="valija-recordatorio-tag">0/0</span>
-        </summary>
+        </div>
+        <div class="valija-progress" aria-hidden="true"><div class="vp-fill" id="vp-recordatorio" style="width:0%"></div></div>
         <div class="valija-body">
           <div class="recordatorio-box">
             <ul class="checklist" data-owning="recordatorio" data-block="todo">
@@ -1591,9 +1632,11 @@
               <li data-idx="recordatorio-5"><input type="checkbox" id="recordatorio-5"><label for="recordatorio-5">Guardar los documentos en un compartimento de fácil acceso</label></li>
             </ul>
           </div>
-          <p class="checklist-empty-progress" id="recordatorio-progress"></p>
+          </div>
         </div>
-      </details>
+      </article>
+
+      </div>
 
       <button class="checklist-reset-btn" id="checklistResetBtn" aria-label="Desmarcar todos los ítems del checklist">
         <svg class="icon icon-sm"><use href="#icon-refresh"/></svg> Reiniciar checklist
@@ -3263,10 +3306,11 @@
           const boxes = document.querySelectorAll('#maletas-view .checklist[data-owning="' + scope + '"] input[type="checkbox"]');
           const total = boxes.length;
           const done = [].filter.call(boxes, cb => cb.checked).length;
+          const pct = total === 0 ? 0 : Math.round((done / total) * 100);
           const tag = document.getElementById('valija-' + scope + '-tag');
           if (tag) tag.textContent = done + '/' + total;
-          const prog = document.getElementById(scope + '-progress');
-          if (prog) prog.textContent = (total === 0 ? '0' : Math.round((done / total) * 100)) + '% listo (' + done + '/' + total + ')';
+          const fill = document.getElementById('vp-' + scope);
+          if (fill) fill.style.width = pct + '%';
         });
       }
 
